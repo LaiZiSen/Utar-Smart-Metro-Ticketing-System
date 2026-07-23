@@ -1,0 +1,12 @@
+[
+    {
+        "stationId" : "st001",
+        "name" : "Volgorad Station",
+        "location" : "Volgorad Station \nStalin's Road \nStellingard"
+    },
+    {
+        "stationId" : "st002",
+        "name" : "Chernobly Station",
+        "location" : "Chernobly Station \nRoad 1986\nUkraine"
+    }
+]

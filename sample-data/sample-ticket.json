@@ -1,0 +1,18 @@
+[
+    {
+        "ticketId" : "tk001",
+        "passenger" : "u001",
+        "route" : "r001",
+        "ticketType" : "",
+        "ticketStatus" : "",
+        "fare" : 58.6
+    },
+    {
+        "ticketId" : "tk002",
+        "passenger" : "u001",
+        "route" : "r001",
+        "ticketType" : "",
+        "ticketStatus" : "",
+        "fare" : 36.5
+    }
+]

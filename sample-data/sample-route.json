@@ -1,0 +1,8 @@
+[
+    {
+        "routeId" : "r001",
+        "source" : "st001",
+        "destination" : "st002",
+        "distanceKm" : 212
+    }
+]

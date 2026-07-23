@@ -1,0 +1,18 @@
+[
+    {
+        "trainId" : "tr001",
+        "trainName" : "Thomas",
+        "capacity" : 330
+    },
+    {
+        "trainId" : "tr002",
+        "trainName" : "Percy",
+        "capacity" : 300
+    },
+    {
+        "trainId" : "tr003",
+        "trainName" : "James",
+        "capacity" : 250
+    }
+
+]
