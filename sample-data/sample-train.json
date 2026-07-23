@@ -1,18 +1,17 @@
 [
-    {
-        "trainId" : "tr001",
-        "trainName" : "Thomas",
-        "capacity" : 330
-    },
-    {
-        "trainId" : "tr002",
-        "trainName" : "Percy",
-        "capacity" : 300
-    },
-    {
-        "trainId" : "tr003",
-        "trainName" : "James",
-        "capacity" : 250
-    }
-
+  {
+    "trainId": "TR01",
+    "trainName": "KTM Komuter",
+    "capacity": 200
+  },
+  {
+    "trainId": "TR02",
+    "trainName": "Electric Train(ETS)",
+    "capacity": 250
+  },
+  {
+    "trainId": "TR03",
+    "trainName": "KTM Intercity",
+    "capacity": 300
+  }
 ]

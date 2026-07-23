@@ -1,8 +1,380 @@
 [
+  {
+    "routeId": "R001",
+    "source": {
+      "stationId": "J001",
+      "name": "Kulai Station",
+      "location": "Stesen Keretapi Kulai, Taman Mewah, 81000 Kulai, Johor"
+    },
+    "destination": {
+      "stationId": "J002",
+      "name": "Kluang Station",
+      "location": "Stesen Keretapi Kluang, Jalan Stesen, 86000 Kluang, Johor"
+    },
+    "distanceKm": 73.0
+  },
+  {
+    "routeId": "R002",
+    "source": {
+      "stationId": "J002",
+      "name": "Kluang Station",
+      "location": "Stesen Keretapi Kluang, Jalan Stesen, 86000 Kluang, Johor"
+    },
+    "destination": {
+      "stationId": "J003",
+      "name": "Segamat Station",
+      "location": "Stesen Keretapi Segamat, Jalan Stesen, 85000 Segamat, Johor"
+    },
+    "distanceKm": 114.0
+  },
+  {
+    "routeId": "R003",
+    "source": {
+      "stationId": "J003",
+      "name": "Segamat Station",
+      "location": "Stesen Keretapi Segamat, Jalan Stesen, 85000 Segamat, Johor"
+    },
+    "destination": {
+      "stationId": "N001",
+      "name": "Gemas Station",
+      "location": "Stesen Keretapi Gemas, Kawasan Industri Gemas, 73400 Gemas, Negeri Sembilan"
+    },
+    "distanceKm": 29.3
+  },
     {
-        "routeId" : "r001",
-        "source" : "st001",
-        "destination" : "st002",
-        "distanceKm" : 212
+      "routeId": "R004",
+      "source": {
+        "stationId": "N001",
+        "name": "Gemas Station",
+        "location": "Stesen Keretapi Gemas, Kawasan Industri Gemas, 73400 Gemas, Negeri Sembilan"
+      },
+      "destination": {
+        "stationId": "N002",
+        "name": "Bahau Station",
+        "location": "Stesen Keretapi Bahau, 72100 Bahau, Negeri Sembilan"
+      },
+      "distanceKm": 39.7
+    },
+    {
+      "routeId": "R005",
+      "source": {
+        "stationId": "N002",
+        "name": "Bahau Station",
+        "location": "Stesen Keretapi Bahau, 72100 Bahau, Negeri Sembilan"
+      },
+      "destination": {
+        "stationId": "P001",
+        "name": "Triang Station",
+        "location": "Stesen Keretapi Triang, 28300 Triang, Pahang"
+      },
+      "distanceKm": 58.9
+    },
+    {
+      "routeId": "R006",
+      "source": {
+        "stationId": "P001",
+        "name": "Triang Station",
+        "location": "Stesen Keretapi Triang, 28300 Triang, Pahang"
+      },
+      "destination": {
+        "stationId": "P002",
+        "name": "Mentakab Station",
+        "location": "Stesen Keretapi Mentakab, Taman Bendera, 28400 Mentakab, Pahang"
+      },
+      "distanceKm": 43.7
+    },
+    {
+      "routeId": "R007",
+      "source": {
+        "stationId": "P002",
+        "name": "Mentakab Station",
+        "location": "Stesen Keretapi Mentakab, Taman Bendera, 28400 Mentakab, Pahang"
+      },
+      "destination": {
+        "stationId": "P003",
+        "name": "Jerantut Station",
+        "location": "Stesen Keretapi Jerantut, 27000 Jerantut, Pahang, Kampung Sungai Jan, 27000"
+      },
+      "distanceKm": 63.7
+    },
+    {
+      "routeId": "R008",
+      "source": {
+        "stationId": "P003",
+        "name": "Jerantut Station",
+        "location": "Stesen Keretapi Jerantut, 27000 Jerantut, Pahang, Kampung Sungai Jan, 27000"
+      },
+      "destination": {
+        "stationId": "P004",
+        "name": "Kuala Lipis Station",
+        "location": "Stesen Keretapi Kuala Lipis, 27200 Kuala Lipis, Pahang"
+      },
+      "distanceKm": 59.6
+    },
+    {
+      "routeId": "R009",
+      "source": {
+        "stationId": "P004",
+        "name": "Kuala Lipis Station",
+        "location": "Stesen Keretapi Kuala Lipis, 27200 Kuala Lipis, Pahang"
+      },
+      "destination": {
+        "stationId": "K001",
+        "name": "Gua Musang Station",
+        "location": "Stesen Keretapi Gua Musang, Bandar Baru Gua Musang, 18300 Gua Musang, Kelantan"
+      },
+      "distanceKm": 99.1
+    },
+    {
+      "routeId": "R010",
+      "source": {
+        "stationId": "K001",
+        "name": "Gua Musang Station",
+        "location": "Stesen Keretapi Gua Musang, Bandar Baru Gua Musang, 18300 Gua Musang, Kelantan"
+      },
+      "destination": {
+        "stationId": "K002",
+        "name": "Dabong Station",
+        "location": "Stesen Keretapi Dabong, 18200 Dabong, Kelantan"
+      },
+      "distanceKm": 69.7
+    },
+    {
+      "routeId": "R011",
+      "source": {
+        "stationId": "K002",
+        "name": "Dabong Station",
+        "location": "Stesen Keretapi Dabong, 18200 Dabong, Kelantan"
+      },
+      "destination": {
+        "stationId": "K003",
+        "name": "Kuala Krai Station",
+        "location": "Stesen Keretapi Kuala Krai, 18000, Pekan Kuala Krai, 18000 Kuala Krai, Kelantan"
+      },
+      "distanceKm": 81.0
+    },
+    {
+      "routeId": "R012",
+      "source": {
+        "stationId": "K003",
+        "name": "Kuala Krai Station",
+        "location": "Stesen Keretapi Kuala Krai, 18000, Pekan Kuala Krai, 18000 Kuala Krai, Kelantan"
+      },
+      "destination": {
+        "stationId": "K004",
+        "name": "Pasir Mas Station",
+        "location": "Stesen Keretapi Pekan Pasir Mas, 17000 Pasir Mas, Kelantan"
+      },
+      "distanceKm": 70.3
+    },
+    {
+      "routeId": "R013",
+      "source": {
+        "stationId": "K004",
+        "name": "Pasir Mas Station",
+        "location": "Stesen Keretapi Pekan Pasir Mas, 17000 Pasir Mas, Kelantan"
+      },
+      "destination": {
+        "stationId": "K005",
+        "name": "Tumpat Station",
+        "location": "Stesen Keretapi Tumpat, Pekan Tumpat, Tumpat, Kelantan"
+      },
+      "distanceKm": 28.0
+    },
+    {
+      "routeId": "R014",
+      "source": {
+        "stationId": "N001",
+        "name": "Gemas Station",
+        "location": "Stesen Keretapi Gemas, Kawasan Industri Gemas, 73400 Gemas, Negeri Sembilan"
+      },
+      "destination": {
+        "stationId": "M001",
+        "name": "Tampin Station",
+        "location": "Stesen Keretapi Tampin, 78000 Alor Gajah, Melaka"
+      },
+      "distanceKm": 56.1
+    },
+    {
+      "routeId": "R015",
+      "source": {
+        "stationId": "M001",
+        "name": "Tampin Station",
+        "location": "Stesen Keretapi Tampin, 78000 Alor Gajah, Melaka"
+      },
+      "destination": {
+        "stationId": "N002",
+        "name": "Seremban Station",
+        "location": "Stesen Keretapi Seremban, Bandar Seremban,70300 Seremban,Negeri Sembilan"
+      },
+      "distanceKm": 57.8
+    },
+    {
+      "routeId": "R016",
+      "source": {
+        "stationId": "N002",
+        "name": "Seremban Station",
+        "location": "Stesen Keretapi Seremban, Bandar Seremban,70300 Seremban,Negeri Sembilan"
+      },
+      "destination": {
+        "stationId": "S001",
+        "name": "KL Sentral Station",
+        "location": "Stesen Keretapi Kuala Lumpur Sentral, 50470 Kuala Lumpur"
+      },
+      "distanceKm": 64.4
+    },
+    {
+      "routeId": "R017",
+      "source": {
+        "stationId": "S001",
+        "name": "KL Sentral Station",
+        "location": "Stesen Keretapi Kuala Lumpur Sentral, 50470 Kuala Lumpur"
+      },
+      "destination": {
+        "stationId": "K001",
+        "name": "Tanjong Malim Station",
+        "location": "Stesen Keretapi Tanjung Malim, 35900 Tanjung Malim, Perak, Kampung Stesen Tanjong Malim, 35900 Tanjong Malim, Perak"
+      },
+      "distanceKm": 80.6
+    },
+    {
+      "routeId": "R018",
+      "source": {
+        "stationId": "K001",
+        "name": "Tanjong Malim Station",
+        "location": "Stesen Keretapi Tanjung Malim, 35900 Tanjung Malim, Perak, Kampung Stesen Tanjong Malim, 35900 Tanjong Malim, Perak"
+      },
+      "destination": {
+        "stationId": "K002",
+        "name": "Sungkai Station",
+        "location": "Stesen Keretapi Sungkai, 35600 Sungkai, Perak"
+      },
+      "distanceKm": 47.9
+    },
+    {
+      "routeId": "R019",
+      "source": {
+        "stationId": "K002",
+        "name": "Sungkai Station",
+        "location": "Stesen Keretapi Sungkai, 35600 Sungkai, Perak"
+      },
+      "destination": {
+        "stationId": "K003",
+        "name": "Kampar Station",
+        "location": "Stesen Keretapi Kampar, Kampung Batu Berangkai, 31900 Kampar, Perak"
+      },
+      "distanceKm": 48.1
+    },
+    {
+      "routeId": "R020",
+      "source": {
+        "stationId": "K003",
+        "name": "Kampar Station",
+        "location": "Stesen Keretapi Kampar, Kampung Batu Berangkai, 31900 Kampar, Perak"
+      },
+      "destination": {
+        "stationId": "K004",
+        "name": "Ipoh Station",
+        "location": "Stesen Keretapi Ipoh, Jalan Panglima Bukit Gantang Wahab, 30000 Ipoh, Perak, 30100 Ipoh, Perak"
+      },
+      "distanceKm": 46.9
+    },
+    {
+      "routeId": "R021",
+      "source": {
+        "stationId": "K004",
+        "name": "Ipoh Station",
+        "location": "Stesen Keretapi Ipoh, Jalan Panglima Bukit Gantang Wahab, 30000 Ipoh, Perak, 30100 Ipoh, Perak"
+      },
+      "destination": {
+        "stationId": "K005",
+        "name": "Taiping Station",
+        "location": "Stesen Keretapi Taiping, Jalan Stesen, 34000 Taiping, Perak"
+      },
+      "distanceKm": 67.5
+    },
+    {
+      "routeId": "R022",
+      "source": {
+        "stationId": "K005",
+        "name": "Taiping Station",
+        "location": "Stesen Keretapi Taiping, Jalan Stesen, 34000 Taiping, Perak"
+      },
+      "destination": {
+        "stationId": "P001",
+        "name": "Simpang Ampat Station",
+        "location": "Stesen Keretapi Simpang Ampat, Jalan Tasek, Bandar Tasek Mutiara, 14120 Simpang Ampat"
+      },
+      "distanceKm": 71.7
+    },
+    {
+      "routeId": "R023",
+      "source": {
+        "stationId": "P001",
+        "name": "Simpang Ampat Station",
+        "location": "Stesen Keretapi Simpang Ampat, Jalan Tasek, Bandar Tasek Mutiara, 14120 Simpang Ampat"
+      },
+      "destination": {
+        "stationId": "P002",
+        "name": "Butterworth Station",
+        "location": "Stesen Keretapi Butterworth,Jalan Bagan Dalam,12000 Butterworth, Pulau Pinang"
+      },
+      "distanceKm": 22.7
+    },
+    {
+      "routeId": "R024",
+      "source": {
+        "stationId": "P002",
+        "name": "Butterworth Station",
+        "location": "Stesen Keretapi Butterworth,Jalan Bagan Dalam,12000 Butterworth, Pulau Pinang"
+      },
+      "destination": {
+        "stationId": "H001",
+        "name": "Sungai Petani Station",
+        "location": "Stesyen Keretapi Sungai Petani, Jalan Ibrahim, 08000, Sungai Petani, Kedah"
+      },
+      "distanceKm": 39.8
+    },
+    {
+      "routeId": "R025",
+      "source": {
+        "stationId": "H001",
+        "name": "Sungai Petani Station",
+        "location": "Stesyen Keretapi Sungai Petani, Jalan Ibrahim, 08000, Sungai Petani, Kedah"
+      },
+      "destination": {
+        "stationId": "H002",
+        "name": "Alor Setar Station",
+        "location": "Stesen Keretapi Alor Setar, Jalan Kolam Air, Alor Malai, 05200 Alor Setar, Kedah"
+      },
+      "distanceKm": 62.3
+    },
+    {
+      "routeId": "R026",
+      "source": {
+        "stationId": "H002",
+        "name": "Alor Setar Station",
+        "location": "Stesen Keretapi Alor Setar, Jalan Kolam Air, Alor Malai, 05200 Alor Setar, Kedah"
+      },
+      "destination": {
+        "stationId": "E001",
+        "name": "Arau Station",
+        "location": "Stesen Keretapi Arau, Jalan Stesyen, 02600 Arau, Perlis"
+      },
+      "distanceKm": 63.0
+    },
+    {
+      "routeId": "R027",
+      "source": {
+        "stationId": "E001",
+        "name": "Arau Station",
+        "location": "Stesen Keretapi Arau, Jalan Stesyen, 02600 Arau, Perlis"
+      },
+      "destination": {
+        "stationId": "E002",
+        "name": "Padang Besar Station",
+        "location": "Stesen Keretapi Padang Besar, 02100 Padang Besar, Perlis"
+      },
+      "distanceKm": 34.2
     }
 ]
