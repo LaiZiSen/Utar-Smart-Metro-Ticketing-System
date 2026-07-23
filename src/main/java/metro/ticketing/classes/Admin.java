@@ -1,4 +1,4 @@
-package metro.ticketing.classess;
+package metro.ticketing.classes;
 
 public class Admin extends User{
 
