@@ -1,4 +1,4 @@
-package metro.ticketing.interfaces;
+package metro.ticketing.repository;
 
 public interface FileManager {
 

@@ -1,4 +1,4 @@
-package metro.ticketing.interfaces;
+package metro.ticketing.payment;
 
 public interface Payment {
 
