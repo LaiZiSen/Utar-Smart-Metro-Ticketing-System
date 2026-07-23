@@ -1,4 +1,4 @@
-package metro.ticketing.services;
+package metro.ticketing.fare;
 
 public class StandardFareCalculator {
 

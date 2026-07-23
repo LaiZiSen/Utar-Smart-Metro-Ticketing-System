@@ -1,4 +1,4 @@
-package metro.ticketing.classes;
+package metro.ticketing.model;
 
 import metro.ticketing.enums.UserRole;
 
