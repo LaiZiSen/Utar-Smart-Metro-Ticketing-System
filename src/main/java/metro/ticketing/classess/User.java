@@ -1,5 +1,5 @@
 package metro.ticketing.classess;
 
-public class User {
+public abstract class User {
 
 }

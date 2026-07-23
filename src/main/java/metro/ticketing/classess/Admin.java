@@ -1,5 +1,5 @@
 package metro.ticketing.classess;
 
-public abstract class Admin extends User{
+public class Admin extends User{
 
 }
