@@ -7,4 +7,14 @@ public class Admin extends User{
         String email, String password, UserRole role) {
         super(userId, name, email, password, role);
     }
+
+    public Admin(User adminData) {
+        super(
+            adminData.getUserId(), 
+            adminData.getName(), 
+            adminData.getEmail(), 
+            adminData.getPassword(), 
+            adminData.getRole()
+        );
+    }
 }
