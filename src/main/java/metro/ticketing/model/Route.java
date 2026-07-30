@@ -1,4 +1,4 @@
-package metro.ticketing.classes;
+package metro.ticketing.model;
 
 public class Route {
     private String routeId;
@@ -40,3 +40,4 @@ public class Route {
         System.out.println("Distance    : " + distanceKm);
     }
 }
+

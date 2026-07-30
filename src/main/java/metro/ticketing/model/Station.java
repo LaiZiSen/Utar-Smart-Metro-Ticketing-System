@@ -1,4 +1,4 @@
-package metro.ticketing.classes;
+package metro.ticketing.model;
 
 public class Station {
     private String stationId;

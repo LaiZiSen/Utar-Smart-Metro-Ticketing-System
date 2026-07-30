@@ -1,4 +1,4 @@
-package metro.ticketing.classes;
+package metro.ticketing.model;
 
 public class Train {
 
@@ -33,3 +33,4 @@ public class Train {
         // later need to change to the total number of passenger already book this train
     }
 }
+
