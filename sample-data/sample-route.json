@@ -1,31 +1,8 @@
 [
-  { "routeId": "R001",
-    "source": "S001",
-    "destination": "S002",
-    "distanceKm": 120 },
-
-  { "routeId": "R002",
-    "source": "S003",
-    "destination": "S004",
-    "distanceKm": 100 },
-
-  { "routeId": "R003",
-    "source": "S005",
-    "destination": "S006",
-    "distanceKm": 70 },
-
-  { "routeId": "R004",
-    "source": "S007",
-    "destination": "S008",
-    "distanceKm": 260 },
-
-  { "routeId": "R005",
-    "source": "S009",
-    "destination": "S010",
-    "distanceKm": 200 },
-
-  { "routeId": "R006",
-    "source": "S011",
-    "destination": "S012",
-    "distanceKm": 300 }
+    {
+        "routeId" : "r001",
+        "source" : "st001",
+        "destination" : "st002",
+        "distanceKm" : 212
+    }
 ]
