@@ -83,14 +83,14 @@ public abstract class User {
     public static JSONObject userToJsonObject(User userData) {
         JSONObject value = new JSONObject();
 
-        value.append("userId", userData.getUserId());
-        value.append("name", userData.getName());
-        value.append("email", userData.getEmail());
-        value.append("password", userData.getPassword());
-        value.append("UserRole", userData.getRole());
+        value.put("userId", userData.getUserId());
+        value.put("name", userData.getName());
+        value.put("email", userData.getEmail());
+        value.put("password", userData.getPassword());
+        value.put("UserRole", userData.getRole());
 
         if (userData instanceof Passenger) {
-            value.append("balance", ((Passenger) userData).getBalance());
+            value.put("balance", ((Passenger) userData).getBalance());
         }
 
         return value;
