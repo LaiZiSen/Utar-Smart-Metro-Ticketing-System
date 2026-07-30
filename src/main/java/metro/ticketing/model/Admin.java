@@ -17,4 +17,8 @@ public class Admin extends User{
             adminData.getRole()
         );
     }
+
+    public Admin() {
+        super();
+    }
 }

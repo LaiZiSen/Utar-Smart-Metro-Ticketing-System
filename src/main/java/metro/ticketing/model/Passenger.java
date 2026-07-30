@@ -17,6 +17,11 @@ public class Passenger extends User{
         this.balance = balance;
     }
 
+    public Passenger() {
+        super();
+        this.balance = 0;
+    }
+
     public double getBalance() {
         return balance;
     }

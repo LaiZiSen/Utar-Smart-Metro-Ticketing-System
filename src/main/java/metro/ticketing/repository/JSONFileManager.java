@@ -18,7 +18,7 @@ public class JSONFileManager implements FileManager {
     public void saveData(JSONArray data, String filename) throws Exception{
         Files.writeString(
             Paths.get(filename),
-            data.toString()
+            data.toString(4)
         );
     }
 }
