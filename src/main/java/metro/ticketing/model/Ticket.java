@@ -1,4 +1,4 @@
-package metro.ticketing.classes;
+package metro.ticketing.model;
 
 import metro.ticketing.enums.TicketStatus;
 import metro.ticketing.enums.TicketType;

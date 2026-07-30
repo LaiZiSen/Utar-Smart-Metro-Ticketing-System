@@ -1,4 +1,4 @@
-package metro.ticketing.interfaces;
+package metro.ticketing.fare;
 
 public interface FareCalculator {
 
