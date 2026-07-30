@@ -1,4 +1,4 @@
-package metro.ticketing;
+package metro.ticketing.app;
 
 public class Main {
     public static void main(String[] args) {
