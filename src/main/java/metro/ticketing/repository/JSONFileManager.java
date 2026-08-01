@@ -6,18 +6,24 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class JSONFileManager implements FileManager {
-    
-    public JSONArray loadData(String filename) throws Exception{
-        String content = Files.readString(Paths.get(filename));
+    private String filename;
+
+    public JSONFileManager(String filename) {
+        this.filename = filename;
+    }
+
+
+    public JSONArray loadData() throws Exception{
+        String content = Files.readString(Paths.get(this.filename));
         
         JSONArray outputArray = new JSONArray(content);
 
         return outputArray;
     }
 
-    public void saveData(JSONArray data, String filename) throws Exception{
+    public void saveData(JSONArray data) throws Exception{
         Files.writeString(
-            Paths.get(filename),
+            Paths.get(this.filename),
             data.toString(4)
         );
     }

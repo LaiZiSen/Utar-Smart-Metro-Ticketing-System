@@ -13,14 +13,13 @@ import org.json.JSONObject;
 
 public class UserService {
     private HashMap<String, User> users = new HashMap<String, User>();
-    private FileManager fileManager = new JSONFileManager(); 
-    final String userJsonFile = "data/users.json";
+    private FileManager fileManager = new JSONFileManager("data/users.json"); 
 
     public UserService() {
         JSONArray userJsonArray = new JSONArray();
 
         try {
-            userJsonArray = fileManager.loadData(userJsonFile);
+            userJsonArray = fileManager.loadData();
         } catch (Exception e) {
             System.out.println("Error occured when loading user data from json");
         };
@@ -44,7 +43,7 @@ public class UserService {
         
         /// Write JSONArray into json file
         try {
-            fileManager.saveData(inputJsonArray, userJsonFile);
+            fileManager.saveData(inputJsonArray);
         } catch (Exception e) {
             System.out.println("Failed to save user data");
         }
