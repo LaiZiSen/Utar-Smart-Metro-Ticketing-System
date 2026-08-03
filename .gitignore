@@ -3,3 +3,5 @@ target/*
 target
 data
 src/testing
+.idea
+.idea/*
