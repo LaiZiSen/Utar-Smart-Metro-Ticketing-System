@@ -1,5 +1,9 @@
 package metro.ticketing.repository;
 
-public interface FileManager {
+import org.json.JSONArray;
 
+public interface FileManager {
+    public void saveData(JSONArray data) throws Exception;
+
+    public JSONArray loadData () throws Exception;
 }
