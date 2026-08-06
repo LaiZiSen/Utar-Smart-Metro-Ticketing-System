@@ -2,6 +2,8 @@ package metro.ticketing.model;
 
 import org.json.JSONObject;
 
+import metro.ticketing.services.StationService;
+
 public class Route {
     private String routeId;
     private Station source;
@@ -42,11 +44,14 @@ public class Route {
         System.out.println("Distance    : " + distanceKm + " km");
     }
 
-    public static Route jsonToRoute(JSONObject json){
+    public static Route jsonToRoute(JSONObject json, StationService stationService){
+        String sourceId = json.getString("source");
+        String destinationId = json.getString("destination");
+
         Route outputRouteObject = new Route(
             json.getString("routeId"),
-            Station.jsonToStation(json.getJSONObject("source")),
-            Station.jsonToStation(json.getJSONObject("destination")),
+            stationService.getStationById(sourceId),
+            stationService.getStationById(destinationId),
             json.getDouble("distanceKm")
         );
         return outputRouteObject;
@@ -55,12 +60,9 @@ public class Route {
     public static JSONObject routeToJsonObject(Route routeData){
         JSONObject value = new JSONObject();
         value.put("routeId", routeData.getRouteId());
-        value.put("source", Station.stationToJsonObject(routeData.getSource()));
-        value.put("destination", Station.stationToJsonObject(routeData.getDestination()));
+        value.put("source", routeData.getSource().getStationId());
+        value.put("destination", routeData.getDestination().getStationId());
         value.put("distanceKm", routeData.getDistanceKm());
         return value;
     }
-
-
 }
-
