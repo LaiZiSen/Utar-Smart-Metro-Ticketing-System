@@ -1,20 +1,76 @@
 package metro.ticketing.app;
 
+import java.util.Scanner;
+
 import metro.ticketing.enums.UserRole;
+import metro.ticketing.model.User;
 import metro.ticketing.model.Passenger;
 import metro.ticketing.services.UserService;
+import metro.ticketing.include.func;
+import metro.ticketing.exception.InvalidLoginException;
 
 public class Main {
+
+    static UserService userService = new UserService();
+
     public static void main(String[] args) {
-        UserService uService = new UserService();
+        // welcome message to the system 
+        //
+        // provide menu for 
+        // - Login
+        // - Registration
+        // - public static void name() {
+        System.out.println("======================================");
+        System.out.println("");
+        System.out.println("   WELCOME TO SMART METRO TICKETING   ");
+        System.out.println("");
+        System.out.println("======================================");
+        System.out.println("");
 
-        uService.viewAllUsers();
+        boolean running = true;
 
-        
-        Passenger newUser = new Passenger("blaaa", "registed", "register@gmail.com", "pass", UserRole.PASSENGER);
+        Scanner scanner = new Scanner(System.in);
 
-        uService.registerUser(newUser);
+        while(running) {
+            mainMenu();
 
-        uService.saveData();
+            char choice = func.getChoice();
+            System.out.println("");
+
+            switch (choice) {
+                case '1':
+                    System.out.println("Let's Login");
+                    User userobj = null;
+                    try {
+                        userobj = userService.login("register2@gmail.com", "pass");
+                        System.out.println(userobj.getName());
+                    } catch (InvalidLoginException e) {
+                        System.out.println("Login failed !!!!!!!!!!!!!!!!!!");
+                    }
+
+                    break;
+
+                 case '2':
+                    System.out.println("Let's Register");
+                    break;
+
+                 case '3':
+                    System.out.println("Quitting SMART METRO TICKETING");
+                    running = false;
+                    break; 
+                default:
+                    System.out.println("!!! INVALID INPUT !!!\n");
+                    break;
+            }
+
+        }
+
+    }
+
+    private static void mainMenu() {
+        System.out.println("---------------Main Menu--------------");
+        System.out.println("1. Login");
+        System.out.println("2. Registration");
+        System.out.println("3. Quit");
     }
 }

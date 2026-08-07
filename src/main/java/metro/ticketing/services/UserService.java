@@ -5,6 +5,7 @@ import metro.ticketing.model.Passenger;
 import metro.ticketing.model.User;
 import metro.ticketing.repository.FileManager;
 import metro.ticketing.repository.JSONFileManager;
+import metro.ticketing.exception.InvalidLoginException;
 
 import java.util.HashMap;
 
@@ -27,7 +28,7 @@ public class UserService {
         for(int i = 0; i < userJsonArray.length(); i++) {
             JSONObject tempJsonObject = userJsonArray.getJSONObject(i);
             
-            this.users.put(tempJsonObject.getString("name"), User.jsonToUser(tempJsonObject));
+            this.users.put(tempJsonObject.getString("email"), User.jsonToUser(tempJsonObject));
         }
     }
 
@@ -55,10 +56,31 @@ public class UserService {
     }
 
     // TODO - NOT DONE
-    public User login(String email, String password) {
-        User user1 = new Passenger("", "", "", "", UserRole.PASSENGER, 0);
+    public User login(String email, String password) throws InvalidLoginException{
+        // User user1 = new Passenger("", "", "", "", UserRole.PASSENGER, 0);
+        
+        // check if email exist
+        // if not throw exception
+        //
+        // check if password matches
+        // if not throw exception
+        // if yes return user
 
-        return user1;
+        // if (!this.users.containsKey(email)) {
+        //    throw new InvalidLoginException();
+        //}
+
+        User output = users.get(email);
+       
+        if (output == null) {
+            throw new InvalidLoginException();
+        }
+
+        if (!output.getPassword().equals(password)) {
+            throw new InvalidLoginException();
+        }
+
+        return output;
     }
 
     // TODO - NOT DONE
