@@ -71,4 +71,8 @@ public class StationService {
         return null;
     }
 
+    public ArrayList<Station> getAllStations() {
+        return this.stations;
+    }
+
 }

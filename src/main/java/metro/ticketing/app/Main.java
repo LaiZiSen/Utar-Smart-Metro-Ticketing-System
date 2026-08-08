@@ -44,6 +44,9 @@ public class Main {
         only support link the station already exist in the train.json
         need use add station function to add more option(havent finish now)
         */
+
+        System.out.println("\u001B[106mAdd Route test (Admin)\u001B[0m");
+
         StationService stationService2 = new StationService();
         RouteService routeService2 = new RouteService(stationService2);
 
@@ -63,63 +66,108 @@ public class Main {
             }else {
                 break;
             }
-        }        
-
-        Station source;
-        while(true){
-            System.out.println("Please enter source station Name:");
-            String sourceName = scanner.nextLine().trim();
-            source = stationService2.searchStation(sourceName);
-
-            if (source == null){
-                System.out.println("Source station entered is invalid. Please try again.");
-            }else{
-                break;
-            }
-        }    
-
-        Station destination;
-        while (true){
-            System.out.println("Please enter destination station Name:");
-            String destinationName = scanner.nextLine().trim();
-            destination = stationService2.searchStation(destinationName);
-
-            if (destination == null){
-                System.out.println("Destination station entered is invalid. Please try again.");
-            }else if(source.getStationId().equals(destination.getStationId())){
-                System.out.println("Source and destination cannot be the same station. Please try again.");
-            }else{
-                break;
-            }
         }
+        
+        ArrayList<Station> allStations = stationService2.getAllStations();
 
-        double distance;
-        while(true){
-            System.out.println("Please enter distance in km: ");
-            String distanceInput = scanner.nextLine().trim();
+        if (allStations.isEmpty()){
+            System.out.println("No stations available. Please add stations first.");
+            return;
+        } else {
+            System.out.println();
 
-            try{
-                distance = Double.parseDouble(distanceInput);
-
-                if(distance <= 0){
-                    System.out.println("Distance must be greater than 0. Please try again.");
-                }else{
-                    break;
+            Station source;
+            while(true){
+                System.out.println("Please select source station: ");
+                for(int i = 0; i < allStations.size(); i++){
+                    System.out.println((i+1) + ". " + allStations.get(i).getName());
                 }
-            } catch (NumberFormatException e){
-                System.out.println("Invalid distance. Please enter a valid number.");
+
+                System.out.print("Enter your choice: ");
+                String input = scanner.nextLine().trim();
+
+                try{
+                    int choice = Integer.parseInt(input);
+
+                    if (choice < 1 || choice > allStations.size()){
+                        System.out.println("Invalid choice. Please enter a number 1 to " + allStations.size() + ".");
+                        continue;
+                    }
+
+                    source = allStations.get(choice - 1);
+                    break;
+
+                }catch (NumberFormatException e){
+                    System.out.println("Invalid input. Please enter a number.");
+                }
             }
+            System.out.println();
+
+            Station destination;
+            while (true){
+                System.out.println("Please select destination station:");
+                for(int i = 0; i<allStations.size(); i++){
+                    System.out.println((i+1) + ". " + allStations.get(i).getName());
+                }
+
+                System.out.print("Enter your choice: ");
+                String input = scanner.nextLine().trim();
+
+                try{
+                    int choice = Integer.parseInt(input);
+
+                    if(choice < 1 || choice > allStations.size()){
+                        System.out.println("Invalid choice. Please enter a number 1 to " + allStations.size() + ".");
+                        continue;
+                    }
+
+                    Station chosen = allStations.get(choice - 1);
+
+                    if (chosen.getStationId().equals(source.getStationId())){
+                        System.out.println("Source and destination cannot be the same station.");
+                        continue;
+                    }
+
+                    destination = chosen;
+                    break;
+                }catch (NumberFormatException e){
+                    System.out.println("Invalid input. Please enter a number.");
+                }
+            }
+            System.out.println();
+
+            double distance;
+            while(true){
+                System.out.println("Please enter distance in km: ");
+                String distanceInput = scanner.nextLine().trim();
+
+                try{
+                    distance = Double.parseDouble(distanceInput);
+
+                    if(distance <= 0){
+                        System.out.println("Distance must be greater than 0. Please try again.");
+                    }else{
+                        break;
+                    }
+                } catch (NumberFormatException e){
+                    System.out.println("Invalid distance. Please enter a valid number.");
+                }
+            }
+
+            Route newRoute = new Route(routeId, source, destination, distance);
+            routeService2.addRoute(newRoute);
+
+            System.out.println();
+            System.out.println("New route added Successfully!");
+            newRoute.displayRoute();
+
+            routeService2.saveData();
         }
-
-        Route newRoute = new Route(routeId, source, destination, distance);
-        routeService2.addRoute(newRoute);
-
-        System.out.println("New route added Successfully!");
-        newRoute.displayRoute();
-
-        routeService2.saveData();
 
         // find route test (passenger)
+        System.out.println();
+        System.out.println("\u001B[106mFind Route test (Passenger)\u001B[0m");
+
         StationService stationService3 = new StationService();
         RouteService routeService3 = new RouteService(stationService3);
 
@@ -152,6 +200,7 @@ public class Main {
             break;
         }
 
+        System.out.println();
         System.out.println("Possible routes from " + source2.getName() + ": ");
 
         for(int i = 0; i < possibleRoutes.size(); i++){
