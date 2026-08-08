@@ -1,6 +1,7 @@
 package metro.ticketing.services;
 
 import metro.ticketing.model.Route;
+import metro.ticketing.model.Station;
 import metro.ticketing.repository.FileManager;
 import metro.ticketing.repository.JSONFileManager;
 
@@ -52,5 +53,26 @@ public class RouteService {
             outputRoute.displayRoute();
             System.out.println();
         }
+    }
+
+    public void addRoute(Route route){
+        this.routes.put(route.getRouteId(), route);
+    }
+
+    public java.util.ArrayList<Route> findRoute(Station source){
+        java.util.ArrayList<Route> result = new java.util.ArrayList<Route>();
+
+        for(HashMap.Entry<String, Route> entry:this.routes.entrySet()){
+            Route route = entry.getValue();
+
+            if(route.getSource().getStationId().equals(source.getStationId())){
+                result.add(route);
+            }
+        }
+        return result;
+    }
+
+    public Route getRoute(String routeId) {
+        return this.routes.get(routeId);
     }
 }

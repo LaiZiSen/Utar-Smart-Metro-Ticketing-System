@@ -62,4 +62,13 @@ public class StationService {
         return null;
     }
 
+    public Station searchStation(String name){
+        for(Station station:this.stations){
+            if(station.getName().equalsIgnoreCase(name)){
+                return station;
+            }
+        }
+        return null;
+    }
+
 }
