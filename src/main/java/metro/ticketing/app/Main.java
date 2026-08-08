@@ -164,6 +164,179 @@ public class Main {
             routeService2.saveData();
         }
 
+        // edit route test (admin)
+        System.out.println();
+        System.out.println("\u001B[106mEdit route test (admin)\u001B[0m");
+
+        ArrayList<Route> allRoutes = routeService2.getAllRoutesList();
+
+        if (allRoutes.isEmpty()){
+            System.out.println("No routes available to edit.");
+        }else{
+            Route routeToEdit;
+            while(true){
+                System.out.println("Please select a route to edit.");
+                for (int i = 0; i<allRoutes.size(); i++){
+                    Route r = allRoutes.get(i);
+                    System.out.println((i+1) + ". " + r.getRouteId() + "( " + r.getSource().getName() + "-> " +
+                                        r.getDestination().getName() + ", " + r.getDistanceKm() + " km)");
+                }
+
+                System.out.println("Enter your choice: ");
+                String input = scanner.nextLine().trim();
+
+                try{
+                    int choice = Integer.parseInt(input);
+
+                    if (choice < 1 || choice > allRoutes.size()){
+                        System.out.println("Invalid choice. Please enter a number 1 to " + allRoutes.size() + ".");
+                        continue;
+                    }
+
+                    routeToEdit = allRoutes.get(choice - 1);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Invalid input. Please enter a number.");
+                }
+            }
+            String originalRouteId = routeToEdit.getRouteId();
+
+            System.out.println();
+            String newRouteId;
+            while(true){
+                System.out.println("Current Route ID: " + routeToEdit.getRouteId());
+                System.out.println("Enter new Route ID (or press Enter to keep current): ");
+                String input = scanner.nextLine().trim();
+
+                if(input.isEmpty()){
+                    newRouteId = routeToEdit.getRouteId();
+                    break;
+                }else if (!input.matches("r\\d{3}")){
+                    System.out.println("Invalid format. Route ID must start with r and 3 numbers.");
+                }else if(!routeService2.isRouteIdCanEdit(input, originalRouteId)){
+                    System.out.println("This Route ID already exists. Please use a different Route ID.");
+                }else{
+                    newRouteId = input;
+                    break;
+                }
+            }
+
+            System.out.println();
+            Station newSource;
+            while(true){
+                System.out.println("Current Source: " + routeToEdit.getSource().getName());
+                System.out.println("Select new source station (or press Enter to keep current): ");
+                for(int i = 0; i<allStations.size(); i++){
+                    System.out.println((i+1) + ". " + allStations.get(i).getName());
+                }
+
+                System.out.println("Enter your choice: ");
+                String input = scanner.nextLine().trim();
+
+                if (input.isEmpty()){
+                    newSource = routeToEdit.getSource();
+                    break;
+                }
+
+                try{
+                    int choice = Integer.parseInt(input);
+
+                    if (choice < 1 || choice > allStations.size()){
+                        System.out.println("Invalid choice. Please enter a number 1 to " + allStations.size() + ". ");
+                        continue;
+                    }
+
+                    newSource = allStations.get(choice - 1);
+                    break;
+                } catch(NumberFormatException e){
+                    System.out.println("Invalid input. Please enter a number.");
+                }
+            }
+
+            System.out.println();
+            Station newDestination;
+            while(true){
+                System.out.println("Current Destination: " + routeToEdit.getDestination().getName());
+                System.out.println("Select new destination station (or press Enter to keep current): ");
+                for(int i = 0; i<allStations.size(); i++){
+                    System.out.println((i+1) + ". " + allStations.get(i).getName());
+                }
+
+                System.out.print("Enter your choice: ");
+
+                String input = scanner.nextLine().trim();
+
+                Station chosen;
+
+                if(input.isEmpty()){
+                    chosen = routeToEdit.getDestination();
+                }else{
+                    try{
+                        int choice = Integer.parseInt(input);
+
+                        if(choice < 1 || choice > allStations.size()){
+                            System.out.println("Invalid choice. Please enter a number 1 to " + allStations.size() + ". ");
+                            continue;
+                        }
+
+                        chosen = allStations.get(choice - 1);
+                    } catch (NumberFormatException e){
+                        System.out.println("Invalid input. Please enter a number.");
+                        continue;
+                    }
+                }
+
+                if(chosen.getStationId().equals(newSource.getStationId())){
+                    System.out.println("Source and destination cannot be the same station. Please try again.");
+                    continue;
+                }
+
+                if(!routeService2.isSourceDestinationCanEdit(newSource, chosen, originalRouteId)){
+                    System.out.println("This source and destination combination already exists in another route. Please try again.");
+                    continue;
+                }
+                newDestination = chosen;
+                break;
+            }
+
+            System.out.println();
+            double newDistance;
+            while(true){
+                System.out.println("Current Distance: " + routeToEdit.getDistanceKm() + " km");
+                System.out.println("Enter new distance in km (or press Enter to keep current): ");
+                String input = scanner.nextLine().trim();
+
+                if(input.isEmpty()){
+                    newDistance = routeToEdit.getDistanceKm();
+                    break;
+                }
+
+                try{
+                    newDistance = Double.parseDouble(input);
+
+                    if(newDistance <= 0){
+                        System.out.println("Distance must be greater than 0. Please try again.");
+                    }else{
+                        break;
+                    }
+                } catch (NumberFormatException e){
+                    System.out.println("Invalid distance. Please enter a valid number.");
+                }
+            }
+            routeToEdit.setRouteId(newRouteId);
+            routeToEdit.setSource(newSource);
+            routeToEdit.setDestination(newDestination);
+            routeToEdit.setDistanceKm(newDistance);
+
+            routeService2.updateRoute(originalRouteId, routeToEdit);
+
+            System.out.println();
+            System.out.println("Route updated successfully!");
+            routeToEdit.displayRoute();
+
+            routeService2.saveData();
+        }
+
         // find route test (passenger)
         System.out.println();
         System.out.println("\u001B[106mFind Route test (Passenger)\u001B[0m");

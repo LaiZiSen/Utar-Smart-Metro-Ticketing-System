@@ -6,6 +6,7 @@ import metro.ticketing.repository.FileManager;
 import metro.ticketing.repository.JSONFileManager;
 
 import java.util.HashMap;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -74,5 +75,37 @@ public class RouteService {
 
     public Route getRoute(String routeId) {
         return this.routes.get(routeId);
+    }
+
+    public ArrayList<Route> getAllRoutesList(){
+        return new ArrayList<Route>(this.routes.values());
+    }
+
+    public boolean isRouteIdCanEdit(String newRouteId, String currentRouteId){
+        if (newRouteId.equals(currentRouteId)){
+            return true;
+        }
+        return getRoute(newRouteId) == null;
+    }
+
+    public boolean isSourceDestinationCanEdit(Station source, Station destination, String currentRouteId){
+        for(HashMap.Entry<String, Route> entry: this.routes.entrySet()){
+            Route route = entry.getValue();
+
+            if (route.getRouteId().equals(currentRouteId)){
+                continue;
+            }
+
+            if (route.getSource().getStationId().equals(source.getStationId()) && 
+            route.getDestination().getStationId().equals(destination.getStationId())){
+                return false;
+            } 
+        }
+        return true;
+    }
+
+    public void updateRoute(String oldRouteId, Route updatedRoute){
+        this.routes.remove(oldRouteId);
+        this.routes.put(updatedRoute.getRouteId(), updatedRoute);
     }
 }
