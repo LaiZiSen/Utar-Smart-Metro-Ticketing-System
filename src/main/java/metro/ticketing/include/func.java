@@ -19,5 +19,13 @@ public class func{
         return choice;
     }
     
+    public static String getStrInput(String ques) {
+        Scanner scanner = new Scanner(System.in);
+        String output;
 
+        System.out.print(ques);
+        output = scanner.next();
+
+        return output;
+    }
 }

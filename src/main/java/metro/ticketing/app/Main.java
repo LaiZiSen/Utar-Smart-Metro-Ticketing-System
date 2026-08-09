@@ -16,10 +16,6 @@ public class Main {
     public static void main(String[] args) {
         // welcome message to the system 
         //
-        // provide menu for 
-        // - Login
-        // - Registration
-        // - public static void name() {
         System.out.println("======================================");
         System.out.println("");
         System.out.println("   WELCOME TO SMART METRO TICKETING   ");
@@ -39,15 +35,7 @@ public class Main {
 
             switch (choice) {
                 case '1':
-                    System.out.println("Let's Login");
-                    User userobj = null;
-                    try {
-                        userobj = userService.login("register2@gmail.com", "pass");
-                        System.out.println(userobj.getName());
-                    } catch (InvalidLoginException e) {
-                        System.out.println("Login failed !!!!!!!!!!!!!!!!!!");
-                    }
-
+                    login(); 
                     break;
 
                  case '2':
@@ -73,4 +61,23 @@ public class Main {
         System.out.println("2. Registration");
         System.out.println("3. Quit");
     }
+    
+    private static User login() {
+        User userobj = null;
+
+        System.out.println("-----------------Login----------------");
+
+        String email = func.getStrInput("Email     :");
+        String pwd   = func.getStrInput("Password  :");
+
+        try {
+            userobj = userService.login(email, pwd); 
+            System.out.println(userobj.getName());
+        } catch (InvalidLoginException e) {
+            System.out.println("Login failed !!!!!!!!!!!!!!!!!!");
+        }
+        
+        return userobj;
+    }
+
 }
