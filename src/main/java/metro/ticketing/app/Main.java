@@ -4,21 +4,19 @@ import java.util.Scanner;
 
 import metro.ticketing.enums.UserRole;
 import metro.ticketing.model.Passenger;
+import metro.ticketing.services.RouteService;
+import metro.ticketing.services.StationService;
+import metro.ticketing.services.TrainService;
 import metro.ticketing.services.StationService;
 import metro.ticketing.services.UserService;
+import metro.ticketing.services.TicketService;
 public class Main {
     public static void main(String[] args) {
-        UserService uService = new UserService();
+        StationService stService = new StationService();
         StationService stationService = new StationService();
-
-        uService.viewAllUsers();
-
-        
-        Passenger newUser = new Passenger("blaaa", "registed", "register@gmail.com", "pass", UserRole.PASSENGER);
-
-        uService.registerUser(newUser);
-
-        uService.saveData();
+        TicketService tService = new TicketService(stService);
+    
+        tService.viewAllTicket();     
 
         Scanner input = new Scanner(System.in);
 
