@@ -7,10 +7,10 @@ public class Station {
     private String name;
     private String location;
 
-    public Station(String aStationId, String aName, String aLocation) {
-        stationId = aStationId;
-        name = aName;
-        location = aLocation;
+    public Station(String stationId, String name, String location) {
+        this.stationId = stationId;
+        this.name = name;
+        this.location = location;
     }
 
     // Remove before finalizing
@@ -45,15 +45,19 @@ public class Station {
     }
 
     public static Station jsonToStation(JSONObject json) {
-        Station outputStationObject = null;
-
+        Station outputStationObject = new Station(
+            json.getString("stationId"),
+            json.getString("name"),
+            json.getString("location")
+        );
         return outputStationObject;
     }
 
     public static JSONObject stationToJsonObject(Station stationData){
         JSONObject value = new JSONObject();
-
+        value.put("stationId", stationData.getStationId());
+        value.put("name", stationData.getName());
+        value.put("location", stationData.getLocation());
         return value;
     }
-
 }

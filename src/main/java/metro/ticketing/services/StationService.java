@@ -38,12 +38,28 @@ public class StationService {
             inputJsonArray.put(Station.stationToJsonObject(stationObj));
         }
 
-        /// Write JSONArray into json file
+        // Write JSONArray into json file
         try {
             fileManager.saveData(inputJsonArray);
         } catch (Exception e) {
             System.out.println("Failed to save station data");
         }
+    }
+
+    public void viewAllStations() {
+        for (Station station : this.stations) {
+            station.displayInfo();
+            System.out.println();
+        }
+    }
+
+    public Station getStationById(String stationId) {
+        for (Station station : this.stations) {
+            if (station.getStationId().equals(stationId)) {
+                return station;
+            }
+        }
+        return null;
     }
 
 }
