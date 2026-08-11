@@ -52,7 +52,7 @@ public class Main {
                     break;
 
                 case 5:
-                    System.out.println("Thank you for using Metro Ticketing System.");
+                    System.out.println("Thank you for using Smart Metro Ticketing System.");
                     running = false;
                     break;
 
@@ -74,7 +74,6 @@ public class Main {
         System.out.println("\n======= Buy Ticket =======");
         /*
          * BUY TICKET FLOW
-         *
          * 1. Print all stations
          * 2. Select source
          * 3. Select destination
@@ -94,10 +93,10 @@ public class Main {
         /*
          * TODO:
          *
-         * StationService getter is not available yet.
+         * StationService getter not available yet.
          *
-         * Later, when StationService provides getStations(),
-         * this section can display all stations.
+         * need StationService provide getStations(),
+         * this section display all stations.
          */
 
         // 2. SELECT SOURCE
@@ -107,8 +106,7 @@ public class Main {
         /*
          * TODO:
          *
-         * Source station will be obtained from the
-         * station list after StationService is completed.
+         * Source station will be obtained from station list after StationService is completed.
          */
 
         System.out.println("Source station selected: " + sourceChoice);
@@ -127,8 +125,7 @@ public class Main {
         /*
          * TODO:
          *
-         * Destination station will be obtained from
-         * StationService.
+         * Destination station will be obtained from StationService.
          */
 
         System.out.println("Destination station selected: "+ destinationChoice);
@@ -171,9 +168,9 @@ public class Main {
         /*
          * TODO:
          *
-         * Fare calculation will be connected later.
+         * Fare calculation
          *
-         * This should use the selected:
+         * This should use the selected
          * - source
          * - destination
          * - ticket type
@@ -182,123 +179,172 @@ public class Main {
         System.out.println("\nFare: RM " + fare);
 
 
-        // 6. PAYMENT
-
+        //6. PAYMENT
         System.out.println("\n======= Payment =======");
-
         System.out.println("Fare to pay: RM " + fare);
+        System.out.print("Confirm payment? (Y/N): ");
+
+        char confirmPayment = input.next().charAt(0);
+
+        if (confirmPayment == 'N' || confirmPayment == 'n') {
+
+            System.out.println("Payment cancelled.");
+            return;
+        }
+
+        if (confirmPayment != 'Y' && confirmPayment != 'y') {
+
+            System.out.println("Invalid choice. Payment cancelled.");
+            return;
+        }
+
         /*
-         * TODO:
-         *
-         * Payment method / balance handling will be connected through UserService.
-         */
+        * TODO:
+        *
+        * Payment method / balance handling connected through UserService.
+        */
 
         // 7. CHECK BALANCE
         /*
-         * TODO:
-         *
-         * Later:
-         *
-         * Check passenger balance, is it enough to pay the fare.
-         *
-         * If insufficient:
-         *
-         * Payment failed.
-         * Please top up your balance.
-         */
+        * TODO:
+        *
+        * Check whether the passenger's balance is enough to pay. 
+        *
+        * If balance insufficient:
+        *
+        * System.out.println("Payment failed.");
+        * System.out.println("Please top up your balance.");
+        *
+        * return;
+        */
 
         // 8. DEDUCT BALANCE
         /*
-         * TODO:
-         *
-         * Balance deduction will be handled
-         * by UserService.
-         */
+        * TODO:
+        *
+        * If the balance is sufficient, UserService deduct the fare from passenger balance.
+        */
 
         // 9. PAYMENT RESULT
         /*
-         * TODO:
-         *
-         * Later:
-         *
-         * if payment successful:
-         *
-         * System.out.println("Payment successful.");
-         *
-         * else:
-         *
-         * System.out.println("Payment failed.");
-         * System.out.println("Please top up your balance.");
-         */
+        * TODO:
+        *
+        * If balance deduction is successful:
+        *
+        * System.out.println("Payment successful.");
+        *
+        * The ticket will then be created and printed.
+        */
 
         // 10. CREATE TICKET
         /*
          * TODO:
          *
-         * will connect this after TicketService / Ticket module is ready.
+         * will connect after TicketService / Ticket module is ready.
          */
 
         // 11. PRINT TICKET
         /*
          * TODO:
          *
-         * Print ticket will be connected later.
+         * Print ticket information.
+         *
+         * Example:
+         *
+         * ticket.printTicket();
          */
 
-        System.out.println("\nBuy Ticket process completed.");
+        System.out.println("\nBuy Ticket completed.");
     }
 
     public static void viewTicket(Scanner input) {
-
         System.out.println("\n======= View Ticket =======");
+
+    
         /*
-         * VIEW TICKET FLOW
-         *
-         * 1. Get passenger's tickets
-         * 2. Display ticket list
-         * 3. Select ticket
-         * 4. Display ticket details
-         */
+        * VIEW TICKET FLOW
+        *
+        * 1. Get passenger's tickets
+        * 2. Display ticket list
+        * 3. Select a ticket
+        * 4. Display ticket details
+        * 5. Choose Use or Cancel
+        */
 
-        // 1. GET TICKET
-        /*
-         * TODO:
-         *
-         * Get tickets belonging to current passenger.
-         *
-         * TicketService.
-         */
+    // 1. GET TICKETS    
+    /*
+    * TODO:
+    *
+    * Get all tickets that belongs to current passenger from TicketService.
+    */
+    
+    // 2. DISPLAY TICKETS
+    /*
+    * TODO:
+    *
+    * Display passenger's tickets in formatted list.
+    *
+    * Example:
+    *
+    * 1. ID: T001 | Status: ACTIVE
+    *    Source: Kampar
+    *    Destination: KL Sentral
+    *    Type: SINGLE
+    *    Fare: RM5.00
+    *
+    * 2. ID: T002 | Status: CANCELLED
+    *    Source: Kampar
+    *    Destination: Ipoh
+    *    Type: DAILY
+    *    Fare: RM10.00
+    */
 
-        // 2. DISPLAY TICKETS
-        /*
-         * TODO:
-         *
-         * Display all tickets that belong to the passenger.
-         */
+    // 3. SELECT TICKET    
+    /*
+    * TODO:
+    *
+    * Ask passenger to select a ticket from the displayed ticket list.(type ticketID)
+    *
+    * Example:
+    *
+    * Select ticket: T001
+    */
 
-        // 3. SELECT TICKET
-        /*
-         * TODO:
-         *
-         * Ask passenger to select ticket they want to view.
-         */
+    // 4. DISPLAY TICKET DETAILS    
+    /*
+    * TODO:
+    *
+    * Display the selected ticket using:
+    *
+    * ticket.printTicket();
+    *
+    * Information displayed:
+    * - Ticket ID
+    * - Passenger
+    * - Source
+    * - Destination
+    * - Ticket Type
+    * - Fare
+    * - Status
+    */
+    
+    // 5. USE / CANCEL TICKET
+    /*
+    * TODO:
+    *
+    * Ask the passenger want to use/ cancel ticket. 
+    *
+    * 1. Use Ticket
+    * 2. Cancel Ticket
+    *
+    * If Use:
+    *     ticket.useTicket();
+    *
+    * If Cancel:
+    *     ticket.cancelTicket();
+    */
 
-        // 4. DISPLAY TICKET DETAILS
-        /*
-         * TODO:
-         *
-         * Display:
-         * Ticket ID
-         * Source
-         * Destination
-         * Ticket Type
-         * Fare
-         * Status(Actice/Used/Cancelled)
-         */
-
-
-        System.out.println(
-            "View Ticket process completed."
-        );
+    System.out.println("\nView Ticket process completed.");
     }
+
 }
