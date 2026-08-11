@@ -5,14 +5,13 @@ import metro.ticketing.model.Station;
 import metro.ticketing.repository.FileManager;
 import metro.ticketing.repository.JSONFileManager;
 
-import java.util.HashMap;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class RouteService {
-    private HashMap<String, Route> routes = new HashMap<String, Route>();
+    private ArrayList<Route> routes = new ArrayList<Route>();
     private FileManager fileManager = new JSONFileManager("data/route.json");
 
     public RouteService(StationService stationService) {
@@ -27,16 +26,14 @@ public class RouteService {
         for(int i = 0; i < routeJsonArray.length(); i++) {
             JSONObject tempJsonObject = routeJsonArray.getJSONObject(i);
 
-            this.routes.put(tempJsonObject.getString("routeId"), Route.jsonToRoute(tempJsonObject, stationService));
+            this.routes.add(Route.jsonToRoute(tempJsonObject, stationService));
         }
     }
 
     public void saveData() {
         JSONArray inputJsonArray = new JSONArray();
 
-        for (HashMap.Entry<String, Route> entry : this.routes.entrySet()) {
-            Route routeData = entry.getValue();
-
+        for (Route routeData : this.routes) {
             inputJsonArray.put(Route.routeToJsonObject(routeData));
         }
         
@@ -48,24 +45,20 @@ public class RouteService {
     }
 
     public void viewAllRoutes() {
-        for (HashMap.Entry<String, Route> entry : this.routes.entrySet()) {
-            Route outputRoute = entry.getValue();
-
+        for (Route outputRoute : this.routes) {
             outputRoute.displayRoute();
             System.out.println();
         }
     }
 
     public void addRoute(Route route){
-        this.routes.put(route.getRouteId(), route);
+        this.routes.add(route);
     }
 
     public java.util.ArrayList<Route> findRoute(Station source){
         java.util.ArrayList<Route> result = new java.util.ArrayList<Route>();
 
-        for(HashMap.Entry<String, Route> entry:this.routes.entrySet()){
-            Route route = entry.getValue();
-
+        for(Route route : this.routes){
             if(route.getSource().getStationId().equals(source.getStationId())){
                 result.add(route);
             }
@@ -74,11 +67,16 @@ public class RouteService {
     }
 
     public Route getRoute(String routeId) {
-        return this.routes.get(routeId);
+        for(Route route : this.routes){
+            if(route.getRouteId().equals(routeId)){
+                return route;
+            }
+        }
+        return null;
     }
 
     public ArrayList<Route> getAllRoutesList(){
-        return new ArrayList<Route>(this.routes.values());
+        return this.routes;
     }
 
     public boolean isRouteIdCanEdit(String newRouteId, String currentRouteId){
@@ -89,9 +87,7 @@ public class RouteService {
     }
 
     public boolean isSourceDestinationCanEdit(Station source, Station destination, String currentRouteId){
-        for(HashMap.Entry<String, Route> entry: this.routes.entrySet()){
-            Route route = entry.getValue();
-
+        for(Route route : this.routes){
             if (route.getRouteId().equals(currentRouteId)){
                 continue;
             }
@@ -105,7 +101,11 @@ public class RouteService {
     }
 
     public void updateRoute(String oldRouteId, Route updatedRoute){
-        this.routes.remove(oldRouteId);
-        this.routes.put(updatedRoute.getRouteId(), updatedRoute);
+        for(int i = 0; i < this.routes.size(); i++){
+            if(this.routes.get(i).getRouteId().equals(oldRouteId)){
+                this.routes.set(i, updatedRoute);
+                return;
+            }
+        }
     }
 }

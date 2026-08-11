@@ -2,17 +2,19 @@
     {
         "ticketId" : "tk001",
         "passenger" : "u001",
-        "route" : "r001",
-        "ticketType" : "",
-        "ticketStatus" : "",
+        "source" : "st002",
+        "destination" : "st001",
+        "ticketType" : "SINGLE",
+        "ticketStatus" : "USED",
         "fare" : 58.6
     },
     {
         "ticketId" : "tk002",
         "passenger" : "u001",
-        "route" : "r001",
-        "ticketType" : "",
-        "ticketStatus" : "",
+        "source" : "st001",
+        "destination" : "st002",
+        "ticketType" : "SINGLE",
+        "ticketStatus" : "ACTIVE",
         "fare" : 36.5
     }
 ]

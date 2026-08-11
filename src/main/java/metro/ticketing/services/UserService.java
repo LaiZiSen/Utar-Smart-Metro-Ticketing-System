@@ -78,4 +78,15 @@ public class UserService {
             }
         }
     }
+
+    public User getUserById(String userId) {
+        for (HashMap.Entry<String, User> entry : this.users.entrySet()) {
+            User user= entry.getValue();
+            
+            if (user.getUserId().equals(userId)) {
+                return user;
+            }
+        }
+        return null;
+    }
 }

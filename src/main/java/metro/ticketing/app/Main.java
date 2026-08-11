@@ -9,10 +9,13 @@ import metro.ticketing.model.Route;
 import metro.ticketing.model.Station;
 import metro.ticketing.services.RouteService;
 import metro.ticketing.services.StationService;
+import metro.ticketing.services.TicketService;
 import metro.ticketing.services.TrainService;
 import metro.ticketing.services.UserService;
 
 public class Main {
+
+    private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         UserService uService = new UserService();
 
@@ -39,18 +42,31 @@ public class Main {
 
         routeService.viewAllRoutes();
 
-        /*
-        add route test (admin)
-        only support link the station already exist in the train.json
-        need use add station function to add more option(havent finish now)
-        */
-
-        System.out.println("\u001B[106mAdd Route test (Admin)\u001B[0m");
-
+        // prepare to call three method: add route, edit route and find route (passenger)
         StationService stationService2 = new StationService();
         RouteService routeService2 = new RouteService(stationService2);
+        ArrayList<Station> allStations = stationService2.getAllStations();
 
-        Scanner scanner = new Scanner(System.in);
+        addRouteTest(routeService2, allStations);
+        editRouteTest(routeService2, allStations);
+        findRouteTest();
+
+
+        StationService stService = new StationService();
+        UserService uServiceForTicket = new UserService();
+        TicketService tService = new TicketService(stService, uServiceForTicket);
+    
+        tService.viewAllTicket();     
+    }
+
+    /*
+    add route test (admin)
+    only support link the station already exist in the train.json
+    need use add station function to add more option(havent finish now)
+    */
+    private static void addRouteTest(RouteService routeService2, ArrayList<Station> allStations){
+
+        System.out.println("\u001B[106mAdd Route test (Admin)\u001B[0m");
 
         String routeId;
         while(true){
@@ -59,7 +75,7 @@ public class Main {
 
             if(routeId.isEmpty()){
                 System.out.println("Route ID cannot be empty. Please try again.");
-            } else if(!routeId.matches("r\\d{3}")){
+            }else if(!routeId.matches("r\\d{3}")){
                 System.out.println("Invalid format. Route ID must start with r and 3 number.");
             }else if(routeService2.getRoute(routeId) != null){
                 System.out.println("This Route ID already exiists. Please use different Route ID.");
@@ -67,13 +83,12 @@ public class Main {
                 break;
             }
         }
-        
-        ArrayList<Station> allStations = stationService2.getAllStations();
 
         if (allStations.isEmpty()){
             System.out.println("No stations available. Please add stations first.");
             return;
-        } else {
+        } 
+
             System.out.println();
 
             Station source;
@@ -101,6 +116,7 @@ public class Main {
                     System.out.println("Invalid input. Please enter a number.");
                 }
             }
+            
             System.out.println();
 
             Station destination;
@@ -134,6 +150,7 @@ public class Main {
                     System.out.println("Invalid input. Please enter a number.");
                 }
             }
+
             System.out.println();
 
             double distance;
@@ -165,21 +182,25 @@ public class Main {
         }
 
         // edit route test (admin)
-        System.out.println();
-        System.out.println("\u001B[106mEdit route test (admin)\u001B[0m");
+        private static void editRouteTest(RouteService routeService2, ArrayList<Station> allStations)
+        {
+            System.out.println();
+            System.out.println("\u001B[106mEdit route test (admin)\u001B[0m");
 
-        ArrayList<Route> allRoutes = routeService2.getAllRoutesList();
+            ArrayList<Route> allRoutes = routeService2.getAllRoutesList();
 
-        if (allRoutes.isEmpty()){
-            System.out.println("No routes available to edit.");
-        }else{
+            if (allRoutes.isEmpty()){
+                System.out.println("No routes available to edit.");
+                return;
+            }
+            
             Route routeToEdit;
             while(true){
                 System.out.println("Please select a route to edit.");
+
                 for (int i = 0; i<allRoutes.size(); i++){
                     Route r = allRoutes.get(i);
-                    System.out.println((i+1) + ". " + r.getRouteId() + "( " + r.getSource().getName() + "-> " +
-                                        r.getDestination().getName() + ", " + r.getDistanceKm() + " km)");
+                    System.out.println((i+1) + ". " + r.getRouteId() + "( " + r.getSource().getName() + "-> " + r.getDestination().getName() + ", " + r.getDistanceKm() + " km)");
                 }
 
                 System.out.println("Enter your choice: ");
@@ -199,6 +220,7 @@ public class Main {
                     System.out.println("Invalid input. Please enter a number.");
                 }
             }
+            
             String originalRouteId = routeToEdit.getRouteId();
 
             System.out.println();
@@ -226,8 +248,9 @@ public class Main {
             while(true){
                 System.out.println("Current Source: " + routeToEdit.getSource().getName());
                 System.out.println("Select new source station (or press Enter to keep current): ");
+
                 for(int i = 0; i<allStations.size(); i++){
-                    System.out.println((i+1) + ". " + allStations.get(i).getName());
+                System.out.println((i+1) + ". " + allStations.get(i).getName());
                 }
 
                 System.out.println("Enter your choice: ");
@@ -258,6 +281,7 @@ public class Main {
             while(true){
                 System.out.println("Current Destination: " + routeToEdit.getDestination().getName());
                 System.out.println("Select new destination station (or press Enter to keep current): ");
+
                 for(int i = 0; i<allStations.size(); i++){
                     System.out.println((i+1) + ". " + allStations.get(i).getName());
                 }
@@ -335,8 +359,10 @@ public class Main {
             routeToEdit.displayRoute();
 
             routeService2.saveData();
+        
         }
 
+        private static void findRouteTest(){
         // find route test (passenger)
         System.out.println();
         System.out.println("\u001B[106mFind Route test (Passenger)\u001B[0m");
@@ -369,7 +395,6 @@ public class Main {
                 System.out.println("This source station has no routes. Please try again.");
                 continue;
             }
-
             break;
         }
 
@@ -378,7 +403,7 @@ public class Main {
 
         for(int i = 0; i < possibleRoutes.size(); i++){
             Route r = possibleRoutes.get(i);
-            System.out.println((i+1) + "." + r.getDestination().getName() + " (" + r.getDistanceKm() + " km)");
+            System.out.println((i+1) + "." + r.getDestination().getName()+ " (" + r.getDistanceKm() + " km)");
         }
     }
 }
