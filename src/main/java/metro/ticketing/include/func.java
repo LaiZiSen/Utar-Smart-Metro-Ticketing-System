@@ -2,6 +2,8 @@ package metro.ticketing.include;
 
 import java.util.Scanner;
 
+import java.lang.Math;
+
 public class func{
     public static char getChoice() {
         Scanner scanner = new Scanner(System.in);
@@ -27,5 +29,25 @@ public class func{
         output = scanner.next();
 
         return output;
+    }
+
+    public static void printHeader(String msg, char filler) {
+       // length 34 
+
+        int stringLength = 38;
+        int msgLength = msg.length();
+
+        for (int i = 0; i < (stringLength - msgLength)/2; i++) {
+            System.out.print(filler);
+        }
+
+        System.out.print(msg);
+
+        for (int i = 0; i < Math.ceil(((double) stringLength - msgLength)/2); i++) {
+            System.out.print(filler);
+        }
+        
+        System.out.print("\n");
+
     }
 }

@@ -2,14 +2,17 @@ package metro.ticketing.app;
 
 import java.util.Scanner;
 
-import metro.ticketing.enums.UserRole;
 import metro.ticketing.model.User;
 import metro.ticketing.model.Passenger;
+import metro.ticketing.model.Admin;
+
 import metro.ticketing.services.RouteService;
 import metro.ticketing.services.StationService;
 import metro.ticketing.services.TrainService;
 import metro.ticketing.services.UserService;
+
 import metro.ticketing.include.func;
+import metro.ticketing.enums.UserRole;
 import metro.ticketing.exception.InvalidLoginException;
 
 public class Main {
@@ -19,11 +22,12 @@ public class Main {
     public static void main(String[] args) {
         // welcome message to the system 
         //
-        System.out.println("======================================");
-        System.out.println("");
-        System.out.println("   WELCOME TO SMART METRO TICKETING   ");
-        System.out.println("");
-        System.out.println("======================================");
+        func.printHeader("", '=');
+        func.printHeader("", ' ');
+        func.printHeader("WELCOME TO SMART METRO TICKETING", ' ');
+        func.printHeader("", ' ');
+        func.printHeader("", '=');
+
         System.out.println("");
 
         boolean running = true;
@@ -38,7 +42,14 @@ public class Main {
 
             switch (choice) {
                 case '1':
-                    login(); 
+                    User user = login();
+                    
+                    if (user instanceof Passenger) {
+                        PassengerUI.PassengerUI((Passenger)user);
+                    } else if (user instanceof Admin) {
+                        AdminUI.AdminUI((Admin)user);
+                    }
+
                     break;
 
                  case '2':
@@ -59,7 +70,7 @@ public class Main {
     }
 
     private static void mainMenu() {
-        System.out.println("---------------Main Menu--------------");
+        func.printHeader("Main Menu", '-');
         System.out.println("1. Login");
         System.out.println("2. Registration");
         System.out.println("3. Quit");
@@ -68,7 +79,7 @@ public class Main {
     private static User login() {
         User userobj = null;
 
-        System.out.println("-----------------Login----------------");
+        func.printHeader("Login", '-');
 
         String email = func.getStrInput("Email     :");
         String pwd   = func.getStrInput("Password  :");
