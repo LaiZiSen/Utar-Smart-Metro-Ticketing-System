@@ -33,6 +33,7 @@ public class PassengerUI{
                     break;
                 
                 case '3':
+                    passenger.viewProfile()
                     break;
                 
                 case '4':
