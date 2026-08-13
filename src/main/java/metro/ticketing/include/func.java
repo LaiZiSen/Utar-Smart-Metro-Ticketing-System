@@ -31,6 +31,16 @@ public class func{
         return output;
     }
 
+    public static String getStrLnInput(String ques) {
+        Scanner scanner = new Scanner(System.in);
+        String output;
+
+        System.out.print(ques);
+        output = scanner.nextLine();
+
+        return output;
+    }
+
     public static void printHeader(String msg, char filler) {
        // length 34 
 
@@ -49,5 +59,11 @@ public class func{
         
         System.out.print("\n");
 
+    }
+
+    public static String formatId(String idHeader, int idNum, int idWidth) {
+        String format = String.format("%s%d%s", "%s%0", idWidth, "d");
+
+        return String.format(format, idHeader, idNum, idWidth);
     }
 }

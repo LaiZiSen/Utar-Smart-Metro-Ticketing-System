@@ -17,7 +17,7 @@ import metro.ticketing.exception.InvalidLoginException;
 
 public class Main {
 
-    static UserService userService = new UserService();
+    static UserService uService= new UserService();
 
     public static void main(String[] args) {
         // welcome message to the system 
@@ -54,6 +54,10 @@ public class Main {
 
                  case '2':
                     System.out.println("Let's Register");
+                    System.out.println("");
+
+                    register();
+                    
                     break;
 
                  case '3':
@@ -85,13 +89,71 @@ public class Main {
         String pwd   = func.getStrInput("Password  :");
 
         try {
-            userobj = userService.login(email, pwd); 
-            System.out.println(userobj.getName());
+            userobj = uService.login(email, pwd); 
+            System.out.println("");
         } catch (InvalidLoginException e) {
-            System.out.println("Login failed !!!!!!!!!!!!!!!!!!");
+            System.out.println("Login failed !!!");
         }
         
         return userobj;
+    }
+
+    private static void register() {
+        // get input 
+        String format = "%-12s:";
+
+        String name  = null; 
+        String pwd   = null;
+        String email = null;
+
+        do {
+            name = func.getStrLnInput(String.format(format, "Name"));
+
+            if (name.isEmpty()) {
+                name = null;
+                System.out.println("Enter a name!");
+            }
+        } while (name == null);
+
+        do {
+            email = func.getStrLnInput(String.format(format, "Email"));
+
+            String[] emailEndings = {
+                "@gmail.com",
+                "@1utar.my",
+                "@utar.my",
+                "@yahoo.com",
+                "@hotmail.com"
+            };
+            
+            boolean validEmail = false;
+
+            for(String ending :  emailEndings) {
+                if (email.endsWith(ending)) {
+                    if (!email.replaceFirst(ending, "").isEmpty()) {
+                        validEmail = true;
+                        break;
+                    }
+                }
+            }
+
+            if (uService.emailExists(email) || !validEmail) {
+                email = null;
+                System.out.println("Invalid Email!");
+            }
+        } while (email == null);
+
+        do {
+            pwd = func.getStrLnInput(String.format(format, "Password"));
+
+            if (pwd.length() != 8) {
+                pwd = null;
+                System.out.println("Password must be 8 characters!");
+            }
+        } while (pwd == null);
+
+        uService.registerUser(name, email, pwd);
+        System.out.println("\nRegistrated for " + name +  "!!!\n");
     }
 
 }

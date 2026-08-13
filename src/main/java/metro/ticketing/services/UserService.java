@@ -1,10 +1,14 @@
 package metro.ticketing.services;
 
 import metro.ticketing.enums.UserRole;
+
 import metro.ticketing.model.Passenger;
 import metro.ticketing.model.User;
+
 import metro.ticketing.repository.FileManager;
 import metro.ticketing.repository.JSONFileManager;
+
+import metro.ticketing.include.func;
 import metro.ticketing.exception.InvalidLoginException;
 
 import java.util.HashMap;
@@ -51,8 +55,25 @@ public class UserService {
     }
 
     // TODO - NOT DONE
-    public void registerUser(User registedUser) {
-        this.users.put(registedUser.getName(), registedUser);
+    public void registerUser(String name, String email, String password) {
+        int idIncriment = 0;
+        String userId = "";
+        
+        for (HashMap.Entry<String, User> entry : this.users.entrySet()) {
+            User tempUser = entry.getValue();
+            String tempId = tempUser.getUserId();
+            int tempIdNum = Integer.parseInt(tempId.substring(1));
+
+            if(tempId.charAt(0) == 'u' && tempIdNum>idIncriment) {
+                    idIncriment = Integer.parseInt(tempId.substring(1));
+            }
+        }
+
+        userId = func.formatId("u", (idIncriment+1), 4);
+        Passenger newPassenger = new Passenger(userId, name, email, password, UserRole.PASSENGER);
+
+        this.users.put(newPassenger.getEmail(), newPassenger);
+        this.saveData();
     }
 
     // TODO - NOT DONE
@@ -65,10 +86,6 @@ public class UserService {
         // check if password matches
         // if not throw exception
         // if yes return user
-
-        // if (!this.users.containsKey(email)) {
-        //    throw new InvalidLoginException();
-        //}
 
         User output = users.get(email);
        
@@ -111,4 +128,14 @@ public class UserService {
         }
         return null;
     }
+
+    public boolean emailExists(String email) {
+        for (HashMap.Entry<String, User> entry : this.users.entrySet()) {
+            User tempUser = entry.getValue();
+            if (email.equals(tempUser.getEmail())) {
+                return true;
+            }
+        }
+        return false;
+    } 
 }
