@@ -177,14 +177,13 @@ public class AdminUI{
             System.out.println("This route already exists.\n");
             return;
         }
-
         double distanceKm = Double.parseDouble(func.getStrInput("Enter distance in km: "));
 
         Route newRoute = new Route(routeService.nextId(), source, destination, distanceKm);
         routeService.addRoute(newRoute);
 
         routeService.saveData();
-        System.out.println("Route added successfully!\n");
+        System.out.println("Route added successfully\n");
     }
 
 }
