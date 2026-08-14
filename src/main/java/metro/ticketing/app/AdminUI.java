@@ -83,9 +83,7 @@ public class AdminUI{
     }
 
     private static void routeMenu(RouteService routeService, StationService stationService){
-        boolean back = false;
-
-        while(!back){
+        while(true){
             func.printHeader("Route System", '-');
             System.out.println("1. View All Route");
             System.out.println("2. Add Route");
@@ -102,11 +100,10 @@ public class AdminUI{
                 case '2':
                     addRoute(routeService, stationService);
                     break;
-                    
+
                 case '3':
-                    back = true;
-                    break;
-            
+                    return;
+
                 default:
                     System.out.println("!!!INVALID INPUT!!!\n");
                     break;
@@ -132,19 +129,49 @@ public class AdminUI{
             System.out.println("No stations available. Please add stations first.\n");
             return;
         }
-        System.out.println("Select source station: ");
-        for(int i = 0; i < stations.size(); i++){
-            System.out.println((i+1) + "." + stations.get(i).getName());
-        }
-        int srcChoice = Integer.parseInt(func.getStrInput("Enter choice: ")) - 1;
-        Station source = stations.get(srcChoice);
+        Station source;
+        while(true){
+            System.out.println("Select source station: ");
+            for(int i = 0; i < stations.size(); i++){
+                System.out.println((i+1) + "." + stations.get(i).getName());
+            }
 
-        System.out.println("Select destination station: ");
-        for(int i = 0; i < stations.size(); i++){
-            System.out.println((i+1) + "." + stations.get(i).getName());
+            try{
+                int srcChoice = Integer.parseInt(func.getStrInput("Enter choice: "));
+
+                if(srcChoice < 1 || srcChoice > stations.size()){
+                    System.out.println("Invalid choice. Please enter a number between 1 and " + stations.size() + ".");
+                    continue;
+                }
+
+                source = stations.get(srcChoice - 1);
+                break;
+            } catch(NumberFormatException e){
+                System.out.println("Invalid input. Please enter a number.");
+            }
         }
-        int dstChoice = Integer.parseInt(func.getStrInput("Enter choice: ")) - 1;
-        Station destination = stations.get(dstChoice);
+
+        Station destination;
+        while(true){
+            System.out.println("Select destination station: ");
+            for(int i = 0; i < stations.size(); i++){
+                System.out.println((i+1) + "." + stations.get(i).getName());
+            }
+
+            try{
+                int dstChoice = Integer.parseInt(func.getStrInput("Enter choice: "));
+
+                if(dstChoice < 1 || dstChoice > stations.size()){
+                    System.out.println("Invalid choice. Please enter a number between 1 and " + stations.size() + ".");
+                    continue;
+                }
+
+                destination = stations.get(dstChoice - 1);
+                break;
+            } catch(NumberFormatException e){
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        }
 
         if(routeService.isDuplicate(source, destination)){
             System.out.println("This route already exists.\n");
