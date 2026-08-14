@@ -4,13 +4,13 @@ import metro.ticketing.model.Train;
 import metro.ticketing.repository.FileManager;
 import metro.ticketing.repository.JSONFileManager;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class TrainService {
-    private HashMap<String, Train> trains = new HashMap<String, Train>();
+    private ArrayList<Train> trains = new ArrayList<Train>();
     private FileManager fileManager = new JSONFileManager("data/train.json");
 
     public TrainService() {
@@ -25,16 +25,14 @@ public class TrainService {
         for(int i = 0; i < trainJsonArray.length(); i++) {
             JSONObject tempJsonObject = trainJsonArray.getJSONObject(i);
 
-            this.trains.put(tempJsonObject.getString("trainId"), Train.jsonToTrain(tempJsonObject));
+            this.trains.add(Train.jsonToTrain(tempJsonObject));
         }
     }
 
     public void saveData() {
         JSONArray inputJsonArray = new JSONArray();
 
-        for (HashMap.Entry<String, Train> entry : this.trains.entrySet()) {
-            Train trainData = entry.getValue();
-
+        for (Train trainData: this.trains) {
             inputJsonArray.put(Train.trainToJsonObject(trainData));
         }
         
@@ -46,9 +44,7 @@ public class TrainService {
     }
 
     public void viewAllTrains() {
-        for (HashMap.Entry<String, Train> entry : this.trains.entrySet()) {
-            Train outputTrain = entry.getValue();
-
+        for (Train outputTrain : this.trains) {
             outputTrain.displayTrain();
             System.out.println();
         }
