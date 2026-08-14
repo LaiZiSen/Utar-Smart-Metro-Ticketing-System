@@ -4,6 +4,7 @@ import metro.ticketing.model.Route;
 import metro.ticketing.model.Station;
 import metro.ticketing.repository.FileManager;
 import metro.ticketing.repository.JSONFileManager;
+import metro.ticketing.include.func;
 
 import java.util.ArrayList;
 
@@ -45,71 +46,73 @@ public class RouteService {
     }
 
     public void viewAllRoutes() {
-        for (Route outputRoute : this.routes) {
-            outputRoute.displayRoute();
-            System.out.println();
+        for (int i = 0; i < this.routes.size(); i++) {
+            Route route = this.routes.get(i);
+            System.out.println((i + 1) + ". " + route.getRouteId() + " | "
+                + route.getSource().getName() + " -> " + route.getDestination().getName());
         }
     }
-<<<<<<< HEAD
-}
-=======
 
-    public void addRoute(Route route){
-        this.routes.add(route);
-    }
-
-    public java.util.ArrayList<Route> findRoute(Station source){
-        java.util.ArrayList<Route> result = new java.util.ArrayList<Route>();
-
-        for(Route route : this.routes){
-            if(route.getSource().getStationId().equals(source.getStationId())){
-                result.add(route);
-            }
+    public void showRoute(int index){
+        if(index < 1 || index > this.routes.size()){
+            System.out.println("Invalid selection.\n");
+            return;
         }
-        return result;
+
+        Route route = this.routes.get(index - 1);
+
+        System.out.println();
+        System.out.println("Route ID    : " + route.getRouteId());
+        System.out.println("Distance    : " + route.getDistanceKm() + " km");
+
+        System.out.println();
+        System.out.println("Source Station:");
+        route.getSource().displayInfo();
+
+        System.out.println();
+        System.out.println("Destination Station:");
+        route.getDestination().displayInfo();
+        System.out.println();
     }
 
-    public Route getRoute(String routeId) {
-        for(Route route : this.routes){
-            if(route.getRouteId().equals(routeId)){
+
+    public Route getRoute(String routeId){
+        for (Route route: this.routes){
+            if (route.getRouteId().equals(routeId)){
                 return route;
             }
         }
         return null;
     }
 
-    public ArrayList<Route> getAllRoutesList(){
-        return this.routes;
-    }
+    public String nextId(){
+        int max = 0;
 
-    public boolean isRouteIdCanEdit(String newRouteId, String currentRouteId){
-        if (newRouteId.equals(currentRouteId)){
-            return true;
-        }
-        return getRoute(newRouteId) == null;
-    }
+        for(Route route: this.routes){
+            int num = Integer.parseInt(route.getRouteId().substring(1));
 
-    public boolean isSourceDestinationCanEdit(Station source, Station destination, String currentRouteId){
-        for(Route route : this.routes){
-            if (route.getRouteId().equals(currentRouteId)){
-                continue;
-            }
-
-            if (route.getSource().getStationId().equals(source.getStationId()) && 
-            route.getDestination().getStationId().equals(destination.getStationId())){
-                return false;
-            } 
-        }
-        return true;
-    }
-
-    public void updateRoute(String oldRouteId, Route updatedRoute){
-        for(int i = 0; i < this.routes.size(); i++){
-            if(this.routes.get(i).getRouteId().equals(oldRouteId)){
-                this.routes.set(i, updatedRoute);
-                return;
+            if(num > max){
+                max = num;
             }
         }
+        return func.formatId("r", max + 1, 3);
+    }
+
+
+    public boolean isDuplicate(Station source, Station destination){
+        for(Route route: this.routes){
+            String src = route.getSource().getStationId();
+            String dst = route.getDestination().getStationId();
+
+            if((src.equals(source.getStationId()) && dst.equals(destination.getStationId()))
+                || (src.equals(destination.getStationId()) && dst.equals(source.getStationId()))){
+                    return true;
+                }
+        }
+        return false;
+    }
+
+    public void addRoute(Route route){
+        this.routes.add(route);
     }
 }
->>>>>>> f9cc82d4bb403d76437208a829ef9b9706cda04a

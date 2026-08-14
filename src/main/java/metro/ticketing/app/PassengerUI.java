@@ -2,8 +2,8 @@ package metro.ticketing.app;
 
 import java.util.Scanner;
 
-import metro.ticketing.model.Passenger;
 import metro.ticketing.include.func;
+import metro.ticketing.model.Passenger;
 
 public class PassengerUI{
     public static void PassengerUI(Passenger passenger){
@@ -33,7 +33,7 @@ public class PassengerUI{
                     break;
                 
                 case '3':
-                    passenger.viewProfile()
+                    passenger.viewProfile();
                     break;
                 
                 case '4':
