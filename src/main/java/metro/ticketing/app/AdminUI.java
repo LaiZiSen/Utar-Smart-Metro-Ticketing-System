@@ -140,19 +140,19 @@ public class AdminUI{
                 int srcChoice = Integer.parseInt(func.getStrInput("Enter choice: "));
 
                 if(srcChoice == 0){
-                    System.out.println("Add Route cancelled.");
+                    System.out.println("Add Route cancelled.\n");
                     return;
                 }
 
                 if(srcChoice < 1 || srcChoice > stations.size()){
-                    System.out.println("Invalid choice. Please enter a number between 1 and " + stations.size() + ".");
+                    System.out.println("Invalid choice. Please enter a number between 1 and " + stations.size() + ".\n");
                     continue;
                 }
 
                 source = stations.get(srcChoice - 1);
                 break;
             } catch(NumberFormatException e){
-                System.out.println("Invalid input. Please enter a number.");
+                System.out.println("Invalid input. Please enter a number.\n");
             }
         }
 
@@ -167,19 +167,19 @@ public class AdminUI{
                 int dstChoice = Integer.parseInt(func.getStrInput("Enter choice: "));
 
                 if(dstChoice == 0){
-                    System.out.println("Add Route Cancelled.");
+                    System.out.println("Add Route Cancelled.\n");
                     return;
                 }
 
                 if(dstChoice < 1 || dstChoice > stations.size()){
-                    System.out.println("Invalid choice. Please enter a number between 1 and " + stations.size() + ".");
+                    System.out.println("Invalid choice. Please enter a number between 1 and " + stations.size() + ".\n");
                     continue;
                 }
 
                 destination = stations.get(dstChoice - 1);
                 break;
             } catch(NumberFormatException e){
-                System.out.println("Invalid input. Please enter a number.");
+                System.out.println("Invalid input. Please enter a number.\n");
             }
         }
 
