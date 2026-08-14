@@ -114,7 +114,7 @@ public class AdminUI{
     private static void viewAllRoute(RouteService routeService){
         routeService.viewAllRoutes();
 
-        int choice = Integer.parseInt(func.getStrLnInput("Enter number to view details (0 to skip): "));
+        int choice = Integer.parseInt(func.getStrLnInput("Enter number to view details (Press 0 to cancel): "));
 
         if(choice == 0){
             return;
@@ -131,13 +131,18 @@ public class AdminUI{
         }
         Station source;
         while(true){
-            System.out.println("Select source station: ");
+            System.out.println("Select source station (Press 0 to cancel): ");
             for(int i = 0; i < stations.size(); i++){
                 System.out.println((i+1) + "." + stations.get(i).getName());
             }
 
             try{
                 int srcChoice = Integer.parseInt(func.getStrInput("Enter choice: "));
+
+                if(srcChoice == 0){
+                    System.out.println("Add Route cancelled.");
+                    return;
+                }
 
                 if(srcChoice < 1 || srcChoice > stations.size()){
                     System.out.println("Invalid choice. Please enter a number between 1 and " + stations.size() + ".");
@@ -153,13 +158,18 @@ public class AdminUI{
 
         Station destination;
         while(true){
-            System.out.println("Select destination station: ");
+            System.out.println("Select destination station (Press 0 to cancel): ");
             for(int i = 0; i < stations.size(); i++){
                 System.out.println((i+1) + "." + stations.get(i).getName());
             }
 
             try{
                 int dstChoice = Integer.parseInt(func.getStrInput("Enter choice: "));
+
+                if(dstChoice == 0){
+                    System.out.println("Add Route Cancelled.");
+                    return;
+                }
 
                 if(dstChoice < 1 || dstChoice > stations.size()){
                     System.out.println("Invalid choice. Please enter a number between 1 and " + stations.size() + ".");

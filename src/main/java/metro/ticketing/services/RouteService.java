@@ -49,7 +49,7 @@ public class RouteService {
         for (int i = 0; i < this.routes.size(); i++) {
             Route route = this.routes.get(i);
             System.out.println((i + 1) + ". " + route.getRouteId() + " | "
-                + route.getSource().getName() + " -> " + route.getDestination().getName());
+                + route.getSource().getName() + " to " + route.getDestination().getName());
         }
     }
 
