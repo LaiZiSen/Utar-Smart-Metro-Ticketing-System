@@ -50,4 +50,66 @@ public class RouteService {
             System.out.println();
         }
     }
+<<<<<<< HEAD
 }
+=======
+
+    public void addRoute(Route route){
+        this.routes.add(route);
+    }
+
+    public java.util.ArrayList<Route> findRoute(Station source){
+        java.util.ArrayList<Route> result = new java.util.ArrayList<Route>();
+
+        for(Route route : this.routes){
+            if(route.getSource().getStationId().equals(source.getStationId())){
+                result.add(route);
+            }
+        }
+        return result;
+    }
+
+    public Route getRoute(String routeId) {
+        for(Route route : this.routes){
+            if(route.getRouteId().equals(routeId)){
+                return route;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Route> getAllRoutesList(){
+        return this.routes;
+    }
+
+    public boolean isRouteIdCanEdit(String newRouteId, String currentRouteId){
+        if (newRouteId.equals(currentRouteId)){
+            return true;
+        }
+        return getRoute(newRouteId) == null;
+    }
+
+    public boolean isSourceDestinationCanEdit(Station source, Station destination, String currentRouteId){
+        for(Route route : this.routes){
+            if (route.getRouteId().equals(currentRouteId)){
+                continue;
+            }
+
+            if (route.getSource().getStationId().equals(source.getStationId()) && 
+            route.getDestination().getStationId().equals(destination.getStationId())){
+                return false;
+            } 
+        }
+        return true;
+    }
+
+    public void updateRoute(String oldRouteId, Route updatedRoute){
+        for(int i = 0; i < this.routes.size(); i++){
+            if(this.routes.get(i).getRouteId().equals(oldRouteId)){
+                this.routes.set(i, updatedRoute);
+                return;
+            }
+        }
+    }
+}
+>>>>>>> f9cc82d4bb403d76437208a829ef9b9706cda04a
