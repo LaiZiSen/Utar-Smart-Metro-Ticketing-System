@@ -7,28 +7,30 @@ import metro.ticketing.include.func;
 import metro.ticketing.model.Admin;
 import metro.ticketing.model.Passenger;
 import metro.ticketing.model.User;
+import metro.ticketing.services.PaymentService;
+import metro.ticketing.services.ReportService;
+import metro.ticketing.services.RouteService;
+import metro.ticketing.services.StationService;
+import metro.ticketing.services.TicketService;
+import metro.ticketing.services.TrainService;
 import metro.ticketing.services.UserService;
 
 public class Main {
 
     static UserService uService= new UserService();
+    static StationService stService = new StationService();
+    static TrainService trService = new TrainService();
+    static TicketService tkService = new TicketService(stService, uService);
+    static RouteService rService = new RouteService(stService);
+    static ReportService rpService = new ReportService(); // not done
+    static PaymentService pService = new PaymentService(); // not done
 
     public static void main(String[] args) {
         // welcome message to the system 
         //
-        func.printHeader("", '=');
-        func.printHeader("", ' ');
-        func.printHeader("WELCOME TO SMART METRO TICKETING", ' ');
-        func.printHeader("", ' ');
-        func.printHeader("", '=');
-
-        System.out.println("");
-
-        boolean running = true;
-
         Scanner scanner = new Scanner(System.in);
 
-        while(running) {
+        while(true) {
             mainMenu();
 
             char choice = func.getChoice();
@@ -39,35 +41,40 @@ public class Main {
                     User user = login();
                     
                     if (user instanceof Passenger) {
-                        PassengerUI.PassengerUI((Passenger)user);
+                        new PassengerUI((Passenger) user, uService, tkService).run();
                     } else if (user instanceof Admin) {
-                        AdminUI.AdminUI((Admin)user);
+                        new AdminUI((Admin)user).run();
                     }
 
                     break;
 
                  case '2':
-                    System.out.println("Let's Register");
-                    System.out.println("");
-
                     register();
-                    
                     break;
 
                  case '3':
                     System.out.println("Quitting SMART METRO TICKETING");
-                    running = false;
-                    break; 
+                    return; 
                 default:
                     System.out.println("!!! INVALID INPUT !!!\n");
+                    func.pause();
                     break;
             }
-
+            func.clear();
         }
 
     }
 
     private static void mainMenu() {
+        func.clear();
+        func.printHeader("", '=');
+        func.printHeader("", ' ');
+        func.printHeader("WELCOME TO SMART METRO TICKETING", ' ');
+        func.printHeader("", ' ');
+        func.printHeader("", '=');
+
+        System.out.println("");
+
         func.printHeader("Main Menu", '-');
         System.out.println("1. Login");
         System.out.println("2. Registration");
@@ -87,6 +94,7 @@ public class Main {
             System.out.println("");
         } catch (InvalidLoginException e) {
             System.out.println("Login failed !!!");
+            func.pause();
         }
         
         return userobj;
@@ -148,6 +156,7 @@ public class Main {
 
         uService.registerUser(name, email, pwd);
         System.out.println("\nRegistrated for " + name +  "!!!\n");
+        func.pause();
     }
 
 }

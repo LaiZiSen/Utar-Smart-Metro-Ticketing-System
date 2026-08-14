@@ -99,6 +99,7 @@ public abstract class User {
     }
     
     public void viewProfile() {
+        func.clear();
         System.out.println("");
         func.printHeader("", '=');
         func.printHeader("PROFILE", ' ');
@@ -108,6 +109,9 @@ public abstract class User {
         System.out.printf("%-15s%s\n", "Email:", this.email);
         System.out.printf("%-15s%s\n", "Password:", this.password);
         System.out.printf("%-15s%s\n", "userId:", this.userId);
+        func.printHeader("", '=');
         System.out.println("");
+        
+        func.pause();
     }
 }
