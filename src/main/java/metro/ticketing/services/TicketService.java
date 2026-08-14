@@ -7,7 +7,14 @@ import java.util.ArrayList;
 
 import metro.ticketing.repository.FileManager;
 import metro.ticketing.repository.JSONFileManager;
+
 import metro.ticketing.model.Ticket;
+import metro.ticketing.model.Passenger;
+import metro.ticketing.model.Route;
+import metro.ticketing.enums.TicketType;
+
+import metro.ticketing.include.func;
+
 import metro.ticketing.services.StationService;
 import metro.ticketing.services.UserService;
 
@@ -52,4 +59,25 @@ public class TicketService {
         }
     }
 
+    public String idIncrement() {
+        int idIncrement = 0;
+
+        for (Ticket ticket: this.tickets) {
+            String tempId = ticket.getTicketId();
+            int tempIdNum = Integer.parseInt(tempId.substring(2));
+
+            if(tempIdNum>idIncrement) {
+                    idIncrement = Integer.parseInt(tempId.substring(2));
+            }
+        }
+
+        return func.formatId("tk", (idIncrement+1), 4);
+    }
+
+    public void buyTicket(Passenger passenger, Route route, TicketType type) {
+        // Passenger newPassenger = new Passenger(idIncriment(), name, email, password, UserRole.PASSENGER);
+
+        // this.users.put(newPassenger.getEmail(), newPassenger);
+        // this.saveData();
+    }
 }

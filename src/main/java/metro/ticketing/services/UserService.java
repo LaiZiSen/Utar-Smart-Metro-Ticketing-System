@@ -18,7 +18,7 @@ import org.json.JSONObject;
 
 public class UserService {
     private HashMap<String, User> users = new HashMap<String, User>();
-    private FileManager fileManager = new JSONFileManager("data/users.json"); 
+    private FileManager fileManager = new JSONFileManager("data/users.json");
 
     public UserService() {
         JSONArray userJsonArray = new JSONArray();
@@ -54,23 +54,25 @@ public class UserService {
         }
     }
 
-    // TODO - NOT DONE
-    public void registerUser(String name, String email, String password) {
-        int idIncriment = 0;
-        String userId = "";
-        
+    private String idIncrement() {
+        int idIncrement = 0;
+
         for (HashMap.Entry<String, User> entry : this.users.entrySet()) {
             User tempUser = entry.getValue();
             String tempId = tempUser.getUserId();
             int tempIdNum = Integer.parseInt(tempId.substring(1));
 
-            if(tempId.charAt(0) == 'u' && tempIdNum>idIncriment) {
-                    idIncriment = Integer.parseInt(tempId.substring(1));
+            if(tempId.charAt(0) == 'u' && tempIdNum>idIncrement) {
+                    idIncrement = Integer.parseInt(tempId.substring(1));
             }
         }
 
-        userId = func.formatId("u", (idIncriment+1), 4);
-        Passenger newPassenger = new Passenger(userId, name, email, password, UserRole.PASSENGER);
+        return func.formatId("u", (idIncrement+1), 4);
+    }
+
+    // TODO - NOT DONE
+    public void registerUser(String name, String email, String password) {
+        Passenger newPassenger = new Passenger(idIncrement(), name, email, password, UserRole.PASSENGER);
 
         this.users.put(newPassenger.getEmail(), newPassenger);
         this.saveData();

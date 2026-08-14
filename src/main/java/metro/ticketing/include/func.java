@@ -61,6 +61,19 @@ public class func{
 
     }
 
+    public static void pause() {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Press enter to continue...");
+        scanner.nextLine();
+
+        clear();
+    }
+
+    public static void clear() {
+        System.out.print("\033[H\033[2J");
+    }
+
     public static String formatId(String idHeader, int idNum, int idWidth) {
         String format = String.format("%s%d%s", "%s%0", idWidth, "d");
 
