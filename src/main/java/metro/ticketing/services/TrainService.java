@@ -3,6 +3,7 @@ package metro.ticketing.services;
 import metro.ticketing.model.Train;
 import metro.ticketing.repository.FileManager;
 import metro.ticketing.repository.JSONFileManager;
+import metro.ticketing.include.func;
 
 import java.util.ArrayList;
 
@@ -43,10 +44,36 @@ public class TrainService {
         }
     }
 
-    public void viewAllTrains() {
+    public void viewTrains() {
         for (Train outputTrain : this.trains) {
             outputTrain.displayTrain();
             System.out.println();
         }
+    }
+
+    public boolean isDuplicate(String trainName){
+        for(Train train: this.trains){
+            if(train.getTrainName().equalsIgnoreCase(trainName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String nextId(){
+        int max = 0;
+
+        for(Train train: this.trains){
+            int num = Integer.parseInt(train.getTrainId().substring(2));
+
+            if(num > max){
+                max = num;
+            }
+        }
+        return func.formatId("tr", max + 1, 3);
+    }
+
+    public void addTrain(Train train){
+        this.trains.add(train);
     }
 }

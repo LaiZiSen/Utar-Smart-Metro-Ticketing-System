@@ -6,8 +6,10 @@ import metro.ticketing.include.func;
 import metro.ticketing.model.Admin;
 import metro.ticketing.model.Route;
 import metro.ticketing.model.Station;
+import metro.ticketing.model.Train;
 import metro.ticketing.services.RouteService;
 import metro.ticketing.services.StationService;
+import metro.ticketing.services.TrainService;
 
 public class AdminUI{
     private Admin admin;
@@ -20,6 +22,7 @@ public class AdminUI{
         Scanner scanner = new Scanner(System.in);
         StationService stationService = new StationService();
         RouteService routeService = new RouteService(stationService);
+        TrainService trainService = new TrainService();
 
         while(true) {
             adminMenu();
@@ -33,6 +36,7 @@ public class AdminUI{
                     break;
                 
                 case '2':
+                    trainMenu(trainService);
                     break;
                 
                 case '3':
@@ -244,6 +248,74 @@ public class AdminUI{
 
         stationService.saveData();
         System.out.println("Station added successfully\n");
+    }
+
+    private static void trainMenu(TrainService trainService){
+        while(true){
+            func.printHeader("Train System", '-');
+            System.out.println("1. View Trains");
+            System.out.println("2. Add Train");
+            System.out.println("3. Back");
+
+            char choice = func.getChoice();
+            System.out.println("");
+
+            switch(choice){
+                case '1':
+                    trainService.viewTrains();
+                    break;
+                
+                case '2':
+                    addTrain(trainService);
+                    break;
+
+                case '3':
+                    return;
+                    
+                default:
+                    System.out.println("!!!INVALID INPUT!!!\n");    
+            }
+        }
+    }
+
+    private static void addTrain(TrainService trainService){
+        String name = func.getStrLnInput("Enter train name (Press 0 to cancel): ");
+
+        if(name.equals("0")){
+            System.out.println("Add Train cancelled.\n");
+            return;
+        }
+
+        if(name.equals("0")){
+            System.out.println("Add train cancelled.\n");
+            return;
+        }
+
+        if(trainService.isDuplicate(name)){
+            System.out.println("A train with this name already exists.\n");
+            return;
+        }
+
+        int capacity;
+        while(true){
+            try{
+                capacity = Integer.parseInt(func.getStrInput("Enter train capcity: "));
+
+                if(capacity <= 0){
+                    System.out.println("Capacity must be greater than 0.\n");
+                    continue;
+                }
+                break;
+            }catch(NumberFormatException e){
+                System.out.println("Invalid input. Please enter a number.\n");
+            }
+        }
+
+        Train newTrain = new Train(trainService.nextId(), name, capacity);
+        trainService.addTrain(newTrain);
+
+        trainService.saveData();
+        System.out.println("Train added successfully\n");
     }
 
 }
