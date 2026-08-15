@@ -52,27 +52,4 @@ public class StationService {
             System.out.println();
         }
     }
-
-    public Station getStationById(String stationId) {
-        for (Station station : this.stations) {
-            if (station.getStationId().equals(stationId)) {
-                return station;
-            }
-        }
-        return null;
-    }
-
-    public Station searchStation(String name){
-        for(Station station:this.stations){
-            if(station.getName().equalsIgnoreCase(name)){
-                return station;
-            }
-        }
-        return null;
-    }
-
-    public ArrayList<Station> getAllStations() {
-        return this.stations;
-    }
-
 }
