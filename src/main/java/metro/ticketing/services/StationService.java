@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import metro.ticketing.repository.FileManager;
 import metro.ticketing.repository.JSONFileManager;
 import metro.ticketing.model.Station;
+import metro.ticketing.include.func;
 
 public class StationService {
     private ArrayList<Station> stations = new ArrayList<Station>();
@@ -71,5 +72,31 @@ public class StationService {
             return null;
         }
         return this.stations.get(index - 1);
+    }
+
+    public Station searchStation(String name){
+        for(Station station: this.stations){
+            if(station.getName().equalsIgnoreCase(name)){
+                return station;
+            }
+        }
+        return null;
+    }
+
+    public String nextId(){
+        int max = 0;
+
+        for(Station station: this.stations){
+            int num = Integer.parseInt(station.getStationId().substring(2));
+
+            if(num > max){
+                max = num;
+            }
+        }
+        return func.formatId("st", max + 1, 3);
+    }
+
+    public void addStation(Station station){
+        this.stations.add(station);
     }
 }
