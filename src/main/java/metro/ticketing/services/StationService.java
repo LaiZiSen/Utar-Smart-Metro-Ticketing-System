@@ -62,17 +62,14 @@ public class StationService {
         return null;
     }
 
-    public Station searchStation(String name){
-        for(Station station:this.stations){
-            if(station.getName().equalsIgnoreCase(name)){
-                return station;
-            }
+    public int stationCount(){
+        return this.stations.size();
+    }
+
+    public Station stationAt(int index){
+        if(index < 1 || index > this.stations.size()){
+            return null;
         }
-        return null;
+        return this.stations.get(index - 1);
     }
-
-    public ArrayList<Station> getAllStations() {
-        return this.stations;
-    }
-
 }

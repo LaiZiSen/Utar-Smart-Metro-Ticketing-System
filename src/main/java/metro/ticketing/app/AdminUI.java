@@ -1,6 +1,5 @@
 package metro.ticketing.app;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import metro.ticketing.include.func;
@@ -123,17 +122,17 @@ public class AdminUI{
     }
 
     private static void addRoute(RouteService routeService, StationService stationService){
-        ArrayList<Station> stations = stationService.getAllStations();
-
-        if (stations.isEmpty()){
+            
+        if (stationService.stationCount() == 0){
             System.out.println("No stations available. Please add stations first.\n");
             return;
         }
+        
         Station source;
         while(true){
             System.out.println("Select source station (Press 0 to cancel): ");
-            for(int i = 0; i < stations.size(); i++){
-                System.out.println((i+1) + "." + stations.get(i).getName());
+            for(int i = 1; i <= stationService.stationCount(); i++){
+                System.out.println(i + "." + stationService.stationAt(i).getName());
             }
 
             try{
@@ -144,13 +143,13 @@ public class AdminUI{
                     return;
                 }
 
-                if(srcChoice < 1 || srcChoice > stations.size()){
-                    System.out.println("Invalid choice. Please enter a number between 1 and " + stations.size() + ".\n");
+                source = stationService.stationAt(srcChoice);
+
+                if(source == null){
+                    System.out.println("Invalid choice. Please enter a number between 1 and " + stationService.stationCount() + ".\n");
                     continue;
                 }
-
-                source = stations.get(srcChoice - 1);
-                break;
+                break;    
             } catch(NumberFormatException e){
                 System.out.println("Invalid input. Please enter a number.\n");
             }
@@ -159,8 +158,8 @@ public class AdminUI{
         Station destination;
         while(true){
             System.out.println("Select destination station (Press 0 to cancel): ");
-            for(int i = 0; i < stations.size(); i++){
-                System.out.println((i+1) + "." + stations.get(i).getName());
+            for(int i = 1; i <= stationService.stationCount(); i++){
+                System.out.println(i + "." + stationService.stationAt(i).getName());
             }
 
             try{
@@ -171,12 +170,12 @@ public class AdminUI{
                     return;
                 }
 
-                if(dstChoice < 1 || dstChoice > stations.size()){
-                    System.out.println("Invalid choice. Please enter a number between 1 and " + stations.size() + ".\n");
+                destination = stationService.stationAt(dstChoice);
+
+                if(destination == null){
+                    System.out.println("Invalid choice. Please enter a number between 1 and " + stationService.stationCount() + ".\n");
                     continue;
                 }
-
-                destination = stations.get(dstChoice - 1);
                 break;
             } catch(NumberFormatException e){
                 System.out.println("Invalid input. Please enter a number.\n");
