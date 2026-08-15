@@ -46,10 +46,19 @@ public class StationService {
         }
     }
 
-    public void viewAllStations() {
+     public void viewAllStations() {
         for (Station station : this.stations) {
             station.displayInfo();
             System.out.println();
         }
+    }
+
+    public Station getStationById(String stationId) {
+        for (Station station : this.stations) {
+            if (station.getStationId().equals(stationId)) {
+                return station;
+            }
+        }
+        return null;
     }
 }

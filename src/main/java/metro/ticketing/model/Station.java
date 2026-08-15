@@ -1,5 +1,7 @@
 package metro.ticketing.model;
 
+import java.util.ArrayList;
+
 import org.json.JSONObject;
 
 public class Station {
@@ -59,5 +61,23 @@ public class Station {
         value.put("name", stationData.getName());
         value.put("location", stationData.getLocation());
         return value;
+    }
+
+        public Station getStationById(String stationId) {
+        for (Station station : this.stations) {
+            if (station.getStationId().equals(stationId)) {
+                return station;
+            }
+        }
+        return null;
+    }
+
+    public Station searchStation(String name){
+        for(Station station:this.stations){
+            if(station.getName().equalsIgnoreCase(name)){
+                return station;
+            }
+        }
+        return null;
     }
 }
