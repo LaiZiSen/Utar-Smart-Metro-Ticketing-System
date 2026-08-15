@@ -36,6 +36,7 @@ public class AdminUI{
                     break;
                 
                 case '3':
+                    stationMenu(stationService);
                     break;
                 
                 case '4':
@@ -193,6 +194,56 @@ public class AdminUI{
 
         routeService.saveData();
         System.out.println("Route added successfully\n");
+    }
+
+    private static void stationMenu(StationService stationService){
+        while(true){
+            func.printHeader("Station System", '-');
+            System.out.println("1. View Stations");
+            System.out.println("2. Add Station");
+            System.out.println("3. Back");
+
+            char choice = func.getChoice();
+            System.out.println("");
+
+            switch(choice){
+                case '1':
+                    stationService.viewStations();
+                    break;
+
+                case '2':
+                    addStation(stationService);
+                    break;
+                
+                case '3':
+                    return;
+                    
+                default:
+                    System.out.println("!!!INVALID INPUT!!!\n");    
+            }
+        }
+    }
+
+    private static void addStation(StationService stationService){
+        String name = func.getStrLnInput("Enter station name (Press 0 to cancel): ");
+
+        if(name.equals("0")){
+            System.out.println("Add station cancalled.\n");
+            return;
+        }
+
+        if(stationService.searchStation(name) != null){
+            System.out.println("A station with this name already exists.\n");
+            return;
+        }
+
+        String location = func.getStrLnInput("Enter station location: ");
+
+        Station newStation = new Station(stationService.nextId(), name, location);
+        stationService.addStation(newStation);
+
+        stationService.saveData();
+        System.out.println("Station added successfully\n");
     }
 
 }

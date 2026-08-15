@@ -47,7 +47,7 @@ public class StationService {
         }
     }
 
-    public void viewAllStations() {
+    public void viewStations() {
         for (Station station : this.stations) {
             station.displayInfo();
             System.out.println();
