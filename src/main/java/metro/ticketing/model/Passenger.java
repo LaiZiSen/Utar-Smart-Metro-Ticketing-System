@@ -1,6 +1,7 @@
 package metro.ticketing.model;
 
 import metro.ticketing.enums.UserRole;
+import metro.ticketing.include.func;
 
 public class Passenger extends User{
     private double balance;
@@ -26,6 +27,11 @@ public class Passenger extends User{
         return balance;
     }
 
-
+    public void viewBalance() {
+        func.printHeader("",'=');
+        func.printHeader(("Your Balance is RM"+ this.balance),' ');
+        func.printHeader("",'=');
+        func.printHeader("",' ');
+    }
 
 }

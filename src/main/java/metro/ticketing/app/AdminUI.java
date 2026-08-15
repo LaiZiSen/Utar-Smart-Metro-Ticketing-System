@@ -6,19 +6,16 @@ import metro.ticketing.model.Admin;
 import metro.ticketing.include.func;
 
 public class AdminUI{
-    public static void AdminUI(Admin admin){
-        func.printHeader("",'=');
-        func.printHeader("",' ');
-        func.printHeader(("Welcome "+ admin.getName()),' ');
-        func.printHeader("",' ');
-        func.printHeader("",'=');
-        System.out.println("");
+    private Admin admin;
 
-        boolean running = true;
+    public AdminUI(Admin admin) {
+        this.admin = admin;
+    }
 
+    public void run(){
         Scanner scanner = new Scanner(System.in);
 
-        while(running) {
+        while(true) {
             adminMenu();
 
             char choice = func.getChoice();
@@ -41,12 +38,13 @@ public class AdminUI{
                     break;
 
                 case '6':
+                    admin.viewProfile();
                     break;
 
                 case '7':
                     System.out.println("Logging out of " + admin.getName() + '\n');
-                    running = false;
-                    break;
+                    func.pause();
+                    return; 
 
                 default:
                     System.out.println("!!! INVALID INPUT !!!\n");
@@ -57,7 +55,15 @@ public class AdminUI{
 
     }
    
-    private static void adminMenu() {
+    private void adminMenu() {
+        func.clear();
+        func.printHeader("",'=');
+        func.printHeader("",' ');
+        func.printHeader(("Welcome "+ admin.getName()),' ');
+        func.printHeader("",' ');
+        func.printHeader("",'=');
+        System.out.println("");
+
         func.printHeader("Admin Menu", '-');
         System.out.println("1. Route System");
         System.out.println("2. Train System");
@@ -66,7 +72,6 @@ public class AdminUI{
         System.out.println("5. Report");
         System.out.println("6. Profile");
         System.out.println("7. Logout");
-
     }
 
 }
