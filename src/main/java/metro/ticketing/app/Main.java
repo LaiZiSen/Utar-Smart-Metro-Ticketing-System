@@ -7,13 +7,7 @@ import metro.ticketing.include.func;
 import metro.ticketing.model.Admin;
 import metro.ticketing.model.Passenger;
 import metro.ticketing.model.User;
-import metro.ticketing.services.PaymentService;
-import metro.ticketing.services.ReportService;
-import metro.ticketing.services.RouteService;
-import metro.ticketing.services.StationService;
-import metro.ticketing.services.TicketService;
-import metro.ticketing.services.TrainService;
-import metro.ticketing.services.UserService;
+import metro.ticketing.services.*;
 
 public class Main {
 
