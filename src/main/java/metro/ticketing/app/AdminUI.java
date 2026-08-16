@@ -286,11 +286,6 @@ public class AdminUI{
             return;
         }
 
-        if(name.equals("0")){
-            System.out.println("Add train cancelled.\n");
-            return;
-        }
-
         if(trainService.isDuplicate(name)){
             System.out.println("A train with this name already exists.\n");
             return;
