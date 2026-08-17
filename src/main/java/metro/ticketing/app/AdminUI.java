@@ -135,19 +135,12 @@ public class AdminUI{
             for(int i = 1; i <= stationService.stationCount(); i++){
                 System.out.println(i + ". " + stationService.stationAt(i).getName());
             }
-            int cancel = stationService.stationCount() + 1;
-            System.out.println(cancel + ". Cancel");
 
             int srcChoice = func.getIntInput("Enter choice: ");
 
-            if(srcChoice == cancel){
-                System.out.println("Add route cancelled.\n");
-                return;
-            }
-
             source = stationService.stationAt(srcChoice);
             if(source == null){
-                System.out.println("Invalid choice. Please enter a number between 1 and " + stationService.stationCount() +".\n");
+                System.out.println("!!!INVALID INPUT!!! Please enter a number between 1 and " + stationService.stationCount() +".\n");
                 continue;
             }
             break;
@@ -159,19 +152,12 @@ public class AdminUI{
             for(int i = 1; i<=stationService.stationCount(); i++){
                 System.out.println(i + ". " + stationService.stationAt(i).getName());
             }
-            int cancel = stationService.stationCount() + 1;
-            System.out.println(cancel + ". Cancel");
 
             int dstChoice = func.getIntInput("Enter choice: ");
 
-            if(dstChoice == cancel){
-                System.out.println("Add route cancelled.\n");
-                return;
-            }
-
             destination = stationService.stationAt(dstChoice);
             if(destination == null){
-                System.out.println("Invalid choice. Please enter a number between 1 and " + stationService.stationCount() + ".\n");
+                System.out.println("!!!INVALID INPUT!!! Please enter a number between 1 and " + stationService.stationCount() + ".\n");
                 continue;
             }
             break;
@@ -183,11 +169,24 @@ public class AdminUI{
         }
         double distanceKm = func.getDblInput("Enter distance in km: ");
 
+        while(true){
+            System.out.println("1. Confirm");
+            System.out.println("2. Cancel");
+            char confirm = func.getChoice();
+
+            if(confirm == '1'){
+                break;
+            }else if(confirm == '2'){
+                System.out.println("Add route cancelled.\n");
+                return;
+            }else{
+                System.out.println("!!!INVALID INPUT!!!\n");
+            }
+        }
         Route newRoute = new Route(routeService.nextId(), source, destination, distanceKm);
         routeService.addRoute(newRoute);
 
         routeService.saveData();
         System.out.println("Route added successfully\n");
     }
-
 }
