@@ -1,16 +1,17 @@
 package metro.ticketing.services;
 
 import metro.ticketing.model.Route;
+import metro.ticketing.model.Station;
 import metro.ticketing.repository.FileManager;
 import metro.ticketing.repository.JSONFileManager;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class RouteService {
-    private HashMap<String, Route> routes = new HashMap<String, Route>();
+    private ArrayList<Route> routes = new ArrayList<Route>();
     private FileManager fileManager = new JSONFileManager("data/route.json");
 
     public RouteService(StationService stationService) {
@@ -25,16 +26,14 @@ public class RouteService {
         for(int i = 0; i < routeJsonArray.length(); i++) {
             JSONObject tempJsonObject = routeJsonArray.getJSONObject(i);
 
-            this.routes.put(tempJsonObject.getString("routeId"), Route.jsonToRoute(tempJsonObject, stationService));
+            this.routes.add(Route.jsonToRoute(tempJsonObject, stationService));
         }
     }
 
     public void saveData() {
         JSONArray inputJsonArray = new JSONArray();
 
-        for (HashMap.Entry<String, Route> entry : this.routes.entrySet()) {
-            Route routeData = entry.getValue();
-
+        for (Route routeData : this.routes) {
             inputJsonArray.put(Route.routeToJsonObject(routeData));
         }
         
@@ -46,9 +45,7 @@ public class RouteService {
     }
 
     public void viewAllRoutes() {
-        for (HashMap.Entry<String, Route> entry : this.routes.entrySet()) {
-            Route outputRoute = entry.getValue();
-
+        for (Route outputRoute : this.routes) {
             outputRoute.displayRoute();
             System.out.println();
         }

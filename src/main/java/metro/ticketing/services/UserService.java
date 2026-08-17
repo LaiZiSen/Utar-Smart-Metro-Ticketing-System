@@ -1,10 +1,15 @@
 package metro.ticketing.services;
 
 import metro.ticketing.enums.UserRole;
+
 import metro.ticketing.model.Passenger;
 import metro.ticketing.model.User;
+
 import metro.ticketing.repository.FileManager;
 import metro.ticketing.repository.JSONFileManager;
+
+import metro.ticketing.include.func;
+import metro.ticketing.exception.InvalidLoginException;
 
 import java.util.HashMap;
 
@@ -13,7 +18,7 @@ import org.json.JSONObject;
 
 public class UserService {
     private HashMap<String, User> users = new HashMap<String, User>();
-    private FileManager fileManager = new JSONFileManager("data/users.json"); 
+    private FileManager fileManager = new JSONFileManager("data/users.json");
 
     public UserService() {
         JSONArray userJsonArray = new JSONArray();
@@ -27,7 +32,7 @@ public class UserService {
         for(int i = 0; i < userJsonArray.length(); i++) {
             JSONObject tempJsonObject = userJsonArray.getJSONObject(i);
             
-            this.users.put(tempJsonObject.getString("name"), User.jsonToUser(tempJsonObject));
+            this.users.put(tempJsonObject.getString("email"), User.jsonToUser(tempJsonObject));
         }
     }
 
@@ -49,16 +54,52 @@ public class UserService {
         }
     }
 
-    // TODO - NOT DONE
-    public void registerUser(User registedUser) {
-        this.users.put(registedUser.getName(), registedUser);
+    private String idIncrement() {
+        int idIncrement = 0;
+
+        for (HashMap.Entry<String, User> entry : this.users.entrySet()) {
+            User tempUser = entry.getValue();
+            String tempId = tempUser.getUserId();
+            int tempIdNum = Integer.parseInt(tempId.substring(1));
+
+            if(tempId.charAt(0) == 'u' && tempIdNum>idIncrement) {
+                    idIncrement = Integer.parseInt(tempId.substring(1));
+            }
+        }
+
+        return func.formatId("u", (idIncrement+1), 4);
     }
 
     // TODO - NOT DONE
-    public User login(String email, String password) {
-        User user1 = new Passenger("", "", "", "", UserRole.PASSENGER, 0);
+    public void registerUser(String name, String email, String password) {
+        Passenger newPassenger = new Passenger(idIncrement(), name, email, password, UserRole.PASSENGER);
 
-        return user1;
+        this.users.put(newPassenger.getEmail(), newPassenger);
+        this.saveData();
+    }
+
+    // TODO - NOT DONE
+    public User login(String email, String password) throws InvalidLoginException{
+        // User user1 = new Passenger("", "", "", "", UserRole.PASSENGER, 0);
+        
+        // check if email exist
+        // if not throw exception
+        //
+        // check if password matches
+        // if not throw exception
+        // if yes return user
+
+        User output = users.get(email);
+       
+        if (output == null) {
+            throw new InvalidLoginException();
+        }
+
+        if (!output.getPassword().equals(password)) {
+            throw new InvalidLoginException();
+        }
+
+        return output;
     }
 
     // TODO - NOT DONE
@@ -89,4 +130,14 @@ public class UserService {
         }
         return null;
     }
+
+    public boolean emailExists(String email) {
+        for (HashMap.Entry<String, User> entry : this.users.entrySet()) {
+            User tempUser = entry.getValue();
+            if (email.equals(tempUser.getEmail())) {
+                return true;
+            }
+        }
+        return false;
+    } 
 }

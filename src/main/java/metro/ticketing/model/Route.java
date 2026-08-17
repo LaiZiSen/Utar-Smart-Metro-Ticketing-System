@@ -26,6 +26,22 @@ public class Route {
         return distanceKm;
     }
 
+    public void setRouteId(String routeId){
+        this.routeId = routeId;
+    }
+
+    public void setSource(Station source){
+        this.source = source;
+    }
+
+    public void setDestination(Station destination){
+        this.destination = destination;
+    }
+
+    public void setDistanceKm(double distanceKm){
+        this.distanceKm = distanceKm;
+    }
+
     public Route (String routeId, Station source, Station destination, double distanceKm) {
         this.routeId = routeId;
         this.source = source;
