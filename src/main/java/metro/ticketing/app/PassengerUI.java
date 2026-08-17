@@ -4,11 +4,12 @@ import java.util.Scanner;
 
 import metro.ticketing.model.Passenger;
 import metro.ticketing.include.func;
+import metro.ticketing.payment.*;
 
 import metro.ticketing.services.TicketService;
 import metro.ticketing.services.StationService;
 import metro.ticketing.services.UserService;
-
+import metro.ticketing.services.PaymentService;
 
 public class PassengerUI{
     private Passenger passenger;
@@ -103,6 +104,7 @@ public class PassengerUI{
                     // if using card, get card number
                     // execute payment
                     // if true, which will always be true, add amount to balance
+                    reloadBalance();
                     break;
 
                 case '2':
@@ -116,11 +118,43 @@ public class PassengerUI{
         }
     }
 
-    prviate void reloadBalance() {
+    private void reloadBalance() {
         int reloadAmount = 0;
+        
+        reloadAmount = func.getIntInput("Input reload amount:  RM");
+        Payment payment = null;
 
-        do {
-            reloadAmount = 
+        System.out.println("Choose payment method");
+        System.out.println("1. Cash payment");
+        System.out.println("2. Card payment");
+
+        boolean running = true;
+        while(running) {
+            char choice = func.getChoice();
+
+            switch (choice) {
+                case '1':
+                    payment = new CashPayment();
+                    running = false;
+                    break;
+                
+                case '2':
+                    String cardNumber = func.getStrInput("Enter card number:  ");
+                    payment = new CardPayment(cardNumber);
+                    running = false;
+                    break;
+
+                default:
+                    System.out.println("INVALID CHOICE!!!");
+            }
+        }
+
+        PaymentService pService = new PaymentService();
+
+        if (pService.processPayment((Payment)payment, reloadAmount)) {
+            passenger.topupBalance(reloadAmount);
+
+            uService.editUser(passenger.getEmail(), passenger);
         }
     }
 }

@@ -9,8 +9,6 @@ public class PaymentService {
 
     public boolean processPayment(Payment payment, int amount){
         // just runs the pay method from payment i suppose
-    
-        return true;
+        return payment.pay(amount);
     }
-
 }

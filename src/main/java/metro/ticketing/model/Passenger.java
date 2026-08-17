@@ -34,4 +34,8 @@ public class Passenger extends User{
         func.printHeader("",' ');
     }
 
+    public void topupBalance(int amount) {
+        this.balance = this.balance + amount;
+    }
+
 }
