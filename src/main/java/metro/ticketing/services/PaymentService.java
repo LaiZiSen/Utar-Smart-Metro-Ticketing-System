@@ -1,18 +1,16 @@
 package metro.ticketing.services;
 
-import java.util.Arraylist;
-
-import metro.ticketing.repository.FileManager;
-import metro.ticketing.repository.JsonFileManager;
-import metro.ticketing.model.User;
+import metro.ticketing.payment.*;
 
 public class PaymentService {
     public PaymentService() {
 
     }
 
-    public boolean processPayment(){
-
+    public boolean processPayment(Payment payment, int amount){
+        // just runs the pay method from payment i suppose
+    
+        return true;
     }
 
 }

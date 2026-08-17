@@ -44,11 +44,8 @@ public class PassengerUI{
                     passenger.viewProfile();
                     break;
                 
-                case '4':
-                    func.clear(); 
+                case '4':     
                     balanceUI();
-                    func.getChoice();
-
                     break;
                 
                 case '5':
@@ -83,13 +80,47 @@ public class PassengerUI{
         System.out.println("5. Logout");
     }
 
-    private void balanceUI() {
-        passenger.viewBalance();
+    private void balanceMenu(){
+            func.printHeader("Balance Menu", '-');
+            System.out.println("1. Reload Balance");
+            System.out.println("2. Return to Passenger menu");
+            func.printHeader("", ' ');
+    }
 
-        func.printHeader("Balance Menu", '-');
-        System.out.println("1. Reload Balance");
-        System.out.println("2. Reload History");
-        System.out.println("3. Return to Passenger menu");
-        func.printHeader("", ' ');
+    private void balanceUI() {
+        while (true) {
+            func.clear();
+            passenger.viewBalance();
+
+            balanceMenu();
+
+            char choice = func.getChoice();
+
+            switch (choice) {
+                case '1':
+                    // get reload amount
+                    // get reload method 
+                    // if using card, get card number
+                    // execute payment
+                    // if true, which will always be true, add amount to balance
+                    break;
+
+                case '2':
+                    System.out.println("Returning to Passenger menu........");
+                    System.out.println("");
+                    func.pause();
+
+                    return;
+            }
+
+        }
+    }
+
+    prviate void reloadBalance() {
+        int reloadAmount = 0;
+
+        do {
+            reloadAmount = 
+        }
     }
 }
