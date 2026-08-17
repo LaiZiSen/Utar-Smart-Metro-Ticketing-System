@@ -2,15 +2,12 @@ package metro.ticketing.app;
 
 import java.util.Scanner;
 
-import metro.ticketing.model.User;
-import metro.ticketing.model.Passenger;
-import metro.ticketing.model.Admin;
-
-import metro.ticketing.services.*;
-
-import metro.ticketing.include.func;
-import metro.ticketing.enums.UserRole;
 import metro.ticketing.exception.InvalidLoginException;
+import metro.ticketing.include.func;
+import metro.ticketing.model.Admin;
+import metro.ticketing.model.Passenger;
+import metro.ticketing.model.User;
+import metro.ticketing.services.*;
 
 public class Main {
 
