@@ -124,7 +124,8 @@ public class Ticket {
         value.put("passenger", ticketData.getPassenger());
         value.put("source", ticketData.getSource().getStationId());
         value.put("destination", ticketData.getDestination().getStationId());
-        value.put("ticketType", ticketData.getStatus());
+        value.put("ticketType", ticketData.getTicketType());
+        value.put("TicketStatus", ticketData.getStatus());
         value.put("fare", ticketData.getFare());
     
         return value;
