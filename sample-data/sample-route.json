@@ -1,8 +1,62 @@
 [
-    {
-        "routeId" : "r001",
-        "source" : "st001",
-        "destination" : "st002",
-        "distanceKm" : 212
-    }
+  {
+    "routeId" : "r001",
+    "source" : "st001",
+    "destination" : "st002",
+    "distanceKm" : 45
+  },
+  {
+    "routeId" : "r002",
+    "source" : "st002",
+    "destination" : "st003",
+    "distanceKm" : 23
+  },
+  {
+    "routeId" : "r003",
+    "source" : "st003",
+    "destination" : "st001",
+    "distanceKm" : 35
+  },
+  {
+    "routeId" : "r004",
+    "source" : "st001",
+    "destination" : "st004",
+    "distanceKm" : 78
+  },
+  {
+    "routeId" : "r005",
+    "source" : "st004",
+    "destination" : "st005",
+    "distanceKm" : 56
+  },
+  {
+    "routeId" : "r006",
+    "source" : "st005",
+    "destination" : "st006",
+    "distanceKm" : 64
+  },
+  {
+    "routeId" : "r007",
+    "source" : "st006",
+    "destination" : "st007",
+    "distanceKm" : 41
+  },
+  {
+    "routeId" : "r008",
+    "source" : "st007",
+    "destination" : "st003",
+    "distanceKm" : 92
+  },
+  {
+    "routeId" : "r009",
+    "source" : "st002",
+    "destination" : "st005",
+    "distanceKm" : 110
+  },
+  {
+    "routeId" : "r010",
+    "source" : "st004",
+    "destination" : "st007",
+    "distanceKm" : 73
+  }
 ]
