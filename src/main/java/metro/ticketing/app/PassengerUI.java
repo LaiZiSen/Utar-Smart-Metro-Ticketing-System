@@ -1,11 +1,15 @@
 package metro.ticketing.app;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import metro.ticketing.model.Passenger;
+import metro.ticketing.model.Route;
+import metro.ticketing.enums.TicketType;
 import metro.ticketing.include.func;
 
 import metro.ticketing.services.TicketService;
+import metro.ticketing.services.RouteService;
 import metro.ticketing.services.StationService;
 import metro.ticketing.services.UserService;
 
@@ -14,11 +18,14 @@ public class PassengerUI{
     private Passenger passenger;
     private UserService uService;
     private StationService stService;
+    private RouteService rService; 
     private TicketService tkService;
 
-    public PassengerUI(Passenger passenger, UserService uService, TicketService tkService) {
+    public PassengerUI(Passenger passenger, UserService uService, StationService stService, RouteService rService, TicketService tkService) {
         this.passenger = passenger;
         this.uService = uService;
+        this.stService = stService; 
+        this.rService = rService; 
         this.tkService = tkService;
     }
 
@@ -33,8 +40,7 @@ public class PassengerUI{
 
             switch (choice) {
                 case '1':
-                    System.out.println("next ticket id is :  " + tkService.idIncrement()); // this is for testing only
-                    func.pause();
+                    buyTicketUI(); 
                     break;
                 
                 case '2':
@@ -63,6 +69,76 @@ public class PassengerUI{
         }
 
 
+    }
+
+    private void buyTicketUI(){
+        func.clear();
+        func.printHeader("Buy Ticket", '-');
+
+        Route route = selectRoute(); 
+
+        if(route == null){
+            return; 
+        }
+
+        TicketType type = selectTicketType(); 
+
+        if(type == null){
+            return; 
+        }
+
+        tkService.buyTicket(passenger, route, type);
+    }
+
+    private Route selectRoute(){
+        System.out.println("Available Routes: ");
+        System.out.println();
+
+        ArrayList<Route> routes = rService.getAllRoutes(); 
+
+        for(int i = 0; i < routes.size(); i++){
+
+            System.out.println((i + 1) + ". " + routes.get(i).getSource().getName() + " --> " + routes.get(i).getDestination().getName() + " (" + routes.get(i).getDistanceKm() + " km)");
+        }
+
+        System.out.println();
+
+        int choice = Integer.parseInt(func.getStrInput("Select Route: ")); 
+
+        if(choice < 1 || choice > routes.size()){
+            System.out.println("Invalid route selection. ");
+            func.pause();
+            return null; 
+        }
+
+        return routes.get(choice - 1); 
+    }
+
+    private TicketType selectTicketType(){
+        System.out.println();
+        System.out.println("Please Select Ticket Type: ");
+        System.out.println("1. Single Ticket");
+        System.out.println("2. Daily Ticket");
+        System.out.println("3. Monthly Ticket");
+        System.out.println();
+
+        char choice = func.getChoice(); 
+
+        switch (choice) {
+            case '1':
+                return TicketType.SINGLE; 
+
+            case '2': 
+                return TicketType.DAILY; 
+
+            case '3': 
+                return TicketType.MONTHLY; 
+        
+            default:
+                System.out.println("Invalid ticket type. ");
+                func.pause();
+                return null; 
+        }
     }
    
     private void passengerMenu() {

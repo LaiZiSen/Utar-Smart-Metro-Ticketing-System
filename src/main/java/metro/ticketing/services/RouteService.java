@@ -50,4 +50,9 @@ public class RouteService {
             System.out.println();
         }
     }
+
+    public ArrayList<Route> getAllRoutes(){
+        return this.routes; 
+    }
+    
 }
