@@ -41,6 +41,50 @@ public class func{
         return output;
     }
 
+    public static int getIntInput(String ques) {
+        Scanner scanner = new Scanner(System.in);
+        int output = 0;
+
+        do {
+            String input = getStrInput(ques);
+            System.out.println("");
+            try {
+                output = Integer.parseInt(input);
+                if (output <= 0) {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+
+                System.out.println("INVALID INPUT!!!!");
+                System.out.println("");
+            }
+        } while (output <= 0);
+        
+        return output;
+    }
+        
+    public static double getDblInput(String ques) {
+        Scanner scanner = new Scanner(System.in);
+        double output = 0;
+
+        do {
+            String input = getStrInput(ques);
+            System.out.println("");
+            try {
+                output = Double.parseDouble(input);
+                if (output <= 0) {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+
+                System.out.println("INVALID INPUT!!!!");
+                System.out.println("");
+            }
+        } while (output <= 0);
+        
+        return output;
+    }
+
     public static void printHeader(String msg, char filler) {
        // length 34 
 

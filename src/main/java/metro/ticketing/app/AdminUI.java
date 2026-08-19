@@ -63,8 +63,6 @@ public class AdminUI{
                     break;
             }
         }
-
-
     }
    
     private void adminMenu() {
@@ -118,9 +116,12 @@ public class AdminUI{
     private static void viewAllRoute(RouteService routeService){
         routeService.viewAllRoutes();
 
-        int choice = Integer.parseInt(func.getStrLnInput("Enter number to view details (Press 0 to cancel): "));
+        int cancel = routeService.routeCount() + 1;
+        System.out.println(cancel + ". Cancel");
 
-        if(choice == 0){
+        int choice = func.getIntInput("Enter number to view details: ");
+
+        if(choice == cancel){
             return;
         }
         routeService.showRoute(choice);
@@ -135,64 +136,58 @@ public class AdminUI{
         
         Station source;
         while(true){
-            System.out.println("Select source station (Press 0 to cancel): ");
+            System.out.println("Select source station: ");
             for(int i = 1; i <= stationService.stationCount(); i++){
-                System.out.println(i + "." + stationService.stationAt(i).getName());
+                System.out.println(i + ". " + stationService.stationAt(i).getName());
             }
 
-            try{
-                int srcChoice = Integer.parseInt(func.getStrInput("Enter choice: "));
+            int srcChoice = func.getIntInput("Enter choice: ");
 
-                if(srcChoice == 0){
-                    System.out.println("Add Route cancelled.\n");
-                    return;
-                }
-
-                source = stationService.stationAt(srcChoice);
-
-                if(source == null){
-                    System.out.println("Invalid choice. Please enter a number between 1 and " + stationService.stationCount() + ".\n");
-                    continue;
-                }
-                break;    
-            } catch(NumberFormatException e){
-                System.out.println("Invalid input. Please enter a number.\n");
+            source = stationService.stationAt(srcChoice);
+            if(source == null){
+                System.out.println("!!!INVALID INPUT!!! Please enter a number between 1 and " + stationService.stationCount() +".\n");
+                continue;
             }
+            break;
         }
 
         Station destination;
         while(true){
-            System.out.println("Select destination station (Press 0 to cancel): ");
-            for(int i = 1; i <= stationService.stationCount(); i++){
-                System.out.println(i + "." + stationService.stationAt(i).getName());
+            System.out.println("Select destination station: ");
+            for(int i = 1; i<=stationService.stationCount(); i++){
+                System.out.println(i + ". " + stationService.stationAt(i).getName());
             }
 
-            try{
-                int dstChoice = Integer.parseInt(func.getStrInput("Enter choice: "));
+            int dstChoice = func.getIntInput("Enter choice: ");
 
-                if(dstChoice == 0){
-                    System.out.println("Add Route Cancelled.\n");
-                    return;
-                }
-
-                destination = stationService.stationAt(dstChoice);
-
-                if(destination == null){
-                    System.out.println("Invalid choice. Please enter a number between 1 and " + stationService.stationCount() + ".\n");
-                    continue;
-                }
-                break;
-            } catch(NumberFormatException e){
-                System.out.println("Invalid input. Please enter a number.\n");
+            destination = stationService.stationAt(dstChoice);
+            if(destination == null){
+                System.out.println("!!!INVALID INPUT!!! Please enter a number between 1 and " + stationService.stationCount() + ".\n");
+                continue;
             }
+            break;
         }
 
         if(routeService.isDuplicate(source, destination)){
             System.out.println("This route already exists.\n");
             return;
         }
-        double distanceKm = Double.parseDouble(func.getStrInput("Enter distance in km: "));
+        double distanceKm = func.getDblInput("Enter distance in km: ");
 
+        while(true){
+            System.out.println("1. Confirm");
+            System.out.println("2. Cancel");
+            char confirm = func.getChoice();
+
+            if(confirm == '1'){
+                break;
+            }else if(confirm == '2'){
+                System.out.println("Add route cancelled.\n");
+                return;
+            }else{
+                System.out.println("!!!INVALID INPUT!!!\n");
+            }
+        }
         Route newRoute = new Route(routeService.nextId(), source, destination, distanceKm);
         routeService.addRoute(newRoute);
 
@@ -229,12 +224,7 @@ public class AdminUI{
     }
 
     private static void addStation(StationService stationService){
-        String name = func.getStrLnInput("Enter station name (Press 0 to cancel): ");
-
-        if(name.equals("0")){
-            System.out.println("Add station cancalled.\n");
-            return;
-        }
+        String name = func.getStrLnInput("Enter station name: ");
 
         if(stationService.searchStation(name) != null){
             System.out.println("A station with this name already exists.\n");
@@ -243,11 +233,25 @@ public class AdminUI{
 
         String location = func.getStrLnInput("Enter station location: ");
 
+        while(true){
+            System.out.println("1. Confirm");
+            System.out.println("2. Cancel");
+            char confirm = func.getChoice();
+
+            if(confirm == '1'){
+                break;
+            }else if(confirm == '2'){
+                System.out.println("Add station cancelled.\n");
+                return;
+            }else{
+                System.out.println("!!!INVALID INPUT!!!\n");
+            }
+        }
         Station newStation = new Station(stationService.nextId(), name, location);
         stationService.addStation(newStation);
 
         stationService.saveData();
-        System.out.println("Station added successfully\n");
+        System.out.println("Station added successfully.\n");
     }
 
     private static void trainMenu(TrainService trainService){
@@ -314,12 +318,3 @@ public class AdminUI{
     }
 
 }
-
-
-
-
-
-                                                                            
-                                                                            
-                                                                            
- 
