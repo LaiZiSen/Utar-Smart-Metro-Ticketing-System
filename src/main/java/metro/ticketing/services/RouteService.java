@@ -53,6 +53,10 @@ public class RouteService {
         }
     }
 
+    public int routeCount(){
+        return this.routes.size();
+    }
+
     public void showRoute(int index){
         if(index < 1 || index > this.routes.size()){
             System.out.println("Invalid selection.\n");

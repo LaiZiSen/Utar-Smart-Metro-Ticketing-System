@@ -1,12 +1,37 @@
 [
-    {
-        "stationId" : "st001",
-        "name" : "Volgorad Station",
-        "location" : "Volgorad Station \nStalin's Road \nStellingard"
-    },
-    {
-        "stationId" : "st002",
-        "name" : "Chernobly Station",
-        "location" : "Chernobly Station \nRoad 1986\nUkraine"
-    }
+  {
+    "stationId" : "st001",
+    "name" : "Volgorad Station",
+    "location" : "Volgorad Station, Stalin's Road, Stellingard"
+  },
+  {
+    "stationId" : "st002",
+    "name" : "Chernobly Station",
+    "location" : "Chernobly Station, Road 1986, Ukraine"
+  },
+  {
+    "stationId" : "st003",
+    "name" : "Novosibirsk Central Station",
+    "location" : "Novosibirsk Central Station, Lenin Avenue, Siberia"
+  },
+  {
+    "stationId" : "st004",
+    "name" : "Krasnograd Station",
+    "location" : "Krasnograd Station, Red Star Boulevard, Eastern Federation"
+  },
+  {
+    "stationId" : "st005",
+    "name" : "Mikhailovsk Station",
+    "location" : "Mikhailovsk Station, Victory Square, Northern Territory"
+  },
+  {
+    "stationId" : "st006",
+    "name" : "Petrovskiy Station",
+    "location" : "Petrovskiy Station, Soviet Unity Road, Petrograd District"
+  },
+  {
+    "stationId" : "st007",
+    "name" : "Zvezdnaya Station",
+    "location" : "Zvezdnaya Station, Cosmonaut Street, Star City Region"
+  }
 ]
