@@ -113,7 +113,7 @@ public class AdminUI{
         routeService.viewAllRoutes();
 
         int cancel = routeService.routeCount() + 1;
-        System.out.println(cancel + ". Cancel");
+        System.out.printf("%-5s| Cancel%n", cancel + ".");
 
         int choice = func.getIntInput("Enter number to view details: ");
 
@@ -159,6 +159,10 @@ public class AdminUI{
             destination = stationService.stationAt(dstChoice);
             if(destination == null){
                 System.out.println("!!!INVALID INPUT!!! Please enter a number between 1 and " + stationService.stationCount() + ".\n");
+                continue;
+            }
+            if(routeService.isSame(source, destination)){
+                System.out.println("!!!INVALID INPUT!!! Destination cannot be the same as source station.\n");
                 continue;
             }
             break;

@@ -46,10 +46,10 @@ public class RouteService {
     }
 
     public void viewAllRoutes() {
+        System.out.printf("%-5s| %-10s| %-30s| %-30s%n", "No.","Route ID", "Source", "Destination");
         for (int i = 0; i < this.routes.size(); i++) {
             Route route = this.routes.get(i);
-            System.out.println((i + 1) + ". " + route.getRouteId() + " | "
-                + route.getSource().getName() + " to " + route.getDestination().getName());
+            System.out.printf("%-5s| %-10s| %-30s| %-30s%n", (i+1) + ".", route.getRouteId(), route.getSource().getName(), route.getDestination().getName());
         }
     }
 
@@ -114,6 +114,10 @@ public class RouteService {
                 }
         }
         return false;
+    }
+
+    public boolean isSame(Station source, Station destination){
+        return source.getStationId().equals(destination.getStationId());
     }
 
     public void addRoute(Route route){
