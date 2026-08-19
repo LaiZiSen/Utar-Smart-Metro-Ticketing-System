@@ -121,7 +121,7 @@ public class PassengerUI{
     private void reloadBalance() {
         int reloadAmount = 0;
         
-        reloadAmount = func.getIntInput("Input reload amount:  RM");
+        reloadAmount = func.getIntInput("\nInput reload amount:  RM");
         Payment payment = null;
 
         System.out.println("Choose payment method");
@@ -131,6 +131,7 @@ public class PassengerUI{
         boolean running = true;
         while(running) {
             char choice = func.getChoice();
+            System.out.println("");
 
             switch (choice) {
                 case '1':
@@ -155,6 +156,8 @@ public class PassengerUI{
             passenger.topupBalance(reloadAmount);
 
             uService.editUser(passenger.getEmail(), passenger);
+            System.out.println("Topup successful, please check your balance!");
+            func.pause();
         }
     }
 }
