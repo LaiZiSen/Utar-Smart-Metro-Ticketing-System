@@ -220,12 +220,7 @@ public class AdminUI{
     }
 
     private static void addStation(StationService stationService){
-        String name = func.getStrLnInput("Enter station name (Press 0 to cancel): ");
-
-        if(name.equals("0")){
-            System.out.println("Add station cancalled.\n");
-            return;
-        }
+        String name = func.getStrLnInput("Enter station name: ");
 
         if(stationService.searchStation(name) != null){
             System.out.println("A station with this name already exists.\n");
@@ -234,11 +229,25 @@ public class AdminUI{
 
         String location = func.getStrLnInput("Enter station location: ");
 
+        while(true){
+            System.out.println("1. Confirm");
+            System.out.println("2. Cancel");
+            char confirm = func.getChoice();
+
+            if(confirm == '1'){
+                break;
+            }else if(confirm == '2'){
+                System.out.println("Add station cancelled.\n");
+                return;
+            }else{
+                System.out.println("!!!INVALID INPUT!!!\n");
+            }
+        }
         Station newStation = new Station(stationService.nextId(), name, location);
         stationService.addStation(newStation);
 
         stationService.saveData();
-        System.out.println("Station added successfully\n");
+        System.out.println("Station added successfully.\n");
     }
 
 }
