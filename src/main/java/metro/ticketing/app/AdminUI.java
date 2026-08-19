@@ -283,30 +283,27 @@ public class AdminUI{
     }
 
     private static void addTrain(TrainService trainService){
-        String name = func.getStrLnInput("Enter train name (Press 0 to cancel): ");
-
-        if(name.equals("0")){
-            System.out.println("Add Train cancelled.\n");
-            return;
-        }
+        String name = func.getStrLnInput("Enter train name: ");
 
         if(trainService.isDuplicate(name)){
             System.out.println("A train with this name already exists.\n");
             return;
         }
 
-        int capacity;
-        while(true){
-            try{
-                capacity = Integer.parseInt(func.getStrInput("Enter train capcity: "));
+        int capacity = func.getIntInput("Enter train capcity: ");
 
-                if(capacity <= 0){
-                    System.out.println("Capacity must be greater than 0.\n");
-                    continue;
-                }
+        while(true){
+            System.out.println("1. Confirm");
+            System.out.println("2. Cancel");
+            char confirm = func.getChoice();
+
+            if(confirm == '1'){
                 break;
-            }catch(NumberFormatException e){
-                System.out.println("Invalid input. Please enter a number.\n");
+            }else if(confirm == '2'){
+                System.out.println("Add train cancelled.\n");
+                return;
+            }else{
+                System.out.println("!!!INVALID INPUT!!!\n");
             }
         }
 
