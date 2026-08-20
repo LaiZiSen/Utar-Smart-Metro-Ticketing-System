@@ -19,7 +19,8 @@ public class TXTFileManager implements FileManager {
         JSONArray outputArray = new JSONArray();
 
         for(String line: lines){
-            if(line.isBlank()) continue;
+            if(line.isBlank()) 
+            continue;
 
             String[] parts = line.split("=",2);
             JSONObject entry = new JSONObject();
