@@ -154,8 +154,10 @@ public class PassengerUI{
 
         if (pService.processPayment((Payment)payment, reloadAmount)) {
             passenger.topupBalance(reloadAmount);
-
-            uService.editUser(passenger.getEmail(), passenger);
+            
+            uService.saveData();
+            System.out.println("Passenger balance after topup: " + ((Passenger) uService.getUserById(passenger.getUserId())).getBalance());
+            
             System.out.println("Topup successful, please check your balance!");
             func.pause();
         }
