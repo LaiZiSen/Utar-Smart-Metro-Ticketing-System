@@ -6,6 +6,7 @@ import metro.ticketing.include.func;
 import metro.ticketing.model.Admin;
 import metro.ticketing.model.Route;
 import metro.ticketing.model.Station;
+import metro.ticketing.services.ReportService;
 import metro.ticketing.services.RouteService;
 import metro.ticketing.services.StationService;
 
@@ -43,6 +44,8 @@ public class AdminUI{
                     break;
                
                 case '5':
+                    new ReportService().run();
+
                     break;
 
                 case '6':
