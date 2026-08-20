@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import metro.ticketing.model.Admin;
 import metro.ticketing.include.func;
+import metro.ticketing.services.ReportService;
 
 public class AdminUI{
     private Admin admin;
@@ -35,6 +36,8 @@ public class AdminUI{
                     break;
                
                 case '5':
+                    new ReportService().run();
+
                     break;
 
                 case '6':

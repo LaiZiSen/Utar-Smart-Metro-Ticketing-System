@@ -139,5 +139,12 @@ public class UserService {
             }
         }
         return false;
-    } 
+    }
+
+    public void editUser(String name, User user) {
+        this.users.put(name, user);
+
+        saveData();
+    }
+
 }
