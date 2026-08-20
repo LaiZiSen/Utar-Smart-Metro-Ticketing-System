@@ -105,10 +105,14 @@ public abstract class User {
         func.printHeader("PROFILE", ' ');
         func.printHeader("", '=');
    
-        System.out.printf("%-15s%s\n", "Name:", this.name);
-        System.out.printf("%-15s%s\n", "Email:", this.email);
-        System.out.printf("%-15s%s\n", "Password:", this.password);
-        System.out.printf("%-15s%s\n", "userId:", this.userId);
+        System.out.printf("%-15s:%s\n", "Name:", this.name);
+        System.out.printf("%-15s:%s\n", "Email", this.email);
+        System.out.printf("%-15s:%s\n", "Password", this.password);
+        System.out.printf("%-15s:%s\n", "userId", this.userId);
+            
+        if (this instanceof Passenger) {
+            System.out.printf("%-15s:%f\n","Balance",((Passenger) this).getBalance());
+        }
         func.printHeader("", '=');
         System.out.println("");
         
