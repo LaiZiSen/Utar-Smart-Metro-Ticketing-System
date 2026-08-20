@@ -5,12 +5,15 @@ import java.util.Scanner;
 import metro.ticketing.model.Admin;
 import metro.ticketing.include.func;
 import metro.ticketing.services.ReportService;
+import metro.ticketing.services.TicketService;
 
 public class AdminUI{
     private Admin admin;
+    private TicketService tkService; 
 
-    public AdminUI(Admin admin) {
+    public AdminUI(Admin admin, TicketService tkService) {
         this.admin = admin;
+        this.tkService = tkService; 
     }
 
     public void run(){
@@ -36,7 +39,7 @@ public class AdminUI{
                     break;
                
                 case '5':
-                    new ReportService().run();
+                    new ReportService(tkService).run();
 
                     break;
 
