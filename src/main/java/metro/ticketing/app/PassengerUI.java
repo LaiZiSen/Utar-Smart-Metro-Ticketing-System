@@ -82,10 +82,10 @@ public class PassengerUI{
     }
 
     private void balanceMenu(){
-            func.printHeader("Balance Menu", '-');
-            System.out.println("1. Reload Balance");
-            System.out.println("2. Return to Passenger menu");
-            func.printHeader("", ' ');
+        func.printHeader("Balance Menu", '-');
+        System.out.println("1. Reload Balance");
+        System.out.println("2. Return to Passenger menu");
+        func.printHeader("", ' ');
     }
 
     private void balanceUI() {
