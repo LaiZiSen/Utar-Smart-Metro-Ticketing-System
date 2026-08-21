@@ -1,6 +1,8 @@
 package metro.ticketing.services;
 
 import metro.ticketing.model.Ticket;
+import metro.ticketing.enums.TicketStatus;
+import metro.ticketing.enums.TicketType;
 import metro.ticketing.include.func;
 
 import java.util.ArrayList;
@@ -83,13 +85,13 @@ public class ReportService {
         func.clear();
         func.printHeader("Total Sales", '=');
 
-        System.out.printf("Single Ticket    : " + singleCount);
-        System.out.printf("Daily Ticket     : " + dailyCount);
-        System.out.printf("Monthly Ticket   : " + monthlyCount);
+        System.out.println("Single Ticket   : " + singleCount);
+        System.out.println("Daily Ticket    : " + dailyCount);
+        System.out.println("Monthly Ticket  : " + monthlyCount);
         System.out.println("------------------------------");
-        System.out.printf("Total Tickets    : " + total);
+        System.out.println("Total Tickets   : " + total);
 
-        func.printHeader(" ", '-');
+        func.printHeader("", '-');
         func.pause();
     }
 
@@ -119,19 +121,51 @@ public class ReportService {
         func.clear();
         func.printHeader("Total Revenue", '=');
 
-        System.out.printf("Single Ticket    : RM%.2f%n", singleRevenue); 
-        System.out.printf("Daily Ticket     : RM%.2f%n" , monthlyRevenue); 
-        System.out.printf("Monthly Ticket   : RM%.2f%n", monthlyRevenue); 
+        System.out.printf("Single Ticket   : RM%.2f%n", singleRevenue); 
+        System.out.printf("Daily Ticket    : RM%.2f%n" , monthlyRevenue); 
+        System.out.printf("Monthly Ticket  : RM%.2f%n", monthlyRevenue); 
         System.out.println("------------------------------");
-        System.out.printf("Total Revenue    : RM%.2f%n", totalRevenue); 
+        System.out.printf("Total Revenue   : RM%.2f%n", totalRevenue); 
 
-        func.printHeader(" ", '-');
+        func.printHeader("", '-');
         func.pause();
 
     }
 
     public void showCancelledTickets() {
-        // show total ticket canceled 
-        // seperated by category and total too 
-    } 
+        int totalTkCancelled = 0; 
+        int singleTkCancelled = 0; 
+        int dailyTkCancelled = 0; 
+        int monthlyTkCancelled = 0; 
+
+        for(Ticket ticket : tickets){
+            if(ticket.getStatus() == TicketStatus.CANCELLED){
+                totalTkCancelled++; 
+
+                if(ticket.getTicketType() == TicketType.SINGLE){
+                    singleTkCancelled++; 
+                }
+                else if(ticket.getTicketType() == TicketType.DAILY){
+                    dailyTkCancelled++; 
+                }
+                else if(ticket.getTicketType() == TicketType.MONTHLY){
+                    monthlyTkCancelled++; 
+                }
+            }
+        }
+
+        func.clear();
+        func.printHeader("Cancelled Tickets", '=');
+
+        System.out.println("Single Tickets Cancelled    : " + singleTkCancelled);
+        System.out.println("Daily Tickets Cancelled     : " + dailyTkCancelled);
+        System.out.println("Monthly Tickets Cancelled   : " + monthlyTkCancelled);
+        System.out.println("------------------------------");
+        System.out.println("Total Cancelled Tickets     : " + totalTkCancelled); 
+
+        func.printHeader("", '-');
+        func.pause();
+
+    }
+
 }
