@@ -99,4 +99,82 @@ public class StationService {
     public void addStation(Station station){
         this.stations.add(station);
     }
+
+    public void run(){
+        while(true){
+            stationMenu();
+
+            char choice = func.getChoice();
+            System.out.println("");
+
+            switch(choice){
+                case '1':
+                    viewStation();
+                    break;
+
+                case '2':
+                    addStation();
+                    break;
+                
+                case '3':
+                    return;
+                    
+                default:
+                    System.out.println("!!!INVALID INPUT!!!");
+                    func.pause();
+                    break;    
+            }
+        }
+    }
+
+    public void stationMenu(){
+        func.clear();
+        func.printHeader("Station System", '=');
+        System.out.println("1. View Stations");
+        System.out.println("2. Add Station");
+        System.out.println("3. Back");
+        func.printHeader("", '-');
+    }
+
+    public void viewStation(){
+        func.clear();
+        viewStations();
+        func.pause();
+    }
+
+    public void addStation(){
+        func.clear();
+
+        String name = func.getStrLnInput("Enter station name: ");
+
+        if(searchStation(name) != null){
+            System.out.println("A station with this name already exists.\n");
+            func.pause();
+            return;
+        }
+
+        String location = func.getStrLnInput("Enter station location: ");
+
+        while(true){
+            System.out.println("1. Confirm");
+            System.out.println("2. Cancel");
+            char confirm = func.getChoice();
+
+            if(confirm == '1'){
+                break;
+            }else if(confirm == '2'){
+                System.out.println("Add station cancelled.\n");
+                func.pause();
+                return;
+            }else{
+                System.out.println("!!!INVALID INPUT!!!\n");
+            }
+        }
+        Station newStation = new Station(nextId(), name, location);
+        addStation(newStation);
+
+        saveData();
+        System.out.println("Station added successfully. \n");
+        func.pause();
+    }
 }
