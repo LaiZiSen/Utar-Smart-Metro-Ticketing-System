@@ -2,19 +2,16 @@ package metro.ticketing.app;
 
 import java.util.Scanner;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import metro.ticketing.include.func;
 import metro.ticketing.model.Admin;
 import metro.ticketing.model.Route;
 import metro.ticketing.model.Station;
 import metro.ticketing.model.Train;
-import metro.ticketing.repository.TXTFileManager;
 import metro.ticketing.services.ReportService;
 import metro.ticketing.services.RouteService;
 import metro.ticketing.services.StationService;
 import metro.ticketing.services.TrainService;
+import metro.ticketing.services.RateService;
 
 public class AdminUI{
     private Admin admin;
@@ -28,7 +25,6 @@ public class AdminUI{
         StationService stationService = new StationService();
         RouteService routeService = new RouteService(stationService);
         TrainService trainService = new TrainService();
-        TXTFileManager rateFileManager = new TXTFileManager("data/rate.txt");
 
         while(true) {
             adminMenu();
@@ -50,7 +46,7 @@ public class AdminUI{
                     break;
                 
                 case '4':
-                    rateMenu(rateFileManager);
+                    new RateService().run();
                     break;
                
                 case '5':
@@ -326,90 +322,4 @@ public class AdminUI{
         trainService.saveData();
         System.out.println("Train added successfully\n");
     }
-
-    private static void rateMenu(TXTFileManager rateFileManager){
-        while(true){
-            func.printHeader("Ticket Rate", '-');
-            System.out.println("1. View Rates");
-            System.out.println("2. Adjust Rates");
-            System.out.println("3. Back");
-
-            char choice = func.getChoice();
-            System.out.println("");
-
-            switch(choice){
-                case '1':
-                    viewRates(rateFileManager);
-                    break;
-                case '2':
-                    adjustRate(rateFileManager);
-                    break;
-                case '3':
-                    return;
-                default:
-                    System.out.println("!!!INVALID INPUT!!!\n");        
-            }
-        }
-    }
-
-    private static void viewRates(TXTFileManager rateFileManager){
-        JSONArray rateJsonArray;
-        try{
-            rateJsonArray = rateFileManager.loadData();
-        }catch(Exception e){
-            System.out.println("Failed to load rate data\n");
-            return;
-        }
-
-        for(int i = 0; i<rateJsonArray.length(); i++){
-            JSONObject  entry = rateJsonArray.getJSONObject(i);
-            System.out.println(entry.getString("ticketType") + ": " + entry.getDouble("rate") + "/ km");
-        }
-        System.out.println();
-    }
-
-    private static void adjustRate(TXTFileManager rateFileManager){
-        JSONArray rateJSONArray;
-        try{
-            rateJSONArray = rateFileManager.loadData();
-        }catch (Exception e){
-            System.out.println("Failed to load rate data\n");
-            return;
-        }
-        System.out.println("Select ticket type: ");
-        for(int i = 0; i<rateJSONArray.length(); i++){
-            System.out.println((i+1) + "." + rateJSONArray.getJSONObject(i).getString("ticketType"));
-        }
-
-        int choice = func.getIntInput("Enter choice: ");
-        if(choice < 1 || choice > rateJSONArray.length()){
-            System.out.println("!!!INVALID INPUT!!! Please enter a number between 1 and " + rateJSONArray.length() + ".\n");
-            return;
-        }
-
-        double newRate = func.getDblInput("Enter new rate: ");
-        while(true){
-            System.out.println("1. Confirm");
-            System.out.println("2. Cancel");
-            char confirm = func.getChoice();
-
-            if(confirm == '1'){
-                break;
-            }else if(confirm == '2'){
-                System.out.println("Adjust rate cancelled.\n");
-                return;
-            }else{
-                System.out.println("!!!INVALID INPUT!!!\n");
-            }
-        }
-        rateJSONArray.getJSONObject(choice - 1).put("rate", newRate);
-        try{
-            rateFileManager.saveData(rateJSONArray);
-        }catch(Exception e){
-            System.out.println("Failed to save rate data\n");
-            return;
-        }
-        System.out.println("Rate updated successfully\n");
-    }
-
 }

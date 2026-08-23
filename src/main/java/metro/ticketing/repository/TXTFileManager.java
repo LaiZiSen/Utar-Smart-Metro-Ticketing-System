@@ -2,42 +2,36 @@ package metro.ticketing.repository;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-public class TXTFileManager implements FileManager {
+public class TXTFileManager{
     private String filename;
 
     public TXTFileManager(String filename){
         this.filename = filename;
     }
 
-    public JSONArray loadData() throws Exception{
+    public HashMap<String, Double> loadData() throws Exception{
         List<String> lines = Files.readAllLines(Paths.get(this.filename));
-        JSONArray outputArray = new JSONArray();
+        HashMap<String, Double> rates = new HashMap<>();
 
         for(String line: lines){
-            if(line.isBlank()) 
+            if(line.isBlank())
             continue;
 
-            String[] parts = line.split("=",2);
-            JSONObject entry = new JSONObject();
-            entry.put("ticketType", parts[0].trim());
-            entry.put("rate", Double.parseDouble(parts[1].trim()));
-            outputArray.put(entry);
+            String[] parts = line.split("=", 2);
+            rates.put(parts[0].trim(), Double.parseDouble(parts[1].trim()));
         }
-        return outputArray;
+        return rates;
     }
 
-    public void saveData(JSONArray data) throws Exception{
-        StringBuilder content = new StringBuilder();
+    public void saveData(HashMap<String, Double> rates) throws Exception{
+        StringBuilder fileContent = new StringBuilder();
 
-        for(int i=0; i<data.length(); i++){
-            JSONObject entry = data.getJSONObject(i);
-            content.append(entry.getString("ticketType")).append("=").append(entry.getDouble("rate")).append("\n");
+        for(String key: rates.keySet()){
+            fileContent.append(key).append("=").append(rates.get(key)).append("\n");
         }
-        Files.writeString(Paths.get(this.filename), content.toString());
+        Files.writeString(Paths.get(this.filename), fileContent.toString());
     }
 }
