@@ -76,4 +76,83 @@ public class TrainService {
     public void addTrain(Train train){
         this.trains.add(train);
     }
+
+    public void run(){
+        while(true){
+            trainMenu();
+
+            char choice = func.getChoice();
+            System.out.println("");
+
+            switch(choice){
+                case '1':
+                    viewTrain();
+                    break;
+
+                case '2':
+                    addTrain();
+                    break;
+
+                case '3':
+                    return;
+
+                default:
+                    System.out.println("!!!INVALID INPUT!!!");
+                    func.pause();
+                    break;
+            }
+        }
+    }
+
+    public void trainMenu(){
+        func.clear();
+        func.printHeader("Train System", '=');
+        System.out.println("1. View Trains");
+        System.out.println("2. Add Train");
+        System.out.println("3. Back");
+        func.printHeader("", '-');
+    }
+
+    public void viewTrain(){
+        func.clear();
+        viewTrains();
+        func.pause();
+    }
+
+    public void addTrain(){
+        func.clear();
+
+        String name = func.getStrLnInput("Enter train name: ");
+
+        if(isDuplicate(name)){
+            System.out.println("A train with this name already exists.\n");
+            func.pause();
+            return;
+        }
+
+        int capacity = func.getIntInput("Enter train capcity: ");
+
+        while(true){
+            System.out.println("1. Confirm");
+            System.out.println("2. Cancel");
+            char confirm = func.getChoice();
+
+            if(confirm == '1'){
+                break;
+            }else if(confirm == '2'){
+                System.out.println("Add train cancelled.\n");
+                func.pause();
+                return;
+            }else{
+                System.out.println("!!!INVALID INPUT!!!\n");
+            }
+        }
+
+        Train newTrain = new Train(nextId(), name, capacity);
+        addTrain(newTrain);
+
+        saveData();
+        System.out.println("Train added successfully\n");
+        func.pause();
+    }
 }
