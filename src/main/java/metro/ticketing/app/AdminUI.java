@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import metro.ticketing.include.func;
 import metro.ticketing.model.Admin;
-import metro.ticketing.model.Station;
 import metro.ticketing.services.ReportService;
 import metro.ticketing.services.RouteService;
 import metro.ticketing.services.StationService;
@@ -36,7 +35,7 @@ public class AdminUI{
                     break;
                 
                 case '3':
-                    stationMenu(stationService);
+                    stationService.run();
                     break;
                 
                 case '4':
@@ -81,64 +80,4 @@ public class AdminUI{
         System.out.println("6. Profile");
         System.out.println("7. Logout");
     }
-
-    private static void stationMenu(StationService stationService){
-        while(true){
-            func.printHeader("Station System", '-');
-            System.out.println("1. View Stations");
-            System.out.println("2. Add Station");
-            System.out.println("3. Back");
-
-            char choice = func.getChoice();
-            System.out.println("");
-
-            switch(choice){
-                case '1':
-                    stationService.viewStations();
-                    break;
-
-                case '2':
-                    addStation(stationService);
-                    break;
-                
-                case '3':
-                    return;
-                    
-                default:
-                    System.out.println("!!!INVALID INPUT!!!\n");    
-            }
-        }
-    }
-
-    private static void addStation(StationService stationService){
-        String name = func.getStrLnInput("Enter station name: ");
-
-        if(stationService.searchStation(name) != null){
-            System.out.println("A station with this name already exists.\n");
-            return;
-        }
-
-        String location = func.getStrLnInput("Enter station location: ");
-
-        while(true){
-            System.out.println("1. Confirm");
-            System.out.println("2. Cancel");
-            char confirm = func.getChoice();
-
-            if(confirm == '1'){
-                break;
-            }else if(confirm == '2'){
-                System.out.println("Add station cancelled.\n");
-                return;
-            }else{
-                System.out.println("!!!INVALID INPUT!!!\n");
-            }
-        }
-        Station newStation = new Station(stationService.nextId(), name, location);
-        stationService.addStation(newStation);
-
-        stationService.saveData();
-        System.out.println("Station added successfully.\n");
-    }
-
 }
