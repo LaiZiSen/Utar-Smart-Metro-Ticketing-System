@@ -62,7 +62,7 @@ public class RateService {
         func.printHeader("Ticket Rate", '=');
 
         for(String ticketType: rates.keySet()){
-            System.out.println(ticketType + " : " + rates.get(ticketType) + "/ km");
+            System.out.printf("%-10s: %s/ km%n", ticketType, rates.get(ticketType));
         }
         func.printHeader("", '-');
         func.pause();
@@ -77,7 +77,15 @@ public class RateService {
         for(int i = 0; i<ticketTypes.length; i++){
             System.out.println((i+1) + ". " + ticketTypes[i]);
         }
+
+        int back = ticketTypes.length + 1;
+        System.out.println(back + ". Back");
+
         int choice = func.getIntInput("Enter choice: ");
+
+        if(choice == back){
+            return;
+        }
 
         if(choice < 1 || choice > ticketTypes.length){
             System.out.println("!!!INVALID INPUT!!!");
