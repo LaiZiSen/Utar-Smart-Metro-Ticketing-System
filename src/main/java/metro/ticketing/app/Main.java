@@ -16,7 +16,7 @@ public class Main {
     static TrainService trService = new TrainService();
     static TicketService tkService = new TicketService(stService, uService);
     static RouteService rService = new RouteService(stService);
-    static ReportService rpService = new ReportService(); // not done
+    static ReportService rpService = new ReportService(tkService); // not done
     static PaymentService pService = new PaymentService(); // not done
 
     public static void main(String[] args) {
@@ -35,9 +35,9 @@ public class Main {
                     User user = login();
                     
                     if (user instanceof Passenger) {
-                        new PassengerUI((Passenger) user, uService, tkService).run();
+                        new PassengerUI((Passenger) user, uService, stService, rService, tkService).run();
                     } else if (user instanceof Admin) {
-                        new AdminUI((Admin)user).run();
+                        new AdminUI((Admin)user, tkService).run();
                     }
 
                     break;
