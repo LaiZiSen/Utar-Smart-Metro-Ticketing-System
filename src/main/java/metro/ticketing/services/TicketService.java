@@ -80,4 +80,16 @@ public class TicketService {
         // this.users.put(newPassenger.getEmail(), newPassenger);
         // this.saveData();
     }
+
+    public ArrayList<Ticket> getTicketsByPassenger(Passenger passenger){
+        ArrayList<Ticket> passengerTickets = new ArrayList<Ticket>(); 
+
+        for(Ticket ticket : tickets){
+            if(ticket.getPassenger().getUserId().equals(passenger.getUserId())){
+                passengerTickets.add(ticket); 
+            }
+        }
+        
+        return passengerTickets; 
+    }
 }
