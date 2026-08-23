@@ -35,41 +35,6 @@ public class RouteService {
         }
     }
 
-    public void run(){
-        while(true){
-            routeMenu();
-
-            char choice = func.getChoice();
-            System.out.println("");
-
-            switch(choice){
-                case '1':
-                viewRoute();
-                break;
-
-                case '2':
-                    addRoute();
-                    break;
-
-                case '3':
-                    return;
-                    
-                default:
-                    System.out.println("!!!INVALID INPUT!!!");
-                    func.pause();
-                    break;    
-            }
-        }
-    }
-    
-    public void routeMenu(){
-        func.printHeader("Route System", '=');
-        System.out.println("1. View All Route");
-        System.out.println("2. Add Route");
-        System.out.println("3. Back");
-        func.printHeader("", '-');
-    }
-
     public void saveData() {
         JSONArray inputJsonArray = new JSONArray();
 
@@ -175,6 +140,10 @@ public class RouteService {
         return source.getStationId().equals(destination.getStationId());
     }
 
+    public void addRoute(Route route){
+        this.routes.add(route);
+    }
+
     public void addRoute(){
         func.clear();
         if(stationService.stationCount() == 0){
@@ -249,7 +218,38 @@ public class RouteService {
         func.pause();
     }
 
-    public void addRoute(Route route){
-        this.routes.add(route);
+    public void run(){
+        while(true){
+            routeMenu();
+
+            char choice = func.getChoice();
+            System.out.println("");
+
+            switch(choice){
+                case '1':
+                viewRoute();
+                break;
+
+                case '2':
+                    addRoute();
+                    break;
+
+                case '3':
+                    return;
+                    
+                default:
+                    System.out.println("!!!INVALID INPUT!!!");
+                    func.pause();
+                    break;    
+            }
+        }
+    }
+    
+    public void routeMenu(){
+        func.printHeader("Route System", '=');
+        System.out.println("1. View All Route");
+        System.out.println("2. Add Route");
+        System.out.println("3. Back");
+        func.printHeader("", '-');
     }
 }
