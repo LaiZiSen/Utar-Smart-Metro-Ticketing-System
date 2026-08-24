@@ -83,6 +83,21 @@ public class Ticket {
         System.out.println("Ticket cancelled successfully. ");
     }
 
+    public void useTicket(){
+        if(status == TicketStatus.CANCELLED){
+            System.out.println("Cannot use a cancelled ticket.");
+            return;
+        }
+
+        if(status == TicketStatus.USED){
+            System.out.println("Ticket already used.");
+            return;
+        }
+
+        status = TicketStatus.USED;
+        System.out.println("Ticket used successfully.");
+    }
+
     public static Ticket jsonToTicket (JSONObject json, StationService stService, UserService uService) {
         Ticket outputTicketObject = null;
 
