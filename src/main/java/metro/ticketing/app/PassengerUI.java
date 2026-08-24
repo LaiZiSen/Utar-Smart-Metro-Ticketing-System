@@ -10,17 +10,20 @@ import metro.ticketing.services.TicketService;
 import metro.ticketing.services.StationService;
 import metro.ticketing.services.UserService;
 import metro.ticketing.services.PaymentService;
+import metro.ticketing.services.RouteService;
 
 public class PassengerUI{
     private Passenger passenger;
     private UserService uService;
     private StationService stService;
     private TicketService tkService;
+    private RouteService rtService;
 
-    public PassengerUI(Passenger passenger, UserService uService, TicketService tkService) {
+    public PassengerUI(Passenger passenger, UserService uService, TicketService tkService, RouteService rtService) {
         this.passenger = passenger;
         this.uService = uService;
         this.tkService = tkService;
+        this.rtService = rtService;
     }
 
     public void run(){
@@ -34,7 +37,7 @@ public class PassengerUI{
 
             switch (choice) {
                 case '1':
-                    System.out.println("next ticket id is :  " + tkService.idIncrement()); // this is for testing only
+                    passenger.buyTicket(rtService, tkService);
                     func.pause();
                     break;
                 
