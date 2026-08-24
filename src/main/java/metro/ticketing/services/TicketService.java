@@ -11,6 +11,7 @@ import metro.ticketing.repository.JSONFileManager;
 import metro.ticketing.model.Ticket;
 import metro.ticketing.model.Passenger;
 import metro.ticketing.model.Route;
+import metro.ticketing.enums.TicketStatus;
 import metro.ticketing.enums.TicketType;
 
 import metro.ticketing.include.func;
@@ -91,5 +92,47 @@ public class TicketService {
         }
         
         return passengerTickets; 
+    }
+
+    public Ticket getTicketById(String ticketId, Passenger passenger){
+        for(Ticket ticket : tickets){
+            if(ticket.getTicketId().equals(ticketId) && ticket.getPassenger().getUserId().equals(passenger.getUserId())){
+                return ticket;
+            }
+        }
+
+        return null;
+    }
+
+    public void useTicket(Ticket ticket){
+        if(ticket.getStatus() == TicketStatus.CANCELLED){
+            System.out.println("Cannot use cancelled ticket. ");
+            return; 
+        }
+
+        if(ticket.getStatus() == TicketStatus.USED){
+            System.out.println("Ticket already used. ");
+            return; 
+        }
+
+        ticket.useTicket(); 
+        saveData(null);
+
+        System.out.println("Ticket used successfully. ");
+    }
+
+    public void cancelTicket(Ticket ticket){
+        if(ticket.getStatus() == TicketStatus.USED){
+            System.out.println("Cannot cancel used ticket. ");
+            return; 
+        }
+
+        if(ticket.getStatus() == TicketStatus.CANCELLED){
+            System.out.println("Ticket already cancelled. ");
+            return; 
+        }
+
+        ticket.cancelTicket(); 
+        saveData(null);
     }
 }

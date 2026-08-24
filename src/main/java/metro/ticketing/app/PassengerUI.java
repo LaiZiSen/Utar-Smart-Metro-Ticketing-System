@@ -91,29 +91,90 @@ public class PassengerUI{
     }
 
     private void viewTicketUI(){
-        func.clear();
-        func.printHeader("My Tickets", '=');
+        while (true) {
+             func.clear();
+            func.printHeader("My Tickets", '=');
 
-        ArrayList<Ticket> myTickets = tkService.getTicketsByPassenger(passenger); 
+            ArrayList<Ticket> myTickets = tkService.getTicketsByPassenger(passenger); 
 
-        if(myTickets.isEmpty()){
-            System.out.println("No tickets found. ");
+            if(myTickets.isEmpty()){
+                System.out.println("No tickets found. ");
+                func.printHeader("", '=');
+                func.pause();
+                return; 
+            }
+
+            System.out.printf("%-10s | %-12s | %-10s%n", "TicketID", "Ticket Type", "Ticket Status"); 
+            func.printHeader("", '-');
+
+            for(Ticket ticket : myTickets){
+                System.out.printf("%-10s | %-12s | %-10s%n", ticket.getTicketId(), ticket.getTicketType(), ticket.getStatus()); 
+            }
+
             func.printHeader("", '=');
-            func.pause();
-            return; 
+
+            String ticketId = func.getStrInput("Enter Ticket ID to select ticket (or press 0 to return): "); 
+
+            if(ticketId.equals(0)){
+                return; 
+            }
+
+            Ticket selectedTicket = tkService.getTicketById(ticketId, passenger); 
+
+            if(selectedTicket == null){
+                System.out.println("Ticket not found. ");
+                func.pause();
+                continue; 
+            }
+
+            ticketActionUI(selectedTicket); 
         }
-
-        System.out.printf("%-10s | %-12s | %-10s%n", "TicketID", "Ticket Type", "Ticket Status"); 
-        func.printHeader("", '-');
-
-        for(Ticket ticket : myTickets){
-            System.out.printf("%-10s | %-12s | %-10s%n", ticket.getTicketId(), ticket.getTicketType(), ticket.getStatus()); 
-
-        }
-
-        func.printHeader("", '=');
-        func.pause();
     }
+
+    private void ticketActionUI(Ticket ticket){
+    while (true) {
+        func.clear();
+        func.printHeader("Ticket Action", '-');
+
+        System.out.println("Ticket ID     : " + ticket.getTicketId());
+        System.out.println("Ticket Type   : " + ticket.getTicketType());
+        System.out.println("Ticket Status : " + ticket.getStatus());
+
+        System.out.println();
+        System.out.println("1. View Detail");
+        System.out.println("2. Use Ticket");
+        System.out.println("3. Cancel Ticket");
+        System.out.println("4. Return");
+
+        System.out.println();
+
+        char choice = func.getChoice();
+
+        switch (choice) {
+            case '1':
+                ticket.printTicket();
+                func.pause();
+                break;
+
+            case '2':
+                tkService.useTicket(ticket);
+                func.pause();
+                break;
+
+            case '3':
+                tkService.cancelTicket(ticket);
+                func.pause();
+                break;
+
+            case '4':
+                return;
+
+            default:
+                System.out.println("INVALID INPUT");
+                func.pause();
+        }
+    }
+}
 
     private Route selectRoute(){
         System.out.println("Available Routes: ");
