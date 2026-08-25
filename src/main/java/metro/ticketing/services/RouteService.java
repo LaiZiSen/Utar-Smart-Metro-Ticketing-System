@@ -35,41 +35,6 @@ public class RouteService {
         }
     }
 
-    public void run(){
-        while(true){
-            routeMenu();
-
-            char choice = func.getChoice();
-            System.out.println("");
-
-            switch(choice){
-                case '1':
-                viewRoute();
-                break;
-
-                case '2':
-                    addRoute();
-                    break;
-
-                case '3':
-                    return;
-                    
-                default:
-                    System.out.println("!!!INVALID INPUT!!!");
-                    func.pause();
-                    break;    
-            }
-        }
-    }
-    
-    public void routeMenu(){
-        func.printHeader("Route System", '=');
-        System.out.println("1. View All Route");
-        System.out.println("2. Add Route");
-        System.out.println("3. Back");
-        func.printHeader("", '-');
-    }
-
     public void saveData() {
         JSONArray inputJsonArray = new JSONArray();
 
@@ -93,19 +58,29 @@ public class RouteService {
     }
 
     public void viewRoute(){
-        func.clear();
-        viewAllRoutes();
+        while(true){
+            func.clear();
+            viewAllRoutes();
 
-        int cancel = routeCount() + 1;
-        System.out.printf("%-5s| Cancel%n", cancel + ".");
+            int cancel = routeCount() + 1;
+            System.out.printf("%-5s| Cancel%n", cancel + ".");
 
-        int choice = func.getIntInput("Enter number to view details: ");
+            int choice = func.getIntInput("Enter number to view details: ");
 
-        if(choice == cancel){
+            if(choice == cancel){
+                return;
+            }
+
+            if(choice < 1 || choice > routeCount()){
+                System.out.println("!!!INVALID INPUT!!!\n");
+                func.pause();
+                continue;
+            }
+
+            showRoute(choice);
+            func.pause();
             return;
         }
-        showRoute(choice);
-        func.pause();
     }
 
     public int routeCount(){
@@ -114,7 +89,7 @@ public class RouteService {
 
     public void showRoute(int index){
         if(index < 1 || index > this.routes.size()){
-            System.out.println("Invalid selection.\n");
+            System.out.println("!!!INVALID INPUT!!!\n");
             return;
         }
 
@@ -173,6 +148,10 @@ public class RouteService {
 
     public boolean isSame(Station source, Station destination){
         return source.getStationId().equals(destination.getStationId());
+    }
+
+    public void addRoute(Route route){
+        this.routes.add(route);
     }
 
     public void addRoute(){
@@ -249,7 +228,39 @@ public class RouteService {
         func.pause();
     }
 
-    public void addRoute(Route route){
-        this.routes.add(route);
+    public void run(){
+        while(true){
+            routeMenu();
+
+            char choice = func.getChoice();
+            System.out.println("");
+
+            switch(choice){
+                case '1':
+                viewRoute();
+                break;
+
+                case '2':
+                    addRoute();
+                    break;
+
+                case '3':
+                    return;
+                    
+                default:
+                    System.out.println("!!!INVALID INPUT!!!");
+                    func.pause();
+                    break;    
+            }
+        }
+    }
+    
+    public void routeMenu(){
+        func.clear();
+        func.printHeader("Route System", '=');
+        System.out.println("1. View All Route");
+        System.out.println("2. Add Route");
+        System.out.println("3. Back");
+        func.printHeader("", '-');
     }
 }
