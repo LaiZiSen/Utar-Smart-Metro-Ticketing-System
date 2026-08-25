@@ -35,7 +35,7 @@ public class Main {
                     User user = login();
                     
                     if (user instanceof Passenger) {
-                        new PassengerUI((Passenger) user, uService, stService, rService, tkService).run();
+                        new PassengerUI((Passenger) user, uService, tkService).run();
                     } else if (user instanceof Admin) {
                         new AdminUI((Admin)user, tkService).run();
                     }
