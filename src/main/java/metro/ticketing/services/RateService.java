@@ -62,7 +62,7 @@ public class RateService {
         func.printHeader("Ticket Rate", '=');
 
         for(String ticketType: rates.keySet()){
-            System.out.printf("%-10s: %s/ km%n", ticketType, rates.get(ticketType));
+            System.out.printf("%-10s: RM%4.1f / km%n", ticketType, rates.get(ticketType));
         }
         func.printHeader("", '-');
         func.pause();
