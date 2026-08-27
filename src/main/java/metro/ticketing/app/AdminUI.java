@@ -4,27 +4,30 @@ import java.util.Scanner;
 
 import metro.ticketing.include.func;
 import metro.ticketing.model.Admin;
+import metro.ticketing.services.RateService;
 import metro.ticketing.services.ReportService;
 import metro.ticketing.services.RouteService;
 import metro.ticketing.services.StationService;
-import metro.ticketing.services.TrainService;
-import metro.ticketing.services.RateService;
 import metro.ticketing.services.TicketService;
+import metro.ticketing.services.TrainService;
 
 public class AdminUI{
     private Admin admin;
     private TicketService tkService; 
+    private StationService stationService;
+    private RouteService routeService;
+    private TrainService trainService;
 
-    public AdminUI(Admin admin, TicketService tkService) {
+    public AdminUI(Admin admin, TicketService tkService, StationService stationService, RouteService routeService, TrainService trainService) {
         this.admin = admin;
         this.tkService = tkService; 
+        this.stationService = stationService;
+        this.routeService = routeService;
+        this.trainService  = trainService;
     }
 
     public void run(){
         Scanner scanner = new Scanner(System.in);
-        StationService stationService = new StationService();
-        RouteService routeService = new RouteService(stationService);
-        TrainService trainService = new TrainService();
 
         while(true) {
             adminMenu();

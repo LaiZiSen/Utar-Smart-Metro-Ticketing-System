@@ -43,7 +43,7 @@ public class Main {
                     if (user instanceof Passenger) {
                         new PassengerUI((Passenger) user, uService, tkService).run();
                     } else if (user instanceof Admin) {
-                        new AdminUI((Admin)user, tkService).run();
+                        new AdminUI((Admin)user, tkService, stService, rService, trService).run();
                     }
 
                     break;
