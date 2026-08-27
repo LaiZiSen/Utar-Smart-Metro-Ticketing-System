@@ -4,14 +4,11 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 import metro.ticketing.model.Passenger;
-import metro.ticketing.model.Route;
 import metro.ticketing.model.Ticket;
-import metro.ticketing.enums.TicketType;
 import metro.ticketing.include.func;
 import metro.ticketing.payment.*;
 
 import metro.ticketing.services.TicketService;
-import metro.ticketing.services.StationService;
 import metro.ticketing.services.UserService;
 import metro.ticketing.services.PaymentService;
 
@@ -81,30 +78,30 @@ public class PassengerUI{
                 return; 
             }
 
-            System.out.printf("%-10s | %-12s | %-10s%n", "TicketID", "Ticket Type", "Ticket Status"); 
+            System.out.printf("%-5s | %-10s | %-12s | %-10s%n", "No.", "Ticket ID", "Ticket Type", "Status");
             func.printHeader("", '-');
 
-            for(Ticket ticket : myTickets){
-                System.out.printf("%-10s | %-12s | %-10s%n", ticket.getTicketId(), ticket.getTicketType(), ticket.getStatus()); 
+            for(int i = 0; i < myTickets.size(); i++){
+                Ticket ticket = myTickets.get(i);
+                System.out.printf("%-5d | %-10s | %-12s | %-10s%n", i + 1, ticket.getTicketId(), ticket.getTicketType(), ticket.getStatus());
             }
 
-            func.printHeader("", '=');
+            System.out.println((myTickets.size() + 1) + ". Cancel");
+            int choice = func.getIntInput("Enter number to view details: ");
 
-            String ticketId = func.getStrInput("Enter Ticket ID to select ticket (or press 0 to return): "); 
-
-            if(ticketId.equals("0")){
-                return; 
+            if(choice == myTickets.size() + 1){
+                return;
             }
 
-            Ticket selectedTicket = tkService.getTicketById(ticketId, passenger); 
-
-            if(selectedTicket == null){
-                System.out.println("Ticket not found. ");
+            if(choice < 1 || choice > myTickets.size()){
+                System.out.println("INVALID INPUT");
                 func.pause();
-                continue; 
+                continue;
             }
 
-            ticketActionUI(selectedTicket); 
+            Ticket selectedTicket = myTickets.get(choice - 1);
+
+            ticketActionUI(selectedTicket);
         }
     }
 
