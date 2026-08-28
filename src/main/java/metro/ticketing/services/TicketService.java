@@ -104,21 +104,19 @@ public class TicketService {
         return null;
     }
 
-    public void useTicket(Ticket ticket){
+   public void useTicket(Ticket ticket){
         if(ticket.getStatus() == TicketStatus.CANCELLED){
-            System.out.println("Cannot use cancelled ticket. ");
+            System.out.println("Cannot use cancelled ticket.");
             return; 
         }
 
         if(ticket.getStatus() == TicketStatus.USED){
-            System.out.println("Ticket already used. ");
+            System.out.println("Ticket already used.");
             return; 
         }
 
         ticket.useTicket(); 
         saveData(null);
-
-        System.out.println("Ticket used successfully. ");
     }
 
     public void cancelTicket(Ticket ticket){
