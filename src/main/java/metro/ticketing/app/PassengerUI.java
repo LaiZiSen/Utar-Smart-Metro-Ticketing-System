@@ -2,8 +2,8 @@ package metro.ticketing.app;
 
 import java.util.Scanner;
 
-import metro.ticketing.model.Passenger;
 import metro.ticketing.include.func;
+import metro.ticketing.model.Passenger;
 import metro.ticketing.payment.*;
 
 import metro.ticketing.services.TicketService;

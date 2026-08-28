@@ -42,6 +42,28 @@ public class Passenger extends User{
         this.balance = this.balance + amount;
     }
 
+    private TicketType getTicketType(){
+        System.out.println("Enter TicketType:  ");
+        System.out.println("1. SINGLE");
+        System.out.println("2. DAILY");
+        System.out.println("3. MONTHLY");
+
+        char choice = func.getChoice();
+
+        while (true) {
+            switch (choice) {
+                case '1': return TicketType.SINGLE;
+                case '2': return TicketType.DAILY;
+                case '3': return TicketType.MONTHLY;
+
+                default:
+                          System.out.println("!!! INVALID CHOICE !!!");
+                          break;
+            }
+
+        }
+    }
+
     public void buyTicket(RouteService rtService, TicketService tkService) {
         // find the route
         //
@@ -52,7 +74,10 @@ public class Passenger extends User{
         // confirm payment 
         //
         // reduce from user balance and create ticket 
-       
+    
+        Route route;
+        TicketType ticketType;
+
         func.clear();
         func.printHeader("",'=');
         func.printHeader("Buy Ticket",' ');
@@ -63,6 +88,8 @@ public class Passenger extends User{
         
         Route route = rtService.findRoute();
         route.displayRoute();
+        ticketType = getTicketType();
+        System.out.println(ticketType);
     }
 
 }

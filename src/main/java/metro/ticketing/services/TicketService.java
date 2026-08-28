@@ -80,4 +80,8 @@ public class TicketService {
         // this.users.put(newPassenger.getEmail(), newPassenger);
         // this.saveData();
     }
+
+    public ArrayList<Ticket> getAllTickets(){
+        return tickets; 
+    }
 }

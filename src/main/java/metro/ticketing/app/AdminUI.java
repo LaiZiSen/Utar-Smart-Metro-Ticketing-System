@@ -2,15 +2,28 @@ package metro.ticketing.app;
 
 import java.util.Scanner;
 
-import metro.ticketing.model.Admin;
 import metro.ticketing.include.func;
+import metro.ticketing.model.Admin;
+import metro.ticketing.services.RateService;
 import metro.ticketing.services.ReportService;
+import metro.ticketing.services.RouteService;
+import metro.ticketing.services.StationService;
+import metro.ticketing.services.TicketService;
+import metro.ticketing.services.TrainService;
 
 public class AdminUI{
     private Admin admin;
+    private TicketService tkService; 
+    private StationService stationService;
+    private RouteService routeService;
+    private TrainService trainService;
 
-    public AdminUI(Admin admin) {
+    public AdminUI(Admin admin, TicketService tkService, StationService stationService, RouteService routeService, TrainService trainService) {
         this.admin = admin;
+        this.tkService = tkService; 
+        this.stationService = stationService;
+        this.routeService = routeService;
+        this.trainService  = trainService;
     }
 
     public void run(){
@@ -24,19 +37,23 @@ public class AdminUI{
 
             switch (choice) {
                 case '1':
+                    routeService.run();
                     break;
                 
                 case '2':
+                    trainService.run();
                     break;
                 
                 case '3':
+                    stationService.run();
                     break;
                 
                 case '4':
+                    new RateService().run();
                     break;
                
                 case '5':
-                    new ReportService().run();
+                    new ReportService(tkService).run();
 
                     break;
 
@@ -54,8 +71,6 @@ public class AdminUI{
                     break;
             }
         }
-
-
     }
    
     private void adminMenu() {
@@ -76,14 +91,4 @@ public class AdminUI{
         System.out.println("6. Profile");
         System.out.println("7. Logout");
     }
-
 }
-
-
-
-
-
-                                                                            
-                                                                            
-                                                                            
- 
