@@ -62,8 +62,8 @@ public class Ticket {
         System.out.println("======= TICKET INFORMATION =======");
         System.out.println("Ticket ID     : " + ticketId);
         System.out.println("Passenger     : " + passenger.getName());
-        System.out.println("Source        : " + source);
-        System.out.println("Destination   : " + destination);
+        System.out.println("Source        : " + source.getName());
+        System.out.println("Destination   : " + destination.getName());
         System.out.println("Ticket Type   : " + ticketType);
         System.out.println("Fare          : RM" + fare);
         System.out.println("Status        : " + status);

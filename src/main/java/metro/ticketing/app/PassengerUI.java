@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import metro.ticketing.model.Passenger;
 import metro.ticketing.model.Ticket;
+import metro.ticketing.enums.TicketStatus;
 import metro.ticketing.include.func;
 import metro.ticketing.payment.*;
 
@@ -78,15 +79,17 @@ public class PassengerUI{
                 return; 
             }
 
-            System.out.printf("%-5s | %-10s | %-12s | %-10s%n", "No.", "Ticket ID", "Ticket Type", "Status");
+            System.out.printf("%-5s | %-10s | %-25s | %-25s | %-12s | %-10s%n", "No.", "Ticket ID", "Source", "Destination", "Ticket Type", "Status");
             func.printHeader("", '-');
 
             for(int i = 0; i < myTickets.size(); i++){
                 Ticket ticket = myTickets.get(i);
-                System.out.printf("%-5d | %-10s | %-12s | %-10s%n", i + 1, ticket.getTicketId(), ticket.getTicketType(), ticket.getStatus());
+
+                System.out.printf("%-5d | %-10s | %-25s | %-25s | %-12s | %-10s%n", i + 1, 
+                ticket.getTicketId(), ticket.getSource().getName(), ticket.getDestination().getName(), ticket.getTicketType(), ticket.getStatus());
             }
 
-            System.out.println((myTickets.size() + 1) + ". Cancel");
+            System.out.println((myTickets.size() + 1) + ". Return");
             int choice = func.getIntInput("Enter number to view details: ");
 
             if(choice == myTickets.size() + 1){
@@ -105,40 +108,55 @@ public class PassengerUI{
         }
     }
 
-    private void ticketActionUI(Ticket ticket){
+private void ticketActionUI(Ticket ticket){
         while (true) {
             func.clear();
-            func.printHeader("Ticket Action", '-');
+            ticket.printTicket();
 
-            System.out.println("Ticket ID     : " + ticket.getTicketId());
-            System.out.println("Ticket Type   : " + ticket.getTicketType());
-            System.out.println("Ticket Status : " + ticket.getStatus());
+            if(ticket.getStatus() == TicketStatus.USED || ticket.getStatus() == TicketStatus.CANCELLED){
+                System.out.println();
+                func.pause();
+                return;
+            }
+
             System.out.println();
-            System.out.println("1. View Detail");
-            System.out.println("2. Use Ticket");
-            System.out.println("3. Cancel Ticket");
-            System.out.println("4. Return");
+            System.out.println("1. Use Ticket");
+            System.out.println("2. Cancel Ticket");
+            System.out.println("3. Return");
             System.out.println();
-        
+
             char choice = func.getChoice();
 
             switch (choice) {
                 case '1':
-                    ticket.printTicket();
-                    func.pause();
-                    break;
-
-                case '2':
                     tkService.useTicket(ticket);
                     func.pause();
+                    return;
+
+                case '2':
+                    System.out.println("! WARNING: No refund will be provided after cancellation !");
+                    System.out.print("Are you sure you want to cancel this ticket? (Y/N): ");
+                    char confirm = func.getChoice();
+
+                    if (confirm == 'Y' || confirm == 'y') {
+                        tkService.cancelTicket(ticket);
+                        func.pause();
+                        return;
+                    } 
+                    
+                    else if (confirm == 'N' || confirm == 'n') {
+                        System.out.println("Ticket cancellation aborted.");
+                        func.pause();
+                    } 
+                    
+                    else {
+                        System.out.println("INVALID INPUT");
+                        func.pause();
+                    }
+
                     break;
 
                 case '3':
-                    tkService.cancelTicket(ticket);
-                    func.pause();
-                    break;
-
-                case '4':
                     return;
 
                 default:
