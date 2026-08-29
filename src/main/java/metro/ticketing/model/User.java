@@ -111,7 +111,7 @@ public abstract class User {
         System.out.printf("%-15s:%s\n", "userId", this.userId);
             
         if (this instanceof Passenger) {
-            System.out.printf("%-15s:%f\n","Balance",((Passenger) this).getBalance());
+            System.out.printf("%-15s:%.2f\n","Balance",((Passenger) this).getBalance());
         }
         func.printHeader("", '=');
         System.out.println("");

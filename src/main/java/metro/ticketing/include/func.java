@@ -21,6 +21,22 @@ public class func{
         return choice;
     }
     
+    public static char getChoice(String ques) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print(ques);
+       
+        char choice = ' ';
+
+        choice = scanner.next().charAt(0);
+
+        //try {
+        //    choice = (char) System.in.read();
+        //} catch (Exception e){}
+
+        return choice;
+    }
+    
     public static String getStrInput(String ques) {
         Scanner scanner = new Scanner(System.in);
         String output;

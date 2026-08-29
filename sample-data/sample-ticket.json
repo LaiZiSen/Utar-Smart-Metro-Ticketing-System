@@ -1,7 +1,7 @@
 [
     {
         "ticketId" : "tk001",
-        "passenger" : "u001",
+        "passenger" : "u0001",
         "source" : "st002",
         "destination" : "st001",
         "ticketType" : "SINGLE",
@@ -10,7 +10,7 @@
     },
     {
         "ticketId" : "tk002",
-        "passenger" : "u001",
+        "passenger" : "u0001",
         "source" : "st001",
         "destination" : "st002",
         "ticketType" : "SINGLE",

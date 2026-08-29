@@ -6,6 +6,9 @@ import metro.ticketing.include.func;
 import metro.ticketing.model.Route;
 import metro.ticketing.services.TicketService;
 import metro.ticketing.services.RouteService;
+import metro.ticketing.services.RateService;
+import metro.ticketing.fare.StandardFareCalculator;
+import metro.ticketing.enums.TicketType;
 
 public class Passenger extends User{
     private double balance;
@@ -77,6 +80,8 @@ public class Passenger extends User{
     
         Route route;
         TicketType ticketType;
+        StandardFareCalculator calculator = new StandardFareCalculator(new RateService());
+        double fare;
 
         func.clear();
         func.printHeader("",'=');
@@ -86,10 +91,35 @@ public class Passenger extends User{
 
         // find route
         
-        Route route = rtService.findRoute();
-        route.displayRoute();
+        route = rtService.findRoute();
         ticketType = getTicketType();
-        System.out.println(ticketType);
-    }
+        fare = calculator.calculateFare(route, ticketType);
 
+        System.out.println("\nFare is RM" + String.format("%.2f", fare));
+
+        while (true) {
+            char choice = func.getChoice("\nConfirm purchase [Y/N]: ");
+
+            switch (choice) {
+                case 'N':
+                    System.out.println("ABORTING BUY TICKET \n");
+                    return;
+
+                case 'Y':
+                    if (this.balance < fare) {
+                        System.out.println("!!! INSUFFICIENT BALANCE !!!\n");
+                        return;
+                    } else {
+                        this.balance = this.balance - fare;
+                        Ticket ticket = tkService.buyTicket(this, route, ticketType);
+                        System.out.println("\nTICKET PURCHASE SUCCESSFUL\n");
+                        ticket.printTicket();
+                        return;
+                    }
+                default:
+                    System.out.println("INVALID OPTION");
+                    break;
+            }
+        }
+    }
 }

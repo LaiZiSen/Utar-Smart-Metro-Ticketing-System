@@ -1,5 +1,8 @@
 package metro.ticketing.fare;
 
-public interface FareCalculator {
+import metro.ticketing.model.Route;
+import metro.ticketing.enums.TicketType;
 
+public interface FareCalculator {
+    public double calculateFare(Route route, TicketType ticketType);
 }

@@ -19,6 +19,10 @@ public class RateService {
         }
     }
 
+    public double getRate(String ticketType) {
+        return rates.get(ticketType);
+    }
+
     public void run(){
         while(true){
             rateMenu();

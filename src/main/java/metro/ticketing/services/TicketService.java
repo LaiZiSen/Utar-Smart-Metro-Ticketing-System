@@ -17,10 +17,16 @@ import metro.ticketing.include.func;
 
 import metro.ticketing.services.StationService;
 import metro.ticketing.services.UserService;
+import metro.ticketing.services.RateService;
+
+import metro.ticketing.fare.StandardFareCalculator;
 
 public class TicketService {
     private ArrayList<Ticket> tickets = new ArrayList<Ticket>();
     private FileManager fileManager = new JSONFileManager("data/ticket.json");
+    private StationService stService;
+    private UserService uService;
+
 
     public void viewAllTicket() {
         for (Ticket ticketData: this.tickets) {
@@ -30,6 +36,10 @@ public class TicketService {
     }
 
     public TicketService(StationService stService, UserService uService) {
+        this.stService = stService;
+        this.uService = uService;
+
+
         JSONArray ticketJsonArray = new JSONArray();
 
         try {
@@ -74,11 +84,22 @@ public class TicketService {
         return func.formatId("tk", (idIncrement+1), 4);
     }
 
-    public void buyTicket(Passenger passenger, Route route, TicketType type) {
+    public Ticket buyTicket(Passenger passenger, Route route, TicketType type) {
         // Passenger newPassenger = new Passenger(idIncriment(), name, email, password, UserRole.PASSENGER);
 
         // this.users.put(newPassenger.getEmail(), newPassenger);
         // this.saveData();
+        
+        StandardFareCalculator calculator = new StandardFareCalculator(new RateService());
+        double fare = calculator.calculateFare(route, type);
+
+        Ticket ticket = new Ticket(idIncrement(), passenger, route.getSource(), route.getDestination(), type, fare);
+
+        tickets.add(ticket);
+
+        saveData(stService);
+
+        return ticket;
     }
 
     public ArrayList<Ticket> getAllTickets(){

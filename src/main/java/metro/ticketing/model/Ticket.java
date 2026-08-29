@@ -62,10 +62,10 @@ public class Ticket {
         System.out.println("======= TICKET INFORMATION =======");
         System.out.println("Ticket ID     : " + ticketId);
         System.out.println("Passenger     : " + passenger.getName());
-        System.out.println("Source        : " + source);
-        System.out.println("Destination   : " + destination);
+        System.out.println("Source        : " + source.getName());
+        System.out.println("Destination   : " + destination.getName());
         System.out.println("Ticket Type   : " + ticketType);
-        System.out.println("Fare          : RM" + fare);
+        System.out.println("Fare          : RM" + String.format("%.2f", fare));
         System.out.println("Status        : " + status);
         System.out.println("==================================");
     }
@@ -121,7 +121,7 @@ public class Ticket {
         JSONObject value = new JSONObject();
 
         value.put("ticketId", ticketData.getTicketId());
-        value.put("passenger", ticketData.getPassenger());
+        value.put("passenger", ticketData.getPassenger().getUserId());
         value.put("source", ticketData.getSource().getStationId());
         value.put("destination", ticketData.getDestination().getStationId());
         value.put("ticketType", ticketData.getTicketType());
