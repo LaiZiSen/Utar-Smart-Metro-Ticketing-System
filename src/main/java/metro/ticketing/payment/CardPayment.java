@@ -11,7 +11,7 @@ public class CardPayment implements Payment{
     public boolean pay(int amount) {
         // just say paid
         
-        System.out.println("\nRM[" + amount + "]paid via Card (" + cardNumber + ')' + '\n');
+        System.out.println("\nRM[" + amount + "] paid via Card (" + cardNumber + ')' + '\n');
 
         return true;
     }

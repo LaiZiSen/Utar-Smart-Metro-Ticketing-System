@@ -121,11 +121,14 @@ public class PassengerUI{
     private String getCardNumber() {
         
         while(true) {
-            String cardNumber = func.getStrInput("Enter card number:  ");
+            String cardNumber = func.getStrLnInput("Enter card number:  ");
+        
+            cardNumber = cardNumber.replace(" ", "");
 
             if (cardNumber.length() != 16) {continue;};
             for(int i = 0; i < 16; i++) {
                 if (!Character.isDigit(cardNumber.charAt(i))) {
+                    System.out.println("\n!!!INVALID CARD NUMBER !!!\n");
                     continue;
                 }
             }
