@@ -121,6 +121,27 @@ public class PassengerUI{
         }
     }
 
+    private String getCardNumber() {
+        
+        while(true) {
+            String cardNumber = func.getStrLnInput("Enter card number:  ");
+        
+            cardNumber = cardNumber.replace(" ", "");
+
+            if (cardNumber.length() != 16) {continue;};
+            for(int i = 0; i < 16; i++) {
+                if (!Character.isDigit(cardNumber.charAt(i))) {
+                    System.out.println("\n!!!INVALID CARD NUMBER !!!\n");
+                    continue;
+                }
+            }
+
+            return cardNumber;
+
+        }
+
+    }
+
     private void reloadBalance() {
         int reloadAmount = 0;
         
@@ -143,7 +164,8 @@ public class PassengerUI{
                     break;
                 
                 case '2':
-                    String cardNumber = func.getStrInput("Enter card number:  ");
+                    String cardNumber = getCardNumber();
+                
                     payment = new CardPayment(cardNumber);
                     running = false;
                     break;
@@ -161,7 +183,6 @@ public class PassengerUI{
             uService.saveData();
             System.out.println("Passenger balance after topup: " + ((Passenger) uService.getUserById(passenger.getUserId())).getBalance());
             
-            System.out.println("Topup successful, please check your balance!");
             func.pause();
         }
     }
