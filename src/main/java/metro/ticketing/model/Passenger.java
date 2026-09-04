@@ -102,10 +102,12 @@ public class Passenger extends User{
 
             switch (choice) {
                 case 'N':
+                case 'n':
                     System.out.println("ABORTING BUY TICKET \n");
                     return;
 
                 case 'Y':
+                case 'y':
                     if (this.balance < fare) {
                         System.out.println("!!! INSUFFICIENT BALANCE !!!\n");
                         return;

@@ -17,13 +17,18 @@ public class AdminUI{
     private StationService stationService;
     private RouteService routeService;
     private TrainService trainService;
+    private RateService rateService;
+    private ReportService rpService;
 
-    public AdminUI(Admin admin, TicketService tkService, StationService stationService, RouteService routeService, TrainService trainService) {
+
+    public AdminUI(Admin admin, TicketService tkService, StationService stationService, RouteService routeService, TrainService trainService, RateService rateService, ReportService rpService) {
         this.admin = admin;
         this.tkService = tkService; 
         this.stationService = stationService;
         this.routeService = routeService;
         this.trainService  = trainService;
+        this.rateService = rateService;
+        this.rpService = rpService;
     }
 
     public void run(){
@@ -49,11 +54,11 @@ public class AdminUI{
                     break;
                 
                 case '4':
-                    new RateService().run();
+                    rateService.run();
                     break;
                
                 case '5':
-                    new ReportService(tkService).run();
+                    rpService.run();
 
                     break;
 

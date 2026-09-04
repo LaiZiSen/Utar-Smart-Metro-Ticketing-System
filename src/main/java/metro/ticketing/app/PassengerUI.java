@@ -1,13 +1,15 @@
 package metro.ticketing.app;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
+import metro.ticketing.model.Ticket;
+import metro.ticketing.enums.TicketStatus;
 import metro.ticketing.include.func;
 import metro.ticketing.model.Passenger;
 import metro.ticketing.payment.*;
 
 import metro.ticketing.services.TicketService;
-import metro.ticketing.services.StationService;
 import metro.ticketing.services.UserService;
 import metro.ticketing.services.PaymentService;
 import metro.ticketing.services.RouteService;
@@ -15,7 +17,6 @@ import metro.ticketing.services.RouteService;
 public class PassengerUI{
     private Passenger passenger;
     private UserService uService;
-    private StationService stService;
     private TicketService tkService;
     private RouteService rtService;
 
@@ -42,6 +43,7 @@ public class PassengerUI{
                     break;
                 
                 case '2':
+                    viewTicketUI(); 
                     break;
                 
                 case '3':
@@ -64,6 +66,107 @@ public class PassengerUI{
         }
 
 
+    }
+
+    private void viewTicketUI(){
+        while (true) {
+             func.clear();
+            func.printHeader("My Tickets", '=');
+
+            ArrayList<Ticket> myTickets = tkService.getTicketsByPassenger(passenger); 
+
+            if(myTickets.isEmpty()){
+                System.out.println("No tickets found. ");
+                func.printHeader("", '=');
+                func.pause();
+                return; 
+            }
+
+            System.out.printf("%-5s | %-10s | %-25s | %-25s | %-12s | %-10s%n", "No.", "Ticket ID", "Source", "Destination", "Ticket Type", "Status");
+            func.printHeader("", '-');
+
+            for(int i = 0; i < myTickets.size(); i++){
+                Ticket ticket = myTickets.get(i);
+
+                System.out.printf("%-5d | %-10s | %-25s | %-25s | %-12s | %-10s%n", i + 1, 
+                ticket.getTicketId(), ticket.getSource().getName(), ticket.getDestination().getName(), ticket.getTicketType(), ticket.getStatus());
+            }
+
+            System.out.println((myTickets.size() + 1) + ". Return");
+            int choice = func.getIntInput("Enter number to view details: ");
+
+            if(choice == myTickets.size() + 1){
+                return;
+            }
+
+            if(choice < 1 || choice > myTickets.size()){
+                System.out.println("INVALID INPUT");
+                func.pause();
+                continue;
+            }
+
+            Ticket selectedTicket = myTickets.get(choice - 1);
+
+            ticketActionUI(selectedTicket);
+        }
+    }
+
+private void ticketActionUI(Ticket ticket){
+        while (true) {
+            func.clear();
+            ticket.printTicket();
+
+            if(ticket.getStatus() == TicketStatus.USED || ticket.getStatus() == TicketStatus.CANCELLED){
+                System.out.println();
+                func.pause();
+                return;
+            }
+
+            System.out.println();
+            System.out.println("1. Use Ticket");
+            System.out.println("2. Cancel Ticket");
+            System.out.println("3. Return");
+            System.out.println();
+
+            char choice = func.getChoice();
+
+            switch (choice) {
+                case '1':
+                    tkService.useTicket(ticket);
+                    func.pause();
+                    return;
+
+                case '2':
+                    System.out.println("! WARNING: No refund will be provided after cancellation !");
+                    System.out.print("Are you sure you want to cancel this ticket? (Y/N): ");
+                    char confirm = func.getChoice();
+
+                    if (confirm == 'Y' || confirm == 'y') {
+                        tkService.cancelTicket(ticket);
+                        func.pause();
+                        return;
+                    } 
+                    
+                    else if (confirm == 'N' || confirm == 'n') {
+                        System.out.println("Ticket cancellation aborted.");
+                        func.pause();
+                    } 
+                    
+                    else {
+                        System.out.println("INVALID INPUT");
+                        func.pause();
+                    }
+
+                    break;
+
+                case '3':
+                    return;
+
+                default:
+                    System.out.println("INVALID INPUT");
+                    func.pause();
+            }
+        }
     }
    
     private void passengerMenu() {

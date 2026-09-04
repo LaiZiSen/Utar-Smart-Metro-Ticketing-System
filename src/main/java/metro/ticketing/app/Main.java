@@ -7,13 +7,7 @@ import metro.ticketing.include.func;
 import metro.ticketing.model.Admin;
 import metro.ticketing.model.Passenger;
 import metro.ticketing.model.User;
-import metro.ticketing.services.PaymentService;
-import metro.ticketing.services.ReportService;
-import metro.ticketing.services.RouteService;
-import metro.ticketing.services.StationService;
-import metro.ticketing.services.TicketService;
-import metro.ticketing.services.TrainService;
-import metro.ticketing.services.UserService;
+import metro.ticketing.services.*;
 
 public class Main {
 
@@ -22,12 +16,11 @@ public class Main {
     static TrainService trService = new TrainService();
     static TicketService tkService = new TicketService(stService, uService);
     static RouteService rtService = new RouteService(stService);
-    static ReportService rpService = new ReportService(tkService); // not done
-    static PaymentService pService = new PaymentService(); // not done
+    static ReportService rpService = new ReportService(tkService); 
+    static PaymentService pService = new PaymentService(); 
+    static RateService rateService = new RateService();
 
     public static void main(String[] args) {
-        // welcome message to the system 
-        //
         Scanner scanner = new Scanner(System.in);
 
         while(true) {
@@ -43,7 +36,7 @@ public class Main {
                     if (user instanceof Passenger) {
                         new PassengerUI((Passenger) user, uService, tkService, rtService).run();
                     } else if (user instanceof Admin) {
-                        new AdminUI((Admin)user, tkService, stService, rtService, trService).run();
+                        new AdminUI((Admin)user, tkService, stService, rtService, trService, rateService, rpService).run();
                     }
 
                     break;
